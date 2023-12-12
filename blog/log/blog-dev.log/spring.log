@@ -1,0 +1,1191 @@
+2023-12-12T15:53:26.659+08:00  INFO 5288 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 5288 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T15:53:26.660+08:00  INFO 5288 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T15:53:26.692+08:00  INFO 5288 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-12-12T15:53:26.692+08:00  INFO 5288 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-12-12T15:53:27.170+08:00  INFO 5288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T15:53:27.171+08:00  INFO 5288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T15:53:27.182+08:00  INFO 5288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 JDBC repository interfaces.
+2023-12-12T15:53:27.191+08:00  INFO 5288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T15:53:27.191+08:00  INFO 5288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T15:53:27.196+08:00  INFO 5288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T15:53:27.812+08:00  INFO 5288 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T15:53:27.819+08:00  INFO 5288 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T15:53:27.819+08:00  INFO 5288 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T15:53:27.869+08:00  INFO 5288 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T15:53:27.870+08:00  INFO 5288 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1177 ms
+2023-12-12T15:53:28.003+08:00  INFO 5288 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-12-12T15:53:28.220+08:00  INFO 5288 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@33ad99b4
+2023-12-12T15:53:28.222+08:00  INFO 5288 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-12-12T15:53:28.253+08:00  INFO 5288 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T15:53:28.291+08:00  INFO 5288 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2023-12-12T15:53:28.317+08:00  INFO 5288 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T15:53:28.505+08:00  INFO 5288 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T15:53:28.774+08:00  INFO 5288 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T15:53:28.778+08:00  INFO 5288 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T15:53:28.846+08:00  WARN 5288 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T15:53:29.674+08:00  INFO 5288 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T15:53:29.703+08:00  INFO 5288 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T15:53:29.709+08:00  INFO 5288 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 3.382 seconds (process running for 3.954)
+2023-12-12T15:53:38.966+08:00  INFO 5288 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T15:53:38.968+08:00  INFO 5288 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-12-12T15:53:38.974+08:00  INFO 5288 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-12-12T15:57:21.927+08:00  INFO 17508 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 17508 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T15:57:21.929+08:00  INFO 17508 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T15:57:21.966+08:00  INFO 17508 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-12-12T15:57:21.966+08:00  INFO 17508 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-12-12T15:57:22.542+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T15:57:22.544+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T15:57:22.560+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 JDBC repository interfaces.
+2023-12-12T15:57:22.569+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T15:57:22.569+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T15:57:22.575+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T15:57:23.188+08:00  INFO 17508 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T15:57:23.195+08:00  INFO 17508 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T15:57:23.196+08:00  INFO 17508 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T15:57:23.259+08:00  INFO 17508 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T15:57:23.260+08:00  INFO 17508 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1293 ms
+2023-12-12T15:57:23.394+08:00  INFO 17508 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-12-12T15:57:23.633+08:00  INFO 17508 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@601e30cb
+2023-12-12T15:57:23.635+08:00  INFO 17508 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-12-12T15:57:23.666+08:00  INFO 17508 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T15:57:23.705+08:00  INFO 17508 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2023-12-12T15:57:23.731+08:00  INFO 17508 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T15:57:23.968+08:00  INFO 17508 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T15:57:24.310+08:00  INFO 17508 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T15:57:24.314+08:00  INFO 17508 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T15:57:24.494+08:00  WARN 17508 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T15:57:25.980+08:00  INFO 17508 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T15:57:26.023+08:00  INFO 17508 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T15:57:26.032+08:00  INFO 17508 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 4.398 seconds (process running for 5.025)
+2023-12-12T15:57:32.142+08:00  INFO 17508 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T15:57:32.143+08:00  INFO 17508 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T15:57:32.144+08:00  INFO 17508 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-12T15:57:47.285+08:00  INFO 17508 --- [http-nio-3000-exec-2] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 134 ms
+2023-12-12T15:58:04.925+08:00  WARN 17508 --- [http-nio-3000-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2023-12-12T15:58:12.788+08:00  INFO 17508 --- [http-nio-3000-exec-9] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/test', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.returnTest', args=[]}
+2023-12-12T15:58:12.789+08:00  INFO 17508 --- [http-nio-3000-exec-9] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702367892788, status=200, error=success, data=Hello World)
+2023-12-12T16:06:19.389+08:00  INFO 17508 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 8 class path changes (0 additions, 5 deletions, 3 modifications)
+2023-12-12T16:06:19.411+08:00  INFO 17508 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:06:19.414+08:00  INFO 17508 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-12-12T16:06:19.419+08:00  INFO 17508 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-12-12T16:06:19.481+08:00  INFO 17508 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 17508 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:06:19.481+08:00  INFO 17508 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:06:19.644+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:06:19.645+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:06:19.646+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:06:19.649+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:06:19.649+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:06:19.649+08:00  INFO 17508 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:06:19.737+08:00  INFO 17508 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:06:19.737+08:00  INFO 17508 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:06:19.737+08:00  INFO 17508 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:06:19.766+08:00  INFO 17508 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:06:19.766+08:00  INFO 17508 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 283 ms
+2023-12-12T16:06:19.793+08:00  INFO 17508 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-12-12T16:06:19.807+08:00  INFO 17508 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1300215a
+2023-12-12T16:06:19.807+08:00  INFO 17508 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-12-12T16:06:19.809+08:00  INFO 17508 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:06:19.811+08:00  INFO 17508 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:06:19.815+08:00  INFO 17508 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:06:19.823+08:00  INFO 17508 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:06:19.823+08:00  INFO 17508 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:06:19.872+08:00  WARN 17508 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:06:20.524+08:00  INFO 17508 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:06:20.534+08:00  INFO 17508 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:06:20.540+08:00  INFO 17508 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.081 seconds (process running for 539.533)
+2023-12-12T16:06:20.542+08:00  INFO 17508 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:06:21.954+08:00  INFO 17508 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 6 class path changes (6 additions, 0 deletions, 0 modifications)
+2023-12-12T16:06:21.975+08:00  INFO 17508 --- [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:06:21.976+08:00  INFO 17508 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-12-12T16:06:21.981+08:00  INFO 17508 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-12-12T16:06:22.063+08:00  INFO 17508 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 17508 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:06:22.064+08:00  INFO 17508 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:06:22.075+08:00  WARN 17508 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: I/O failure while processing configuration class [com.xiudu.blog.config.Cors.CorsConfig]
+2023-12-12T16:06:22.094+08:00 ERROR 17508 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanDefinitionStoreException: I/O failure while processing configuration class [com.xiudu.blog.config.Cors.CorsConfig]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:250) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:188) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:304) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:245) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:196) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:164) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:416) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:289) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:775) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:597) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342) ~[spring-boot-3.2.0.jar:3.2.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331) ~[spring-boot-3.2.0.jar:3.2.0]
+	at com.xiudu.blog.BlogApplication.main(BlogApplication.java:10) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.2.0.jar:3.2.0]
+Caused by: java.io.IOException: Failed to load class [javax.servlet.Filter]
+	at org.springframework.context.annotation.ConfigurationClassParser.asSourceClass(ConfigurationClassParser.java:617) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser$SourceClass.getInterfaces(ConfigurationClassParser.java:946) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser.processInterfaces(ConfigurationClassParser.java:386) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:332) ~[spring-context-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:245) ~[spring-context-6.1.1.jar:6.1.1]
+	... 23 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.servlet.Filter
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[na:na]
+	at java.base/java.lang.Class.forName0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:467) ~[na:na]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121) ~[spring-boot-devtools-3.2.0.jar:3.2.0]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[na:na]
+	at java.base/java.lang.Class.forName0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:467) ~[na:na]
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:304) ~[spring-core-6.1.1.jar:6.1.1]
+	at org.springframework.context.annotation.ConfigurationClassParser.asSourceClass(ConfigurationClassParser.java:614) ~[spring-context-6.1.1.jar:6.1.1]
+	... 27 common frames omitted
+
+2023-12-12T16:06:36.879+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:06:36.880+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:06:36.910+08:00  INFO 19332 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-12-12T16:06:36.910+08:00  INFO 19332 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-12-12T16:06:37.438+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:06:37.439+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:06:37.451+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:06:37.458+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:06:37.459+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:06:37.463+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:06:38.058+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:06:38.065+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:06:38.065+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:06:38.122+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:06:38.122+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1211 ms
+2023-12-12T16:06:38.257+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-12-12T16:06:38.477+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@77e909a0
+2023-12-12T16:06:38.479+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-12-12T16:06:38.509+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:06:38.548+08:00  INFO 19332 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2023-12-12T16:06:38.574+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:06:38.762+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:06:39.033+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:06:39.036+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:06:39.216+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:06:40.591+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:06:40.624+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:06:40.631+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 4.043 seconds (process running for 4.63)
+2023-12-12T16:06:49.565+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:06:49.565+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:06:49.566+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-12T16:06:49.581+08:00  WARN 19332 --- [http-nio-3000-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2023-12-12T16:06:50.481+08:00  WARN 19332 --- [http-nio-3000-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2023-12-12T16:06:55.010+08:00  INFO 19332 --- [http-nio-3000-exec-3] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/test', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.returnTest', args=[]}
+2023-12-12T16:06:55.010+08:00  INFO 19332 --- [http-nio-3000-exec-3] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702368415010, status=200, error=success, data=Hello World)
+2023-12-12T16:08:06.205+08:00  INFO 19332 --- [http-nio-3000-exec-6] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/test', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.returnTest', args=[]}
+2023-12-12T16:08:06.206+08:00  INFO 19332 --- [http-nio-3000-exec-6] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702368486205, status=200, error=success, data=Hello World)
+2023-12-12T16:08:42.177+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-12-12T16:08:42.198+08:00  INFO 19332 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:08:42.200+08:00  INFO 19332 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-12-12T16:08:42.207+08:00  INFO 19332 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-12-12T16:08:42.263+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:08:42.263+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:08:42.426+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:08:42.426+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:08:42.428+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:08:42.431+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:08:42.431+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:08:42.433+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:08:42.599+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:08:42.600+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:08:42.600+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:08:42.637+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:08:42.638+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 373 ms
+2023-12-12T16:08:42.712+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-12-12T16:08:42.725+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@38fae270
+2023-12-12T16:08:42.725+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-12-12T16:08:42.726+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:08:42.728+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:08:42.731+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:08:42.737+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:08:42.737+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:08:42.838+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:08:43.912+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:08:43.924+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:08:43.928+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.685 seconds (process running for 127.927)
+2023-12-12T16:08:43.929+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:08:45.337+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-12-12T16:08:45.378+08:00  INFO 19332 --- [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:08:45.379+08:00  INFO 19332 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-12-12T16:08:45.384+08:00  INFO 19332 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-12-12T16:08:45.436+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:08:45.436+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:08:45.565+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:08:45.565+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:08:45.566+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:08:45.568+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:08:45.568+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:08:45.570+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:08:45.703+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:08:45.704+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:08:45.704+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:08:45.731+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:08:45.731+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 294 ms
+2023-12-12T16:08:45.789+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2023-12-12T16:08:45.799+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5dc4a300
+2023-12-12T16:08:45.799+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2023-12-12T16:08:45.800+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:08:45.802+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:08:45.805+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:08:45.811+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:08:45.811+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:08:45.896+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:08:46.910+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:08:46.922+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:08:46.926+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.507 seconds (process running for 130.925)
+2023-12-12T16:08:46.927+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:08:54.053+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:08:54.053+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:08:54.054+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-12-12T16:08:54.057+08:00  INFO 19332 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/test', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.returnTest', args=[]}
+2023-12-12T16:08:54.059+08:00  INFO 19332 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702368534059, status=200, error=success, data=Hello World)
+2023-12-12T16:08:57.336+08:00  INFO 19332 --- [http-nio-3000-exec-3] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/test', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.returnTest', args=[]}
+2023-12-12T16:08:57.336+08:00  INFO 19332 --- [http-nio-3000-exec-3] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702368537336, status=200, error=success, data=Hello World)
+2023-12-12T16:17:34.643+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-12-12T16:17:34.664+08:00  INFO 19332 --- [Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:17:34.665+08:00  INFO 19332 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2023-12-12T16:17:34.670+08:00  INFO 19332 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2023-12-12T16:17:34.730+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:17:34.730+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:17:34.900+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:17:34.901+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:17:34.903+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:17:34.907+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:17:34.907+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:17:34.909+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:17:35.092+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:17:35.092+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:17:35.092+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:17:35.131+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:17:35.131+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 400 ms
+2023-12-12T16:17:35.198+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2023-12-12T16:17:35.208+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@38e7dec9
+2023-12-12T16:17:35.208+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2023-12-12T16:17:35.209+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:17:35.212+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:17:35.215+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:17:35.220+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:17:35.220+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:17:35.304+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:17:36.533+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:17:36.548+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:17:36.552+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.846 seconds (process running for 660.55)
+2023-12-12T16:17:36.553+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:17:37.958+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 3 class path changes (3 additions, 0 deletions, 0 modifications)
+2023-12-12T16:17:37.974+08:00  INFO 19332 --- [Thread-15] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:17:37.974+08:00  INFO 19332 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2023-12-12T16:17:37.977+08:00  INFO 19332 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2023-12-12T16:17:38.026+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:17:38.027+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:17:38.147+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:17:38.147+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:17:38.149+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:17:38.151+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:17:38.151+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:17:38.152+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:17:38.307+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:17:38.307+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:17:38.307+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:17:38.333+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:17:38.333+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 305 ms
+2023-12-12T16:17:38.391+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2023-12-12T16:17:38.400+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@75fcf7fd
+2023-12-12T16:17:38.400+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2023-12-12T16:17:38.401+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:17:38.402+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:17:38.405+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:17:38.410+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:17:38.410+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:17:38.496+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:17:39.618+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:17:39.629+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:17:39.634+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.626 seconds (process running for 663.632)
+2023-12-12T16:17:39.635+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:17:40.736+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:17:40.736+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:17:40.737+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-12T16:17:41.115+08:00  INFO 19332 --- [http-nio-3000-exec-4] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 151 ms
+2023-12-12T16:17:55.644+08:00  INFO 19332 --- [http-nio-3000-exec-5] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/hello', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.returnTest', args=[]}
+2023-12-12T16:17:55.646+08:00  INFO 19332 --- [http-nio-3000-exec-5] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702369075646, status=200, error=success, data=Hello World)
+2023-12-12T16:18:04.256+08:00  INFO 19332 --- [http-nio-3000-exec-8] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/exception1', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return2', args=[]}
+2023-12-12T16:18:04.257+08:00 ERROR 19332 --- [http-nio-3000-exec-8] c.x.b.c.h.ControllerExceptionHandler     : Exception : 
+
+java.lang.RuntimeException: null
+	at com.xiudu.blog.controller.TestController.return2(TestController.java:25) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:352) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.adapter.AfterReturningAdviceInterceptor.invoke(AfterReturningAdviceInterceptor.java:57) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:49) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:58) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:717) ~[spring-aop-6.1.1.jar:6.1.1]
+	at com.xiudu.blog.controller.TestController$$SpringCGLIB$$0.return2(<generated>) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2023-12-12T16:18:04.263+08:00  WARN 19332 --- [http-nio-3000-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.RuntimeException]
+2023-12-12T16:18:09.581+08:00  INFO 19332 --- [http-nio-3000-exec-7] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/exception2', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return3', args=[]}
+2023-12-12T16:18:09.582+08:00 ERROR 19332 --- [http-nio-3000-exec-7] c.x.b.c.h.ControllerExceptionHandler     : Exception : 
+
+com.xiudu.blog.config.handler.CustomException: 自定义错误
+	at com.xiudu.blog.controller.TestController.return3(TestController.java:29) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:352) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.adapter.AfterReturningAdviceInterceptor.invoke(AfterReturningAdviceInterceptor.java:57) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:49) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:58) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:717) ~[spring-aop-6.1.1.jar:6.1.1]
+	at com.xiudu.blog.controller.TestController$$SpringCGLIB$$0.return3(<generated>) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2023-12-12T16:18:09.584+08:00  WARN 19332 --- [http-nio-3000-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.xiudu.blog.config.handler.CustomException: 自定义错误]
+2023-12-12T16:25:08.310+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-12-12T16:25:08.328+08:00  INFO 19332 --- [Thread-19] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:25:08.328+08:00  INFO 19332 --- [Thread-19] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2023-12-12T16:25:08.331+08:00  INFO 19332 --- [Thread-19] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2023-12-12T16:25:08.386+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:25:08.387+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:25:08.539+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:25:08.539+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:25:08.540+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:25:08.542+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:25:08.543+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:25:08.544+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:25:08.700+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:25:08.701+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:25:08.701+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:25:08.730+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:25:08.730+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 342 ms
+2023-12-12T16:25:08.821+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2023-12-12T16:25:08.832+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@38af7ad2
+2023-12-12T16:25:08.832+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2023-12-12T16:25:08.833+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:25:08.836+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:25:08.840+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:25:08.846+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:25:08.846+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:25:08.945+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:25:10.058+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:25:10.076+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:25:10.086+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.718 seconds (process running for 1114.085)
+2023-12-12T16:25:10.089+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:25:11.468+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-12-12T16:25:11.485+08:00  INFO 19332 --- [Thread-23] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:25:11.486+08:00  INFO 19332 --- [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2023-12-12T16:25:11.488+08:00  INFO 19332 --- [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
+2023-12-12T16:25:11.548+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:25:11.548+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:25:11.706+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:25:11.706+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:25:11.707+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:25:11.710+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:25:11.710+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:25:11.711+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:25:11.889+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:25:11.889+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:25:11.889+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:25:11.931+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:25:11.931+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 382 ms
+2023-12-12T16:25:12.008+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2023-12-12T16:25:12.029+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection com.mysql.cj.jdbc.ConnectionImpl@629a370c
+2023-12-12T16:25:12.029+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2023-12-12T16:25:12.030+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:25:12.032+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:25:12.036+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:25:12.045+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:25:12.045+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:25:12.164+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:25:13.593+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:25:13.606+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:25:13.610+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 2.084 seconds (process running for 1117.609)
+2023-12-12T16:25:13.617+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:29:07.435+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-12-12T16:29:07.454+08:00  INFO 19332 --- [Thread-27] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:07.455+08:00  INFO 19332 --- [Thread-27] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
+2023-12-12T16:29:07.459+08:00  INFO 19332 --- [Thread-27] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
+2023-12-12T16:29:07.525+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:29:07.525+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:29:07.705+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:07.705+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:29:07.707+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:29:07.712+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:07.712+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:29:07.714+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:29:07.928+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:29:07.928+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:29:07.929+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:29:07.967+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:29:07.967+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 440 ms
+2023-12-12T16:29:08.069+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2023-12-12T16:29:08.084+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-8 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7da60342
+2023-12-12T16:29:08.084+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2023-12-12T16:29:08.086+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:29:08.090+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:29:08.094+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:29:08.103+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:29:08.103+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:08.250+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:29:09.437+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:29:09.450+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:29:09.456+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.955 seconds (process running for 1353.455)
+2023-12-12T16:29:09.458+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:29:10.857+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-12-12T16:29:10.873+08:00  INFO 19332 --- [Thread-31] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:10.873+08:00  INFO 19332 --- [Thread-31] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown initiated...
+2023-12-12T16:29:10.876+08:00  INFO 19332 --- [Thread-31] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown completed.
+2023-12-12T16:29:10.925+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:29:10.925+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:29:11.051+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:11.051+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:29:11.053+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:29:11.055+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:11.055+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:29:11.056+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:29:11.189+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:29:11.189+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:29:11.189+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:29:11.228+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:29:11.228+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 302 ms
+2023-12-12T16:29:11.323+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Starting...
+2023-12-12T16:29:11.332+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-9 - Added connection com.mysql.cj.jdbc.ConnectionImpl@39ef545b
+2023-12-12T16:29:11.332+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Start completed.
+2023-12-12T16:29:11.333+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:29:11.335+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:29:11.337+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:29:11.342+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:29:11.342+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:11.430+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:29:12.464+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:29:12.477+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:29:12.481+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.572 seconds (process running for 1356.479)
+2023-12-12T16:29:12.481+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:29:12.683+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:29:12.683+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:29:12.686+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2023-12-12T16:29:12.934+08:00  INFO 19332 --- [http-nio-3000-exec-2] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 34 ms
+2023-12-12T16:29:43.390+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-12-12T16:29:43.407+08:00  INFO 19332 --- [Thread-35] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:43.408+08:00  INFO 19332 --- [Thread-35] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown initiated...
+2023-12-12T16:29:43.412+08:00  INFO 19332 --- [Thread-35] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown completed.
+2023-12-12T16:29:43.474+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:29:43.474+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:29:43.653+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:43.653+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:29:43.655+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:29:43.658+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:43.658+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:29:43.660+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:29:43.847+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:29:43.847+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:29:43.847+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:29:43.884+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:29:43.884+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 408 ms
+2023-12-12T16:29:43.953+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Starting...
+2023-12-12T16:29:43.964+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-10 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3d62fa12
+2023-12-12T16:29:43.964+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Start completed.
+2023-12-12T16:29:43.965+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:29:43.967+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:29:43.970+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:29:43.977+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:29:43.978+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:44.070+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:29:45.146+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:29:45.158+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:29:45.162+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.71 seconds (process running for 1389.161)
+2023-12-12T16:29:45.163+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:29:46.572+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-12-12T16:29:46.601+08:00  INFO 19332 --- [Thread-39] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:46.602+08:00  INFO 19332 --- [Thread-39] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown initiated...
+2023-12-12T16:29:46.616+08:00  INFO 19332 --- [Thread-39] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown completed.
+2023-12-12T16:29:46.688+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:29:46.689+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:29:46.828+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:46.828+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:29:46.829+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:29:46.831+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:46.831+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:29:46.832+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:29:46.968+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:29:46.968+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:29:46.969+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:29:46.996+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:29:46.996+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 306 ms
+2023-12-12T16:29:47.056+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Starting...
+2023-12-12T16:29:47.064+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-11 - Added connection com.mysql.cj.jdbc.ConnectionImpl@51cd0565
+2023-12-12T16:29:47.064+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Start completed.
+2023-12-12T16:29:47.065+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:29:47.067+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:29:47.069+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:29:47.074+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:29:47.074+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:47.158+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:29:48.182+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:29:48.203+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:29:48.206+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:29:48.206+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:29:48.207+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-12-12T16:29:48.208+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.541 seconds (process running for 1392.206)
+2023-12-12T16:29:48.208+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:29:48.378+08:00  INFO 19332 --- [http-nio-3000-exec-4] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 27 ms
+2023-12-12T16:29:56.704+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-12-12T16:29:56.720+08:00  INFO 19332 --- [Thread-43] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:56.721+08:00  INFO 19332 --- [Thread-43] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown initiated...
+2023-12-12T16:29:56.723+08:00  INFO 19332 --- [Thread-43] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown completed.
+2023-12-12T16:29:56.772+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:29:56.773+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:29:56.918+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:56.918+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:29:56.919+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:29:56.922+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:29:56.922+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:29:56.923+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:29:57.079+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:29:57.079+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:29:57.080+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:29:57.118+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:29:57.118+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 344 ms
+2023-12-12T16:29:57.195+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Starting...
+2023-12-12T16:29:57.204+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-12 - Added connection com.mysql.cj.jdbc.ConnectionImpl@c62b6b5
+2023-12-12T16:29:57.204+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Start completed.
+2023-12-12T16:29:57.205+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:29:57.208+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:29:57.211+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:29:57.217+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:29:57.217+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:57.317+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:29:58.455+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:29:58.468+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:29:58.472+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.714 seconds (process running for 1402.471)
+2023-12-12T16:29:58.473+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:29:59.871+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-12-12T16:29:59.890+08:00  INFO 19332 --- [Thread-47] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:29:59.891+08:00  INFO 19332 --- [Thread-47] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown initiated...
+2023-12-12T16:29:59.894+08:00  INFO 19332 --- [Thread-47] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown completed.
+2023-12-12T16:29:59.945+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:29:59.945+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:30:00.072+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:30:00.072+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:30:00.073+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:30:00.076+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:30:00.076+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:30:00.077+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:30:00.234+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:30:00.235+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:30:00.235+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:30:00.266+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:30:00.267+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 321 ms
+2023-12-12T16:30:00.344+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Starting...
+2023-12-12T16:30:00.355+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-13 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6c340450
+2023-12-12T16:30:00.355+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Start completed.
+2023-12-12T16:30:00.356+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:30:00.358+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:30:00.360+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:30:00.365+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:30:00.366+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:30:00.482+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:30:01.648+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:30:01.659+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:30:01.663+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.735 seconds (process running for 1405.662)
+2023-12-12T16:30:01.664+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:30:01.816+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:30:01.816+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:30:01.817+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-12T16:30:01.971+08:00  INFO 19332 --- [http-nio-3000-exec-5] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 27 ms
+2023-12-12T16:30:12.558+08:00  INFO 19332 --- [http-nio-3000-exec-4] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=["string"]}
+2023-12-12T16:30:12.560+08:00  INFO 19332 --- [http-nio-3000-exec-4] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702369812560, status=200, error=success, data="string")
+2023-12-12T16:30:28.097+08:00  INFO 19332 --- [http-nio-3000-exec-6] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[hh]}
+2023-12-12T16:30:28.097+08:00  INFO 19332 --- [http-nio-3000-exec-6] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702369828097, status=200, error=success, data=hh)
+2023-12-12T16:30:59.801+08:00 ERROR 19332 --- [http-nio-3000-exec-7] c.x.b.c.h.ControllerExceptionHandler     : Exception : 
+
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource tt.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2023-12-12T16:30:59.803+08:00  WARN 19332 --- [http-nio-3000-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource tt.]
+2023-12-12T16:31:48.850+08:00  INFO 19332 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+    "name" : "hh"
+}
+]}
+2023-12-12T16:31:48.850+08:00  INFO 19332 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702369908850, status=200, error=success, data={
+    "name" : "hh"
+}
+)
+2023-12-12T16:32:01.312+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-12-12T16:32:01.333+08:00  INFO 19332 --- [Thread-51] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:32:01.334+08:00  INFO 19332 --- [Thread-51] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Shutdown initiated...
+2023-12-12T16:32:01.337+08:00  INFO 19332 --- [Thread-51] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Shutdown completed.
+2023-12-12T16:32:01.398+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:32:01.398+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:32:01.570+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:32:01.570+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:32:01.571+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:32:01.573+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:32:01.574+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:32:01.575+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:32:01.840+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:32:01.841+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:32:01.841+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:32:01.891+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:32:01.891+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 492 ms
+2023-12-12T16:32:02.003+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Starting...
+2023-12-12T16:32:02.024+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-14 - Added connection com.mysql.cj.jdbc.ConnectionImpl@19c696bf
+2023-12-12T16:32:02.024+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Start completed.
+2023-12-12T16:32:02.027+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:32:02.030+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:32:02.035+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:32:02.045+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:32:02.045+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:32:02.247+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:32:03.549+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:32:03.560+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:32:03.564+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 2.186 seconds (process running for 1527.563)
+2023-12-12T16:32:03.565+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:32:09.047+08:00  INFO 19332 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-12-12T16:32:09.067+08:00  INFO 19332 --- [Thread-55] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:32:09.068+08:00  INFO 19332 --- [Thread-55] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Shutdown initiated...
+2023-12-12T16:32:09.072+08:00  INFO 19332 --- [Thread-55] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Shutdown completed.
+2023-12-12T16:32:09.132+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 19332 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:32:09.132+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:32:09.267+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:32:09.268+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:32:09.269+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:32:09.271+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:32:09.271+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:32:09.272+08:00  INFO 19332 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:32:09.433+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:32:09.434+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:32:09.434+08:00  INFO 19332 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:32:09.470+08:00  INFO 19332 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:32:09.470+08:00  INFO 19332 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 337 ms
+2023-12-12T16:32:09.536+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Starting...
+2023-12-12T16:32:09.546+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-15 - Added connection com.mysql.cj.jdbc.ConnectionImpl@557c45e7
+2023-12-12T16:32:09.546+08:00  INFO 19332 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Start completed.
+2023-12-12T16:32:09.548+08:00  INFO 19332 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:32:09.550+08:00  INFO 19332 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:32:09.553+08:00  INFO 19332 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:32:09.561+08:00  INFO 19332 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:32:09.561+08:00  INFO 19332 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:32:09.674+08:00  WARN 19332 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:32:10.680+08:00  INFO 19332 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:32:10.691+08:00  INFO 19332 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:32:10.694+08:00  INFO 19332 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.576 seconds (process running for 1534.693)
+2023-12-12T16:32:10.695+08:00  INFO 19332 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:32:13.514+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:32:13.514+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:32:13.515+08:00  INFO 19332 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-12T16:32:13.518+08:00  INFO 19332 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+    "name" : "hh"
+}
+]}
+2023-12-12T16:32:13.519+08:00  INFO 19332 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702369933519, status=200, error=success, data={
+    "name" : "hh"
+}
+)
+2023-12-12T16:32:26.371+08:00  INFO 19332 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:32:26.372+08:00  INFO 19332 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Shutdown initiated...
+2023-12-12T16:32:26.374+08:00  INFO 19332 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Shutdown completed.
+2023-12-12T16:32:31.737+08:00  INFO 11112 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 11112 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:32:31.739+08:00  INFO 11112 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:32:31.769+08:00  INFO 11112 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-12-12T16:32:31.769+08:00  INFO 11112 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-12-12T16:32:32.305+08:00  INFO 11112 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:32:32.306+08:00  INFO 11112 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:32:32.319+08:00  INFO 11112 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:32:32.326+08:00  INFO 11112 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:32:32.326+08:00  INFO 11112 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:32:32.330+08:00  INFO 11112 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:32:32.923+08:00  INFO 11112 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:32:32.930+08:00  INFO 11112 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:32:32.930+08:00  INFO 11112 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:32:32.984+08:00  INFO 11112 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:32:32.985+08:00  INFO 11112 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1215 ms
+2023-12-12T16:32:33.131+08:00  INFO 11112 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-12-12T16:32:33.363+08:00  INFO 11112 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3e11cafb
+2023-12-12T16:32:33.365+08:00  INFO 11112 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-12-12T16:32:33.399+08:00  INFO 11112 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:32:33.440+08:00  INFO 11112 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2023-12-12T16:32:33.469+08:00  INFO 11112 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:32:33.657+08:00  INFO 11112 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:32:33.943+08:00  INFO 11112 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:32:33.947+08:00  INFO 11112 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:32:34.117+08:00  WARN 11112 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:32:35.520+08:00  INFO 11112 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:32:35.555+08:00  INFO 11112 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:32:35.563+08:00  INFO 11112 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 4.17 seconds (process running for 5.012)
+2023-12-12T16:33:05.788+08:00  INFO 11112 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:33:05.788+08:00  INFO 11112 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:33:05.789+08:00  INFO 11112 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-12T16:33:05.857+08:00  INFO 11112 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+    "name" : "hh"
+}
+]}
+2023-12-12T16:33:05.858+08:00  INFO 11112 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702369985858, status=200, error=success, data={
+    "name" : "hh"
+}
+)
+2023-12-12T16:33:23.551+08:00  INFO 11112 --- [http-nio-3000-exec-2] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+"name" : "hh"
+}
+]}
+2023-12-12T16:33:23.551+08:00  INFO 11112 --- [http-nio-3000-exec-2] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702370003551, status=200, error=success, data={
+"name" : "hh"
+}
+)
+2023-12-12T16:33:45.487+08:00  INFO 11112 --- [http-nio-3000-exec-3] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+"name" : "hh"
+}
+]}
+2023-12-12T16:33:45.487+08:00  INFO 11112 --- [http-nio-3000-exec-3] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702370025487, status=200, error=success, data={
+"name" : "hh"
+}
+)
+2023-12-12T16:35:38.927+08:00  INFO 11112 --- [http-nio-3000-exec-5] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+"name" : "hh"
+}
+]}
+2023-12-12T16:35:38.928+08:00  INFO 11112 --- [http-nio-3000-exec-5] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702370138928, status=200, error=success, data={
+"name" : "hh"
+}
+)
+2023-12-12T16:35:41.718+08:00  INFO 11112 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:35:41.720+08:00  INFO 11112 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-12-12T16:35:41.727+08:00  INFO 11112 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-12-12T16:35:47.287+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 1176 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:35:47.289+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:35:47.318+08:00  INFO 1176 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-12-12T16:35:47.319+08:00  INFO 1176 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-12-12T16:35:47.857+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:35:47.858+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:35:47.871+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:35:47.878+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:35:47.879+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:35:47.884+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:35:48.465+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:35:48.472+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:35:48.473+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:35:48.530+08:00  INFO 1176 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:35:48.530+08:00  INFO 1176 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1211 ms
+2023-12-12T16:35:48.663+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-12-12T16:35:48.887+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@50c3d089
+2023-12-12T16:35:48.888+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-12-12T16:35:48.920+08:00  INFO 1176 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:35:48.962+08:00  INFO 1176 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2023-12-12T16:35:48.987+08:00  INFO 1176 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:35:49.175+08:00  INFO 1176 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:35:49.449+08:00  INFO 1176 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:35:49.453+08:00  INFO 1176 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:35:49.618+08:00  WARN 1176 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:35:51.054+08:00  INFO 1176 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:35:51.088+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:35:51.096+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 4.109 seconds (process running for 4.719)
+2023-12-12T16:35:52.589+08:00  INFO 1176 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:35:52.590+08:00  INFO 1176 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:35:52.591+08:00  INFO 1176 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-12T16:35:52.670+08:00  INFO 1176 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+"name" : "hh"
+}
+]}
+2023-12-12T16:35:52.671+08:00  INFO 1176 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702370152671, status=200, error=success, data={
+"name" : "hh"
+}
+)
+2023-12-12T16:37:19.107+08:00  INFO 1176 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-12-12T16:37:19.129+08:00  INFO 1176 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:37:19.132+08:00  INFO 1176 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-12-12T16:37:19.138+08:00  INFO 1176 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-12-12T16:37:19.203+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 1176 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:37:19.203+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:37:19.417+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:37:19.417+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:37:19.419+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:37:19.424+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:37:19.424+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:37:19.426+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:37:19.597+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:37:19.598+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:37:19.598+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:37:19.629+08:00  INFO 1176 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:37:19.630+08:00  INFO 1176 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 425 ms
+2023-12-12T16:37:19.718+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-12-12T16:37:19.734+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1058779f
+2023-12-12T16:37:19.735+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-12-12T16:37:19.736+08:00  INFO 1176 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:37:19.739+08:00  INFO 1176 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:37:19.742+08:00  INFO 1176 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:37:19.751+08:00  INFO 1176 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:37:19.751+08:00  INFO 1176 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:37:19.863+08:00  WARN 1176 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:37:21.200+08:00  INFO 1176 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:37:21.213+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:37:21.218+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 2.04 seconds (process running for 94.84)
+2023-12-12T16:37:21.219+08:00  INFO 1176 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:37:22.623+08:00  INFO 1176 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-12-12T16:37:22.640+08:00  INFO 1176 --- [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:37:22.641+08:00  INFO 1176 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-12-12T16:37:22.645+08:00  INFO 1176 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-12-12T16:37:22.701+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 1176 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:37:22.701+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:37:22.834+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:37:22.834+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:37:22.836+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:37:22.838+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:37:22.838+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:37:22.840+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:37:22.995+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:37:22.995+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:37:22.995+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:37:23.025+08:00  INFO 1176 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:37:23.025+08:00  INFO 1176 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 323 ms
+2023-12-12T16:37:23.092+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2023-12-12T16:37:23.102+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@74e05186
+2023-12-12T16:37:23.103+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2023-12-12T16:37:23.104+08:00  INFO 1176 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:37:23.106+08:00  INFO 1176 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:37:23.109+08:00  INFO 1176 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:37:23.117+08:00  INFO 1176 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:37:23.117+08:00  INFO 1176 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:37:23.208+08:00  WARN 1176 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:37:24.315+08:00  INFO 1176 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:37:24.326+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:37:24.331+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.648 seconds (process running for 97.953)
+2023-12-12T16:37:24.332+08:00  INFO 1176 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:37:34.264+08:00  INFO 1176 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:37:34.264+08:00  INFO 1176 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:37:34.265+08:00  INFO 1176 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-12T16:37:34.268+08:00  INFO 1176 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+"name" : "hh"
+}
+]}
+2023-12-12T16:37:34.314+08:00  INFO 1176 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702370254314, status=200, error=success, data={"name":"hh"})
+2023-12-12T16:37:46.305+08:00  INFO 1176 --- [http-nio-3000-exec-5] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 135 ms
+2023-12-12T16:38:21.727+08:00  INFO 1176 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2023-12-12T16:38:21.748+08:00  INFO 1176 --- [Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:38:21.749+08:00  INFO 1176 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2023-12-12T16:38:21.754+08:00  INFO 1176 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2023-12-12T16:38:21.824+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 1176 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:38:21.824+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:38:22.042+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:38:22.042+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:38:22.045+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:38:22.049+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:38:22.049+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:38:22.051+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:38:22.225+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:38:22.226+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:38:22.226+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:38:22.254+08:00  INFO 1176 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:38:22.254+08:00  INFO 1176 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 428 ms
+2023-12-12T16:38:22.326+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2023-12-12T16:38:22.338+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@53fb0299
+2023-12-12T16:38:22.338+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2023-12-12T16:38:22.339+08:00  INFO 1176 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:38:22.341+08:00  INFO 1176 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:38:22.345+08:00  INFO 1176 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:38:22.353+08:00  INFO 1176 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:38:22.353+08:00  INFO 1176 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:38:22.447+08:00  WARN 1176 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:38:23.747+08:00  INFO 1176 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:38:23.759+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:38:23.763+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.968 seconds (process running for 157.387)
+2023-12-12T16:38:23.765+08:00  INFO 1176 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:38:25.183+08:00  INFO 1176 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2023-12-12T16:38:25.198+08:00  INFO 1176 --- [Thread-15] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:38:25.198+08:00  INFO 1176 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2023-12-12T16:38:25.201+08:00  INFO 1176 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2023-12-12T16:38:25.247+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Starting BlogApplication using Java 17.0.2 with PID 1176 (F:\1111MyProject\blog_xiu2\blog\target\classes started by 84450 in F:\1111MyProject\blog_xiu2\blog)
+2023-12-12T16:38:25.247+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : The following 1 profile is active: "dev"
+2023-12-12T16:38:25.366+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:38:25.366+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-12-12T16:38:25.368+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2023-12-12T16:38:25.370+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-12-12T16:38:25.370+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-12T16:38:25.371+08:00  INFO 1176 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2023-12-12T16:38:25.526+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 3000 (http)
+2023-12-12T16:38:25.526+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-12T16:38:25.526+08:00  INFO 1176 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2023-12-12T16:38:25.554+08:00  INFO 1176 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-12T16:38:25.554+08:00  INFO 1176 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 306 ms
+2023-12-12T16:38:25.614+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2023-12-12T16:38:25.622+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@24d9509f
+2023-12-12T16:38:25.622+08:00  INFO 1176 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2023-12-12T16:38:25.623+08:00  INFO 1176 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-12T16:38:25.625+08:00  INFO 1176 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2023-12-12T16:38:25.628+08:00  INFO 1176 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-12T16:38:25.634+08:00  INFO 1176 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-12T16:38:25.634+08:00  INFO 1176 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-12T16:38:25.720+08:00  WARN 1176 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-12T16:38:26.759+08:00  INFO 1176 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-12-12T16:38:26.771+08:00  INFO 1176 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 3000 (http) with context path ''
+2023-12-12T16:38:26.774+08:00  INFO 1176 --- [restartedMain] com.xiudu.blog.BlogApplication           : Started BlogApplication in 1.543 seconds (process running for 160.397)
+2023-12-12T16:38:26.775+08:00  INFO 1176 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-12-12T16:38:28.130+08:00  INFO 1176 --- [http-nio-3000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-12T16:38:28.130+08:00  INFO 1176 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-12T16:38:28.131+08:00  INFO 1176 --- [http-nio-3000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-12T16:38:28.476+08:00  INFO 1176 --- [http-nio-3000-exec-4] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 83 ms
+2023-12-12T16:39:58.998+08:00  INFO 1176 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+"name" : "hh"
+}
+]}
+2023-12-12T16:39:58.998+08:00  INFO 1176 --- [http-nio-3000-exec-1] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702370398998, status=200, error=success, data={"name":"hh"})
+2023-12-12T16:40:04.193+08:00  INFO 1176 --- [http-nio-3000-exec-2] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/tt', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return1', args=[{
+    "name" : "hh"
+}
+]}
+2023-12-12T16:40:04.194+08:00  INFO 1176 --- [http-nio-3000-exec-2] com.xiudu.blog.config.aspect.LogAspect   : Result : Result(timestamp=1702370404194, status=200, error=success, data={"name":"hh"})
+2023-12-12T16:40:12.356+08:00  INFO 1176 --- [http-nio-3000-exec-3] com.xiudu.blog.config.aspect.LogAspect   : Request : RequestLog{url='http://127.0.0.1:3000/tst/exception2', ip='127.0.0.1', classMethod='com.xiudu.blog.controller.TestController.return3', args=[]}
+2023-12-12T16:40:12.357+08:00 ERROR 1176 --- [http-nio-3000-exec-3] c.x.b.c.h.ControllerExceptionHandler     : Exception : 
+
+com.xiudu.blog.config.handler.CustomException: 自定义错误
+	at com.xiudu.blog.controller.TestController.return3(TestController.java:47) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:352) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.adapter.AfterReturningAdviceInterceptor.invoke(AfterReturningAdviceInterceptor.java:57) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.aspectj.AspectJAfterAdvice.invoke(AspectJAfterAdvice.java:49) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:58) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:717) ~[spring-aop-6.1.1.jar:6.1.1]
+	at com.xiudu.blog.controller.TestController$$SpringCGLIB$$0.return3(<generated>) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2023-12-12T16:40:12.366+08:00  WARN 1176 --- [http-nio-3000-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.xiudu.blog.config.handler.CustomException: 自定义错误]
