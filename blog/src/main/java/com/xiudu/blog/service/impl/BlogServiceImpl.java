@@ -87,26 +87,16 @@ public class BlogServiceImpl implements BlogService {
         }
         queryWrapper.orderByDesc("update_time");
 
-        Page<Blog> blogPage = blogMapper.selectPage(page, queryWrapper);
-        for(Blog blog : blogPage.getRecords()) {
-            blog.setTypeName(typeMapper.selectById(blog.getTypeId()).getName());
-            blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
-        }
-
-        return blogPage;
+        return getBlogPage(page, queryWrapper);
     }
+
 
     @Override
     public Page<Blog> listBlogIndex(Integer pageNum) {
         Page<Blog> page = new Page<>(pageNum, 10);
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top", "create_time");
-        Page<Blog> blogPage = blogMapper.selectPage(page, queryWrapper);
-        for(Blog blog : blogPage.getRecords()) {
-            blog.setTypeName(typeMapper.selectById(blog.getTypeId()).getName());
-            blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
-        }
-        return blogPage;
+        return getBlogPage(page, queryWrapper);
     }
 
     @Override
@@ -115,12 +105,7 @@ public class BlogServiceImpl implements BlogService {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top", "create_time");
         queryWrapper.like("title", query);
-        Page<Blog> blogPage = blogMapper.selectPage(page, queryWrapper);
-        for(Blog blog : blogPage.getRecords()) {
-            blog.setTypeName(typeMapper.selectById(blog.getTypeId()).getName());
-            blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
-        }
-        return blogPage;
+        return getBlogPage(page, queryWrapper);
     }
 
     @Override
@@ -132,13 +117,10 @@ public class BlogServiceImpl implements BlogService {
         queryWrapper.orderByDesc("update_time");
         if(typeMapper.selectCountByTypeId(typeId) > 0) queryWrapper.eq("type_id", typeId);
 
-        Page<Blog> blogPage = blogMapper.selectPage(page, queryWrapper);
-        for(Blog blog : blogPage.getRecords()) {
-            blog.setTypeName(typeMapper.selectById(blog.getTypeId()).getName());
-            blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
-        }
-        return blogPage;
+        return getBlogPage(page, queryWrapper);
     }
+
+
 
     @Override
     public List<Blog> listBlogAll() {
@@ -162,12 +144,19 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.selectList(queryWrapper);
     }
 
-
     @Override
     public int blogCount() {
-        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("published", 1);
-        return Math.toIntExact(blogMapper.selectCount(queryWrapper));
+        return blogMapper.selectBlogCount();
+    }
+
+    @Override
+    public int blogPageCount() {
+        return (blogMapper.selectBlogCount() + 9) / 10;
+    }
+
+    @Override
+    public int blogPageCountByTypeId(Long typeId) {
+        return (blogMapper.selectBlogCountByTypeId(typeId) + 9) / 10;
     }
 
 
@@ -178,13 +167,19 @@ public class BlogServiceImpl implements BlogService {
         blog.setContent(content);
         blog.setViews(blog.getViews() + 1);
         blogMapper.updateViewById(blogId);
-        return null;
+        return blog;
     }
 
 
-
-
-    List<Tag> blogTags(Long blogId) {
+    private Page<Blog> getBlogPage(Page<Blog> page, QueryWrapper<Blog> queryWrapper) {
+        Page<Blog> blogPage = blogMapper.selectPage(page, queryWrapper);
+        for(Blog blog : blogPage.getRecords()) {
+            blog.setTypeName(typeMapper.selectById(blog.getTypeId()).getName());
+            blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
+        }
+        return blogPage;
+    }
+    private List<Tag> blogTags(Long blogId) {
         List<Long> tagIds = blogTagMapper.listTagIdsByBlogId(blogId);
         if(tagIds == null || tagIds.size() == 0) return null;
         QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
@@ -192,13 +187,14 @@ public class BlogServiceImpl implements BlogService {
         return tagMapper.selectList(queryWrapper);
     }
 
-    Boolean isEmpty(String object) {
+
+    private Boolean isEmpty(String object) {
         return "".equals(object) || object == null;
     }
-    Boolean isEmpty(Boolean object) {
+    private Boolean isEmpty(Boolean object) {
         return object == null;
     }
-    Boolean isEmpty(Long object) {
+    private Boolean isEmpty(Long object) {
         return object == null;
     }
 

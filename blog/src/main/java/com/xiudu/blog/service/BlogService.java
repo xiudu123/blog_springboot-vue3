@@ -26,6 +26,8 @@ public interface BlogService {
 
     Blog getAndConvert(Long blogId);
     int blogCount();
+    int blogPageCount();
+    int blogPageCountByTypeId(Long typeId);
 
 
 }

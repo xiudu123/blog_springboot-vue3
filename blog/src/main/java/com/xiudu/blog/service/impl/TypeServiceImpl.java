@@ -80,7 +80,7 @@ public class TypeServiceImpl implements TypeService {
         for(Type type : types) {
             QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("type_id", type.getId());
-            type.setCount((long) Math.toIntExact(blogMapper.selectCount(queryWrapper)));
+            type.setCount(blogMapper.selectCount(queryWrapper));
         }
         return types;
     }
