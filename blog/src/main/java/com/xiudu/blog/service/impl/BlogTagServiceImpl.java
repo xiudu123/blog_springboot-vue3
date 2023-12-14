@@ -1,8 +1,8 @@
-package com.xiudu.service.impl;
+package com.xiudu.blog.service.impl;
 
 import com.xiudu.blog.mapper.BlogTagMapper;
 import com.xiudu.blog.pojo.BlogTag;
-import com.xiudu.service.BlogTagService;
+import com.xiudu.blog.service.BlogTagService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.xiudu.service;
+package com.xiudu.blog.service;
 
 import com.xiudu.blog.pojo.Comment;
 

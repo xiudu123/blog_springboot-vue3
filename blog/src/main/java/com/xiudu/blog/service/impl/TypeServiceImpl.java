@@ -1,4 +1,4 @@
-package com.xiudu.service.impl;
+package com.xiudu.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -7,7 +7,7 @@ import com.xiudu.blog.mapper.BlogMapper;
 import com.xiudu.blog.mapper.TypeMapper;
 import com.xiudu.blog.pojo.Blog;
 import com.xiudu.blog.pojo.Type;
-import com.xiudu.service.TypeService;
+import com.xiudu.blog.service.TypeService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
-package com.xiudu.service.impl;
+package com.xiudu.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiudu.blog.mapper.CommentMapper;
 import com.xiudu.blog.pojo.Comment;
-import com.xiudu.service.CommentService;
+import com.xiudu.blog.service.CommentService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

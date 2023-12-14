@@ -1,11 +1,11 @@
-package com.xiudu.service.impl;
+package com.xiudu.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.handler.CustomException;
 import com.xiudu.blog.mapper.TagMapper;
 import com.xiudu.blog.pojo.Tag;
-import com.xiudu.service.TagService;
+import com.xiudu.blog.service.TagService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

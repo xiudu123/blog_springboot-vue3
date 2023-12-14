@@ -1,4 +1,4 @@
-package com.xiudu.service;
+package com.xiudu.blog.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.pojo.Tag;

@@ -1,8 +1,8 @@
-package com.xiudu.service.impl;
+package com.xiudu.blog.service.impl;
 
 import com.xiudu.blog.mapper.UserMapper;
 import com.xiudu.blog.pojo.User;
-import com.xiudu.service.UserService;
+import com.xiudu.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
