@@ -23,7 +23,7 @@ import java.util.Map;
  */
 
 @RestController
-public class IndexController {
+public class BlogController {
     @Autowired
     private BlogService blogService;
 
@@ -81,16 +81,6 @@ public class IndexController {
         return Result.success(blogService.getAndConvert(blogId));
     }
 
-    @Operation(summary = "获取最新发布的3条博客", description = "获取最新发布的3条博客")
-    @GetMapping("/footer/newBlog")
-    public Result<?> footerNewBlogs() {
-        return Result.success(blogService.listTop(3L));
-    }
 
-    @Operation(summary = "博客总数", description = "博客总数")
-    @GetMapping("/footer/message")
-    public Result<?> footerBlogCount() {
-        return Result.success(blogService.blogCount());
-    }
 
 }

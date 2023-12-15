@@ -1,5 +1,6 @@
 package com.xiudu.blog.config.handler;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import com.xiudu.blog.config.api.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -38,8 +39,9 @@ public class ControllerExceptionHandler {
                 errors.add(fieldError.getDefaultMessage());
             }
             return Result.error(5, errors.toString());
-        }
-        else if(e instanceof RuntimeException){ // 返回 400;
+        } else if (e instanceof NotLoginException) {
+            return Result.error(6, "请登录");
+        } else if(e instanceof RuntimeException){ // 返回 400;
             return Result.error("Runtime Error");
         } else return Result.error("系统错误"); // 返回其他系统错误
     }

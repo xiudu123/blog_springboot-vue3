@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author: 锈渎
@@ -39,8 +38,6 @@ public class Blog {
 
     // 不与数据库关联
     private transient String typeName;
-    private transient List<Tag> tagList;
-    private transient List<Long> tagIds;
     private transient String username;
     private transient Integer year;
     private transient Integer month;

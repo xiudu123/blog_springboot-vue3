@@ -11,14 +11,12 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -67,6 +65,29 @@ public class TypeShowController {
         result.put("prePage", (page.getCurrent() - (page.hasPrevious() ? 1 : 0)));
         result.put("nextPage", (page.getCurrent() + (page.hasNext() ? 1 : 0)));
         result.put("typeId", typeId);
+        return Result.success(result);
+    }
+
+    @GetMapping("/types")
+    public Result<?> getTypes(@RequestParam(defaultValue = "1") Integer pageNum) {
+        int pageCount = typeService.typeCountPage();
+        if((pageCount < pageNum) || (pageNum < 1)) {
+            if(pageNum < 1) pageNum = 1;
+            if(pageNum > pageCount) pageNum = pageCount;
+        }
+        Page<Type> page = typeService.listType(pageNum);
+
+        int buttonCount = 5; // 分页按钮数量
+        int startPage = Math.max(1, (int)page.getCurrent() - buttonCount / 2); // 计算起始页码
+        int endPage = Math.min(startPage + buttonCount - 1, (int)page.getPages()); // 计算结束页码
+
+        List<Integer> pageNumbers = IntStream.rangeClosed(startPage, endPage)
+                .boxed().toList(); // 生成页码列表
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("pageNumbers", pageNumbers);
+        result.put("typeInfo", page);
+
         return Result.success(result);
     }
 

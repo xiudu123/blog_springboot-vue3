@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.handler.CustomException;
 import com.xiudu.blog.mapper.*;
 import com.xiudu.blog.pojo.Blog;
-import com.xiudu.blog.pojo.Tag;
 import com.xiudu.blog.service.BlogService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +30,6 @@ public class BlogServiceImpl implements BlogService {
     private TypeMapper typeMapper;
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private BlogTagMapper blogTagMapper;
-
-    @Autowired
-    private TagMapper tagMapper;
 
     @Transactional
     @Override
@@ -52,7 +46,7 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public int updateBlog(Long blogId, Blog blog) {
-        return blogMapper.deleteById(blogId);
+        return blogMapper.updateById(blog);
     }
 
     @Override
@@ -63,7 +57,6 @@ public class BlogServiceImpl implements BlogService {
         }
         blog.setTypeName(typeMapper.selectById(blog.getTypeId()).getName());
         blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
-        blog.setTagList(blogTags(blogId));
         return blog;
     }
 
@@ -145,18 +138,18 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int blogCount() {
+    public Long blogCount() {
         return blogMapper.selectBlogCount();
     }
 
     @Override
     public int blogPageCount() {
-        return (blogMapper.selectBlogCount() + 9) / 10;
+        return (int)(blogMapper.selectBlogCount() + 9) / 10;
     }
 
     @Override
     public int blogPageCountByTypeId(Long typeId) {
-        return (blogMapper.selectBlogCountByTypeId(typeId) + 9) / 10;
+        return (int)(blogMapper.selectBlogCountByTypeId(typeId) + 9) / 10;
     }
 
 
@@ -178,13 +171,6 @@ public class BlogServiceImpl implements BlogService {
             blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
         }
         return blogPage;
-    }
-    private List<Tag> blogTags(Long blogId) {
-        List<Long> tagIds = blogTagMapper.listTagIdsByBlogId(blogId);
-        if(tagIds == null || tagIds.size() == 0) return null;
-        QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
-        queryWrapper.or().in("id", tagIds);
-        return tagMapper.selectList(queryWrapper);
     }
 
 

@@ -1,8 +1,11 @@
 package com.xiudu.blog.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.Comment;
+import com.xiudu.blog.pojo.User;
 import com.xiudu.blog.service.CommentService;
+import com.xiudu.blog.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -23,6 +26,8 @@ import java.util.*;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private UserService userService;
     @Value("${comment.avatar}")
     private String avatar;
 
@@ -47,12 +52,25 @@ public class CommentController {
 
     @Operation(summary = "提交评论（待完成）", description = "提交评论")
     @Parameters({
-            @Parameter(name = "comment", description = "评论内容", required = true)
+            @Parameter(name = "comment", description = "评论内容", required = true),
+            @Parameter(name = "blogId", description = "博客Id", required = true),
+            @Parameter(name = "topCommentId", description = "层级评论Id", required = true),
+            @Parameter(name = "parentId", description = "父亲评论Id", required = true)
     })
     @PostMapping("/submit")
     public Result<?> post(@RequestBody Comment comment) {
+        comment.setCreateTime(new Date());
+        comment.setAvatar(avatar);
+        if(StpUtil.isLogin()) {
+            User user = userService.selectUserById((Long) StpUtil.getLoginId());
+            comment.setAvatar(user.getAvatar());
+            comment.setAdminComment(true);
+            comment.setNickname(user.getNickname());
+        }
 
-        return Result.success("提交成功");
+        int successInsert = commentService.insertComment(comment);
+        if(successInsert == 0) return Result.error("评论失败, 请稍后再试");
+        else return Result.success();
     }
 
     // map<parentId, comments>

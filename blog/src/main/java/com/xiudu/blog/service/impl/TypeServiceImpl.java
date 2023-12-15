@@ -55,6 +55,20 @@ public class TypeServiceImpl implements TypeService {
         return typeMapper.updateById(newType);
     }
 
+    @Override
+    public Long typeCount() {
+        return typeMapper.selectCount();
+    }
+
+    @Override
+    public int typeCountPage() {
+        return (int)(typeMapper.selectCount() + 9) / 10;
+    }
+
+    @Override
+    public Boolean isEmptyByTypeName(String name) {
+        return typeMapper.selectCountByTypeName(name) == 0;
+    }
 
     @Override
     public Type getType(Long id) {

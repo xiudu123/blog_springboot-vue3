@@ -25,7 +25,7 @@ public interface BlogService {
     List<Blog> listTop(Long size);
 
     Blog getAndConvert(Long blogId);
-    int blogCount();
+    Long blogCount();
     int blogPageCount();
     int blogPageCountByTypeId(Long typeId);
 
