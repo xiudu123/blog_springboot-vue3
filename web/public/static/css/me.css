@@ -1,0 +1,294 @@
+/*-------------------padding-----------*/
+.m-padded-tb-mini{
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+}
+.m-padded-tb-tiny{
+    padding-top: 0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+.m-padded{
+    padding-top: 1.5em !important;
+    padding-bottom: 1.5em !important;
+}
+.m-padded-tb{
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+}
+.m-padded-tiny{
+    padding: 0.3em !important;
+}
+.m-padded-lr-responsive{
+    padding-left: 4em !important;
+    padding-right: 4em !important;
+}
+.m-padded-tb-large{
+    padding-top: 3em !important;
+    padding-bottom: 2em !important;
+}
+.m-padded-top {
+    padding-top: 5em !important;
+}
+/*-----------------margin----------*/
+.m-margin-top-big{
+    margin-top: 5em !important;
+}
+.m-margin-top-large{
+    margin-top: 2em !important;
+}
+.m-margin-top-negative{
+    margin-top: -7em !important;
+}
+.m-margin-top-max {
+    margin-top: 35px !important;
+}
+.m-margin-button-small {
+    margin-bottom: 0.5em !important;
+}
+.m-margin-top {
+    margin-top: 1em !important;
+}
+.m-margin-tb-tiny{
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+}
+/*----------text----------*/
+.m-text-thin {
+    font-weight: 300 !important;
+}
+.m-text-spaced {/*字间距*/
+    letter-spacing: 1px !important;
+}
+.m-text-lined { /*行间距*/
+    line-height: 1.8;
+}
+.m-font-size-text{
+    font-size: 30px;
+    color: #ffffff;
+
+}
+.m-font-size-text-mini{
+     font-size: 16px;
+     color: #ffffff;
+ }
+.m-font-size-text-init-title{
+    font-size: 24px;
+    color: white;
+    align-content: center;
+    /*font-family: 'STXingkai', serif;*/
+    font-style: italic;
+}
+
+.m-font-size-title{
+    font-size: 30px;
+    color: #ffffff;
+    font-family: STSong, serif;
+}
+.m-font-size-title-large{
+    font-size: 45px;
+    color: #ffffff;
+    font-family: STSong, serif;
+}
+.m-title-font{
+    font-family: STSong, serif;
+    font-weight: 900;
+    font-size: x-large;
+}
+
+/*--------------color-------------*/
+.m-gradient-color {
+    /*font-size: 30px;*/
+    background: linear-gradient(to right, rgba(0,0,0,.1) 0%, rgba(0,0,0,.8) 50%, rgba(0,0,0,.1) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-style: italic;
+}
+.m-black {
+    color: #333 !important;
+}
+
+
+/*----------opacity----------------*/
+.m-opacity{
+    opacity: 0.9 !important;
+}
+.m-opacity-small {
+    opacity: 0.8 !important;
+}
+/*---------display-----------------*/
+.m-inline-block {
+    display: inline-block !important;
+}
+
+/*----------遮罩层---------*/
+.m-class_outer{
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+/*--------------position------------*/
+.m-right-top{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.m-right-bottom {
+    bottom: 20px !important;
+    right: 0 !important;
+}
+/*---------center--------*/
+.m-center{
+    text-align: center;
+}
+
+/*-------------img-------------*/
+.m-top-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.m-class_coverIndex{
+    width: 100%;
+    height: 100%;
+    min-height: 580px;
+    line-height: 50px;
+    padding-left: 6px;
+    /*这里是阴影设置的颜色做后一个0是阴影不透明度*/
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+#m-top_index{
+    width: 100%;
+    height: 100vh;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.m-bg-type_outer {
+    display: block;
+    /*margin: 10px auto 0 0;*/
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+.m-bg-class_coverIndex {
+    width: 100%;
+    height: 800px;
+    line-height: 50px;
+    padding-left: 6px;
+    /*这里是阴影设置的颜色做后一个0是阴影不透明度*/
+    background-color: rgba(0, 0, 0, 0);
+    /*background-color: rgba(0, 0, 0, .60);*/
+    /*color: #FFFFFF;*/
+    /*font-size: 26px;*/
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+.m-bg{
+    width: 100%;
+    height: 650px;
+    object-fit: cover;
+    opacity: 0.9;
+}
+.m-bg-class_coverIndex {
+    width: 100%;
+    height: 800px;
+    line-height: 50px;
+    padding-left: 6px;
+    /*这里是阴影设置的颜色做后一个0是阴影不透明度*/
+    background-color: rgba(0, 0, 0, 0);
+    /*background-color: rgba(0, 0, 0, .60);*/
+    /*color: #FFFFFF;*/
+    /*font-size: 26px;*/
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+.m-fixed{
+    position: fixed !important;
+    z-index: 10 !important;
+}
+.m-show{
+    z-index: 1025 !important;
+}
+.m-container-small {
+    max-width: 60em !important;
+    margin: auto !important;
+}
+.m-container-mini{
+    max-width: 100em !important;
+    margin: auto !important;
+}
+.m-opacityImg {
+
+    opacity: 1!important;
+    /*opacity: 0.9 !important;*/
+}
+.class_outer {
+    display: block;
+    /*width: 550px;*/
+    /*height: 276px;*/
+    margin: 10px auto 0;
+    position: relative;
+    overflow: hidden;
+}
+.class_cover {
+    width: 100%;
+    height: 40px;
+    line-height: 50px;
+    padding-left: 6px;
+    background-color: rgba(0, 0, 0, .60);
+    /*color: #FFFFFF;*/
+    /*font-size: 26px;*/
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+.m-font-size-blog-text{
+    font-size: 18px;
+    color: #ffffff;
+    font-family: STSong;
+}
+/*------------html----------------*/
+
+
+
+.m-mobile-show{
+    display: none !important;
+}
+
+/* 超小屏幕（手机，小于 768px） */
+@media screen and (max-width: 768px){
+    .m-mobile-hide{
+        display: none !important;
+    }
+    .m-mobile-show{
+        display: block !important;
+    }
+    .m-padded-lr-responsive{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .m-mobile-wide{
+        width: 100% !important;
+    }
+}
+
+/* 小屏幕（平板，大于等于 768px） */
+@media screen and (min-width: 768px) {
+
+}
+
+/* 中等屏幕（桌面显示器，大于等于 992px） */
+@media screen and (min-width:992px) {
+
+}
+
+/* 大屏幕（大桌面显示器，大于等于 1200px） */
+@media screen and (min-width: 1200px) {
+
+}

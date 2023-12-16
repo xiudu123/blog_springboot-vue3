@@ -1,0 +1,24 @@
+<template>
+<ContentFieldCom>
+    <div class="ui m-opacity m-margin-top-max">
+        <img src="@/assets/img/effect.png" alt="" class="ui rounded bordered fluid image">
+    </div>
+    <div class="m-margin-top-max" align="center">
+        <a href="/index">
+            <button type="button" class="ui teal button m-mobile-wide"><i class="home icon"></i> 返回首页</button>
+        </a>
+    </div>
+</ContentFieldCom>
+</template>
+
+<script>
+import ContentFieldCom from "@/components/ContentFieldCom";
+export default {
+    name: "NotFoundView",
+    components: {ContentFieldCom}
+}
+</script>
+
+<style scoped>
+
+</style>
