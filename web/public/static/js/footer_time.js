@@ -12,7 +12,11 @@ setInterval(function (){ // 实时显示页脚营业时间;
     let create_time = new Date('2023-05-25T18:20:00'); // 网站创建时间
     let current_time = new Date(); // 现在时间
     let differ_time = CalculateDate(create_time, current_time);
-    document.getElementById("run_time").innerHTML = differ_time[0] + "天" + differ_time[1] + "时" + differ_time[2] + "分" + differ_time[3] + "秒";
+    const runTimeElement = document.getElementById("run_time");
+    if(runTimeElement) {
+        runTimeElement.innerHTML = differ_time[0] + "天" + differ_time[1] + "时" + differ_time[2] + "分" + differ_time[3] + "秒";
+    }
+
 }, 1000);
 // -----------------------------------------------------------------------------------------------------
 

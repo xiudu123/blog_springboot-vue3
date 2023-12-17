@@ -6,6 +6,12 @@ import IndexView from "@/views/IndexView";
 import TypeView from "@/views/TypeView";
 import MessageView from "@/views/MessageView";
 import NotFoundView from "@/views/NotFoundView";
+import UserIndexView from "@/views/user/UserIndexView";
+import UserBlogInputView from "@/views/user/UserBlogInputView";
+import UserBlogManageView from "@/views/user/UserBlogManageView";
+import UserLoginView from "@/views/user/UserLoginView";
+import UserTypeInput from "@/views/user/UserTypeInputView";
+import UserTypeManage from "@/views/user/UserTypeManageView";
 const routes = [
   {
     path: "/index",
@@ -32,7 +38,36 @@ const routes = [
     name: "message",
     component: MessageView
   },
-
+  {
+    path: "/user/login",
+    name: "user_login",
+    component: UserLoginView
+  },
+  {
+    path: "/user/index",
+    name: "user_index",
+    component: UserIndexView
+  },
+  {
+    path: "/user/blog/input",
+    name: "user_blog_input",
+    component: UserBlogInputView
+  },
+  {
+    path: "/user/blog/manage",
+    name: "user_blog_manage",
+    component: UserBlogManageView
+  },
+  {
+    path: "/user/type/input",
+    name: "user_type_input",
+    component: UserTypeInput
+  },
+  {
+    path: "/user/type/manage",
+    name: "user_type_manage",
+    component: UserTypeManage
+  },
   {
     path: "/api",
     name: 'api',

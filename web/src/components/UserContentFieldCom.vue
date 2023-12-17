@@ -1,23 +1,24 @@
 <template>
-<NavbarCom/>
-
+    <!--导航-->
+<User/>
+    <UserNavbarCom/>
+    <!--中间元素-->
     <div id="main">
         <div class="ui container">
             <slot></slot>
         </div>
     </div>
 
-<ToolbarCom/>
+    <!--底部footer-->
 <FooterCom/>
 </template>
 
 <script>
-import NavbarCom from "@/components/NavbarCom";
-import ToolbarCom from "@/components/ToolbarCom";
+import UserNavbarCom from "@/components/UserNavbarCom";
 import FooterCom from "@/components/FooterCom";
 export default {
-    name: "ContentFieldCom",
-    components: {FooterCom, ToolbarCom, NavbarCom},
+    name: "UserContentFieldCom",
+    components: {FooterCom, UserNavbarCom}
 }
 </script>
 

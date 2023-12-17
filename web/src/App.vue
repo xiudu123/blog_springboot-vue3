@@ -1,23 +1,17 @@
 <template>
-    <NavbarCom/>
 
     <router-view/>
 
-    <ToolbarCom/>
-    <FooterCom/>
 </template>
 
 <script>
-import NavbarCom from "@/components/NavbarCom";
-import FooterCom from "@/components/FooterCom";
-import ToolbarCom from "@/components/ToolbarCom";
 export default {
-    components: {ToolbarCom, FooterCom, NavbarCom}
 }
 
 </script>
 
 <style>
+
 body{
     background-image: url("@/assets/img/background3.jpg");
     background-attachment:fixed;

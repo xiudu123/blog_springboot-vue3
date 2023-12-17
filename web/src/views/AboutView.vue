@@ -6,7 +6,7 @@
         <div class="m-margin-top-large" align="center">
             <img src="@/assets/img/xiu.jpg" alt="" class="ui circular small image">
         </div>
-        <div class="m-font-size-title" style="color: black">锈渎</div>
+        <div class="my-font">锈渎</div>
         <div>
             <div class="ui circular icon button"><i class="qq icon"></i></div>
             <a href="https://github.com/xiudu123" target="_blank" class="ui circular icon button"><i class="github icon"></i></a>
@@ -32,4 +32,10 @@ export default {
 </script>
 
 <style scoped>
+.my-font {
+    font-size: 30px;
+    color: black;
+    font-family: STSong, serif;
+
+}
 </style>

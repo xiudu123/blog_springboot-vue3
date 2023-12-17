@@ -144,17 +144,7 @@ export default {
     name: "IndexView",
     components: {ContentFieldCom},
     setup() {
-        // eslint-disable-next-line no-undef
-        const waypoint = new Waypoint({
-            element: document.getElementById('waypoint'),
-            handler: function (direction) {
 
-                console.log('Scrolled to waypoint!  ' + direction);
-            }
-        });
-        return{
-            waypoint
-        }
     }
 }
 </script>
