@@ -27,7 +27,6 @@ import ContentFieldCom from "@/components/ContentFieldCom";
 export default {
     name: "AboutView",
     components: {ContentFieldCom},
-
 }
 </script>
 

@@ -8,7 +8,7 @@
                 <router-link :to="{name : 'user_type_manage'} " class="item my-item m-mobile-hide" :class="route_name === 'user_type_manage' ? 'active' : ''" @click = "click_link"><i class="clone outline icon"></i>分类管理</router-link>
                 <div class="right my-item m-mobile-hide menu">
                     <div class="item">
-                        <div class="ui dropdown item">
+                        <div class="ui dropdown item" @mouseenter="dropMenu">
                             <div class="text">
                                 <img class="ui avatar image" src="@/assets/img/xiu.jpg" alt="">
                                 锈渎
@@ -47,11 +47,15 @@ export default {
             // eslint-disable-next-line no-undef
             $(".my-item").addClass("m-mobile-hide")
         }
-
+        const dropMenu = () => {
+            // eslint-disable-next-line no-undef
+            $(".ui.dropdown").dropdown();
+        }
         return {
             route_name,
             click_menu,
             click_link,
+            dropMenu
         }
     }
 }

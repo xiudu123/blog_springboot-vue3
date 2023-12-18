@@ -1,6 +1,6 @@
 <template>
 
-    <div class="my-login" style="max-width: 30em;">
+    <div class="my-login">
         <div class="ui container">
 
             <div class="ui middle aligned center aligned grid">
@@ -27,7 +27,7 @@
                             <button class="ui fluid large teal submit button">登   录</button>
                         </div>
 
-                        <div v-if="message" class="ui mini negative message"> {{message}} </div>
+                        <div v-if="error_message" class="ui mini negative message"> {{error_message}} </div>
                     </form>
 
                 </div>
@@ -43,10 +43,10 @@ import {ref} from "vue";
 export default {
     name: "UserLoginView",
     setup() {
-        let message = ref("");
+        let error_message = ref("用户名或者密码错误");
 
         return {
-            message
+            error_message
         }
     }
 }
@@ -54,10 +54,13 @@ export default {
 
 <style scoped>
 .my-login {
-    max-width: 60em;
-    margin: 5em auto auto;
-    padding-top: 3em;
-    padding-bottom: 2em;
+    max-width: 30em;
+
+    /*页面居中*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 </style>

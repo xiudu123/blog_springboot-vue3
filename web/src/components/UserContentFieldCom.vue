@@ -9,6 +9,7 @@
         </div>
     </div>
 
+    <ToolbarCom/>
     <!--底部footer-->
 <FooterCom/>
 </template>
@@ -16,9 +17,10 @@
 <script>
 import UserNavbarCom from "@/components/UserNavbarCom";
 import FooterCom from "@/components/FooterCom";
+import ToolbarCom from "@/components/ToolbarCom";
 export default {
     name: "UserContentFieldCom",
-    components: {FooterCom, UserNavbarCom}
+    components: {ToolbarCom, FooterCom, UserNavbarCom}
 }
 </script>
 

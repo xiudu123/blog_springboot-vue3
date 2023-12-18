@@ -17,26 +17,10 @@
                     <div class="fourteen wide column">
                         <div class="ui left labeled action input">
                             <label class="ui compact teal basic label">分类</label>
-                            <div class="ui fluid selection dropdown"  style="z-index: 10001">
+                            <div class="ui fluid selection dropdown"  @mouseup="typeMenu">
                                 <input type="hidden" value="-1" name="typeId">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">选择分类</div>
-                                <div class="menu">
-                                    <div class="item">只</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <div class="fourteen wide column">
-                        <div class="ui left labeled action input">
-                            <label class="ui compact teal basic label">标签</label>
-                            <div class="ui fluid multiple selection dropdown"  style="z-index: 10000">
-                                <input type="hidden" name="tagIds">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">选择标签</div>
                                 <div class="menu">
                                     <div class="item">只</div>
                                 </div>
@@ -99,10 +83,15 @@ export default {
         const close_error_message = () => {
             error_message.value = "";
         }
+        const typeMenu = () => {
+            // eslint-disable-next-line no-undef
+            $(".ui.dropdown").dropdown();
+        }
 
         return {
             error_message,
-            close_error_message
+            close_error_message,
+            typeMenu
         }
 
     }
