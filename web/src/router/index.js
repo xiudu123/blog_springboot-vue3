@@ -14,86 +14,165 @@ import UserTypeInput from "@/views/user/UserTypeInputView";
 import UserTypeManage from "@/views/user/UserTypeManageView";
 import BlogView from "@/views/BlogView";
 import {nextTick} from "vue";
+import store from "@/store";
 const routes = [
+  {
+    path: "/",
+    name: "home",
+    redirect: "/index",
+    meta: {
+      requestAuth: false,
+    }
+  },
   {
     path: "/index",
     name: "index",
-    component: IndexView
+    component: IndexView,
+    meta: {
+      requestAuth: false,
+    }
   },
   {
     path: "/about",
     name: "about",
-    component: AboutView
+    component: AboutView,
+    meta: {
+      requestAuth: false,
+    }
   },
   {
     path: "/archives",
     name: "archives",
-    component: ArchivesView
+    component: ArchivesView,
+    meta: {
+      requestAuth: false,
+    }
   },
   {
     path: "/type",
     name: "type",
-    component: TypeView
+    component: TypeView,
+    meta: {
+      requestAuth: false,
+    }
   },
   {
     path: "/message",
     name: "message",
-    component: MessageView
+    component: MessageView,
+    meta: {
+      requestAuth: false,
+    }
   },
   {
     path: "/blog",
     name: "blog",
-    component: BlogView
+    component: BlogView,
+    meta: {
+      requestAuth: false,
+    }
   },
   {
     path: "/user/login",
     name: "user_login",
-    component: UserLoginView
+    component: UserLoginView,
+    meta: {
+      requestAuth: false,
+    }
   },
   {
     path: "/user/index",
     name: "user_index",
-    component: UserIndexView
+    component: UserIndexView,
+    meta: {
+      requestAuth: true,
+    }
   },
   {
     path: "/user/blog/input",
     name: "user_blog_input",
-    component: UserBlogInputView
+    component: UserBlogInputView,
+    meta: {
+      requestAuth: true,
+    }
   },
   {
     path: "/user/blog/manage",
     name: "user_blog_manage",
-    component: UserBlogManageView
+    component: UserBlogManageView,
+    meta: {
+      requestAuth: true,
+    }
   },
   {
     path: "/user/type/input",
     name: "user_type_input",
-    component: UserTypeInput
+    component: UserTypeInput,
+    meta: {
+      requestAuth: true,
+    }
   },
   {
     path: "/user/type/manage",
     name: "user_type_manage",
-    component: UserTypeManage
+    component: UserTypeManage,
+    meta: {
+      requestAuth: true,
+    }
   },
   {
     path: "/api",
     name: 'api',
-    component: ApiView
+    component: ApiView,
+    meta: {
+      requestAuth: false,
+    }
   },
   {
     path: "/404/",
     name: "404",
-    component: NotFoundView
+    component: NotFoundView,
+    meta: {
+      requestAuth: false,
+    }
   },
   {
     path: "/:catAll(.*)",
     redirect: "/404/",
+    meta: {
+        requestAuth: false,
+    }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+// 处理页面访问权限问题
+router.beforeEach((to, from, next) => {
+  if(!store.state.user.is_login && localStorage.getItem("token")) {
+      store.dispatch("userUpdateInfo", {
+        token: localStorage.getItem("token"),
+        success() {
+
+        },
+        error() {
+          localStorage.removeItem("token");
+        },
+      }).then(() => {
+
+      }).catch(() => {
+
+      });
+    next();
+  }else if(to.meta.requestAuth && !store.state.user.is_login) {
+    next({name: "user_login"});
+  }else {
+    next();
+  }
+  store.commit("updateLoading", true);
 })
 
 // 导航完成后滚动到顶部
@@ -104,6 +183,5 @@ router.afterEach(() => {
     $(window).scrollTo(0, 500);
   });
 });
-
 
 export default router

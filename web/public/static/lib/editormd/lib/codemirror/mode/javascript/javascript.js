@@ -258,7 +258,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     }
   }
 
-  // Combinator utils
+  // Combinator api
 
   var cx = {state: null, column: null, marked: null, cc: null};
   function pass() {

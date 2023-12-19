@@ -4208,7 +4208,7 @@ sinon.fakeServer = (function () {
                     request.respond(response[0], response[1], response[2]);
                 }
             } catch (e) {
-                sinon.logError("Fake server request processing", e);
+                sinon.logError("Fake server api processing", e);
             }
         },
 

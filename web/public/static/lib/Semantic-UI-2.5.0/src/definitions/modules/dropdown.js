@@ -308,7 +308,7 @@ $.fn.dropdown = function(parameters) {
                 on    : false
               }
             ;
-            module.verbose('First request, initializing API');
+            module.verbose('First api, initializing API');
             $module
               .api(apiSettings)
             ;
@@ -771,7 +771,7 @@ $.fn.dropdown = function(parameters) {
               }
             }
           ;
-          if( !$module.api('get request') ) {
+          if( !$module.api('get api') ) {
             module.setup.api();
           }
           apiSettings = $.extend(true, {}, apiSettings, settings.apiSettings);

@@ -1,5 +1,6 @@
 package com.xiudu.blog.controller.authorize;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.User;
@@ -7,6 +8,9 @@ import com.xiudu.blog.service.UserService;
 import com.xiudu.blog.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: 锈渎
@@ -39,6 +43,22 @@ public class UserAdminController {
         }
         StpUtil.login(user.getId());
         user.setPassword(null);
+        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+        Map<String, Object> result = new HashMap<>();
+        result.put("user", user);
+        result.put("token", tokenInfo.tokenValue);
+        return Result.success(result);
+    }
+
+    @GetMapping("/check")
+    public Result<?> checkToken() {
+        if(!StpUtil.isLogin()) {
+            return Result.error("登录已过期，请重新登录");
+        }
+        Long userId = StpUtil.getLoginIdAsLong();
+        User user = userService.selectUserById(userId);
+        user.setPassword(null);
+
         return Result.success(user);
     }
 

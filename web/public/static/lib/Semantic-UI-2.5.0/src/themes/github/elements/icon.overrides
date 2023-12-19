@@ -77,8 +77,8 @@
 .icon.git.commit:before { content: '\f01f'} /*  */
 .icon.git.compare:before { content: '\f0ac'} /*  */
 .icon.git.merge:before { content: '\f023'} /*  */
-.icon.git.pull.request.abandoned:before,
-.icon.git.pull.request:before { content: '\f009'} /*  */
+.icon.git.pull.api.abandoned:before,
+.icon.git.pull.api:before { content: '\f009'} /*  */
 .icon.globe:before { content: '\f0b6'} /*  */
 .icon.graph:before { content: '\f043'} /*  */
 .icon.heart:before { content: '\2665'} /* ♥ */

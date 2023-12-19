@@ -10,11 +10,10 @@
 
 
 <script>
-
 // import axios from 'axios'
 import ContentFieldCom from "@/components/ContentFieldCom";
 export default {
-    components: {ContentFieldCom}
+    components: {ContentFieldCom},
     /*
     getElementById 获取值为null
     setup:() => {
@@ -37,28 +36,44 @@ export default {
     }
         */
 
-        // let person = {};
+    setup() {
 
-        // person.userId = '1';
-        // person.email = "844506672@qq.com";
-        // person.cardNo = '123456788912345562';
-        // person.nickName = '1230';
-        // person.sex = 1;
-        // person.age = 10;
 
-        // axios.post('http://127.0.0.1:3000/user/add/success', JSON.stringify(person), {
+        // const user = {
+        //     username: "xiu1",
+        //     id: "123456",
+        // };
+
+    //     axios.get("http://127.0.0.1:3000/test/get2", {
+    //         params: user,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     })
+    //         .then(resp => {
+    //             console.log(111);
+    //             console.log(resp);
+    //         })
+    //         .catch(error => {
+    //             console.log(222);
+    //             console.log(error);
+    //         });
+
+        // axios.post("http://127.0.0.1:3000/test/post2", user, {
         //     headers: {
         //         'Content-Type': 'application/json',
         //     },
         // })
-        // .then(resp => {
-        //     console.log(111);
-        //     console.log(resp.data);
-        // })
-        // .catch(error => {
-        //     console.log(222);
-        //     console.log(error);
-        // })
+        //     .then(resp => {
+        //         console.log(111);
+        //         console.log(resp);
+        //     })
+        //     .catch(error => {
+        //         console.log(222);
+        //         console.log(error);
+        //     });
+    }
+
 
 
 }

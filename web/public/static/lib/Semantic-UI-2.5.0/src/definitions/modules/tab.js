@@ -496,7 +496,7 @@ $.fn.tab = function(parameters) {
                   tab: fullTabPath
                 }
               },
-              request         = $tab.api('get request') || false,
+              request         = $tab.api('get api') || false,
               existingRequest = ( request && request.state() === 'pending' ),
               requestSettings,
               cachedContent

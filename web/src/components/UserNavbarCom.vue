@@ -8,7 +8,7 @@
                 <router-link :to="{name : 'user_type_manage'} " class="item my-item m-mobile-hide" :class="route_name === 'user_type_manage' ? 'active' : ''" @click = "click_link"><i class="clone outline icon"></i>分类管理</router-link>
                 <div class="right my-item m-mobile-hide menu">
                     <div class="item">
-                        <div class="ui dropdown item" @mouseenter="dropMenu">
+                        <div class="ui dropdown item" @mouseup="dropMenu">
                             <div class="text">
                                 <img class="ui avatar image" src="@/assets/img/xiu.jpg" alt="">
                                 锈渎
@@ -16,7 +16,7 @@
                             <i class="dropdown icon"></i>
 
                             <div class="menu">
-                                <a href="#" class="item">注销</a>
+                                <div class="item" @click="click_logout">注销</div>
                             </div>
                         </div>
                     </div>
@@ -33,6 +33,7 @@
 <script>
 import {useRoute} from "vue-router";
 import {computed} from "vue";
+import store from "@/store";
 
 export default {
     name: "NavbarUserCom",
@@ -51,10 +52,24 @@ export default {
             // eslint-disable-next-line no-undef
             $(".ui.dropdown").dropdown();
         }
+
+        const click_logout = () => {
+            store.dispatch("userLogout", {
+                token: localStorage.getItem("token"),
+                success() {
+
+                },
+                error() {
+
+                },
+            })
+        }
+
         return {
             route_name,
             click_menu,
             click_link,
+            click_logout,
             dropMenu
         }
     }

@@ -8,45 +8,64 @@
                     <h2 class="ui black image header">
                         后台登录
                     </h2>
-                    <form class="ui large form" method="post" action="#">
+                    <form class="ui large form" method="post" @submit.prevent="submitLogin">
                         <div class="ui segment">
 
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="username" placeholder="用户名">
+                                    <input type="text" name="username" v-model="username" placeholder="用户名">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="password" placeholder="密码">
+                                    <input type="password" name="password" v-model="password" placeholder="密码">
                                 </div>
                             </div>
                             <button class="ui fluid large teal submit button">登   录</button>
                         </div>
 
-                        <div v-if="error_message" class="ui mini negative message"> {{error_message}} </div>
                     </form>
 
+                    <div v-if="error_message" class="ui mini negative message"> {{error_message}} </div>
                 </div>
             </div>
 
         </div>
     </div>
 
+
 </template>
 
 <script>
 import {ref} from "vue";
+import store from "@/store";
 export default {
     name: "UserLoginView",
     setup() {
-        let error_message = ref("用户名或者密码错误");
+        let error_message = ref("");
+        let username = ref(""), password = ref("");
+        const submitLogin = () => {
+            error_message.value = "";
 
+            store.dispatch("userLogin", {
+                username: username.value,
+                password: password.value,
+                success() {
+                },
+                error(error) {
+                    error_message.value = error.error;
+                }
+            })
+
+        };
         return {
-            error_message
+            error_message,
+            username,
+            password,
+            submitLogin
         }
     }
 }

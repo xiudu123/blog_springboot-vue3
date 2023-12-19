@@ -1,4 +1,0 @@
-2023-12-16T11:51:12.070+08:00  WARN 11916 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5h52m5s533ms370µs699ns).
-2023-12-16T14:25:47.953+08:00  INFO 11916 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-12-16T14:25:47.986+08:00  INFO 11916 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-12-16T14:25:47.991+08:00  INFO 11916 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

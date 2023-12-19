@@ -4,10 +4,14 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson.JSON;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.config.handler.CustomException;
+import com.xiudu.blog.pojo.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: 锈渎
@@ -33,6 +37,23 @@ public class TestController {
     })
     public Result<?> return1(@RequestBody String name) {
         return Result.success(JSON.parse(name));
+    }
+
+    @Operation(summary = "测试get接口2", description = "测试get接口22")
+    @GetMapping("/get2")
+    public Result<?> return2(@RequestParam String username, @RequestParam Integer id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", username);
+        map.put("id", id);
+        return Result.success(map);
+    }
+    @Operation(summary = "测试post接口2", description = "测试post接口22")
+    @PostMapping("/post2")
+    public Result<?> return3(@RequestBody User user) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", user.getUsername());
+        map.put("id", user.getId());
+        return Result.success(map);
     }
 
     @PostMapping("/exception1")

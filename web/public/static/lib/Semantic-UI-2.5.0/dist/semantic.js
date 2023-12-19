@@ -4693,7 +4693,7 @@ $.fn.dropdown = function(parameters) {
                 on    : false
               }
             ;
-            module.verbose('First request, initializing API');
+            module.verbose('First api, initializing API');
             $module
               .api(apiSettings)
             ;
@@ -5156,7 +5156,7 @@ $.fn.dropdown = function(parameters) {
               }
             }
           ;
-          if( !$module.api('get request') ) {
+          if( !$module.api('get api') ) {
             module.setup.api();
           }
           apiSettings = $.extend(true, {}, apiSettings, settings.apiSettings);
@@ -13925,7 +13925,7 @@ $.fn.search = function(parameters) {
               searchHTML
             ;
             $.extend(true, apiSettings, settings.apiSettings);
-            module.verbose('Setting up API request', apiSettings);
+            module.verbose('Setting up API api', apiSettings);
             $module.api(apiSettings);
           }
         },
@@ -18504,7 +18504,7 @@ $.fn.tab = function(parameters) {
                   tab: fullTabPath
                 }
               },
-              request         = $tab.api('get request') || false,
+              request         = $tab.api('get api') || false,
               existingRequest = ( request && request.state() === 'pending' ),
               requestSettings,
               cachedContent
@@ -20113,7 +20113,7 @@ $.api = $.fn.api = function(parameters) {
         eventNamespace  = '.' + namespace,
         moduleNamespace = 'module-' + namespace,
 
-        // element that creates request
+        // element that creates api
         $module         = $(this),
         $form           = $module.closest(selector.form),
 
@@ -20122,7 +20122,7 @@ $.api = $.fn.api = function(parameters) {
           ? $(settings.stateContext)
           : $module,
 
-        // request details
+        // api details
         ajaxSettings,
         requestSettings,
         url,
@@ -20229,17 +20229,17 @@ $.api = $.fn.api = function(parameters) {
         query: function() {
 
           if(module.is.disabled()) {
-            module.debug('Element is disabled API request aborted');
+            module.debug('Element is disabled API api aborted');
             return;
           }
 
           if(module.is.loading()) {
             if(settings.interruptRequests) {
-              module.debug('Interrupting previous request');
+              module.debug('Interrupting previous api');
               module.abort();
             }
             else {
-              module.debug('Cancelling request, previous request is still pending');
+              module.debug('Cancelling api, previous api is still pending');
               return;
             }
           }
@@ -20257,7 +20257,7 @@ $.api = $.fn.api = function(parameters) {
           // call beforesend and get any settings changes
           requestSettings = module.get.settings();
 
-          // check if before send cancelled request
+          // check if before send cancelled api
           if(requestSettings === false) {
             module.cancelled = true;
             module.error(error.beforeSend);
@@ -20305,23 +20305,23 @@ $.api = $.fn.api = function(parameters) {
           }
 
           if( !settings.throttle ) {
-            module.debug('Sending request', data, ajaxSettings.method);
+            module.debug('Sending api', data, ajaxSettings.method);
             module.send.request();
           }
           else {
             if(!settings.throttleFirstRequest && !module.timer) {
-              module.debug('Sending request', data, ajaxSettings.method);
+              module.debug('Sending api', data, ajaxSettings.method);
               module.send.request();
               module.timer = setTimeout(function(){}, settings.throttle);
             }
             else {
-              module.debug('Throttling request', settings.throttle);
+              module.debug('Throttling api', settings.throttle);
               clearTimeout(module.timer);
               module.timer = setTimeout(function() {
                 if(module.timer) {
                   delete module.timer;
                 }
-                module.debug('Sending throttled request', data, ajaxSettings.method);
+                module.debug('Sending throttled api', data, ajaxSettings.method);
                 module.send.request();
               }, settings.throttle);
             }
@@ -20359,11 +20359,11 @@ $.api = $.fn.api = function(parameters) {
           },
           abortedRequest: function(xhr) {
             if(xhr && xhr.readyState !== undefined && xhr.readyState === 0) {
-              module.verbose('XHR request determined to be aborted');
+              module.verbose('XHR api determined to be aborted');
               return true;
             }
             else {
-              module.verbose('XHR request was not aborted');
+              module.verbose('XHR api was not aborted');
               return false;
             }
           },
@@ -20600,7 +20600,7 @@ $.api = $.fn.api = function(parameters) {
                 xhr,
                 response
               ;
-              // have to guess callback parameters based on request success
+              // have to guess callback parameters based on api success
               if( module.was.succesful() ) {
                 response = firstParameter;
                 xhr      = secondParameter;
@@ -20653,7 +20653,7 @@ $.api = $.fn.api = function(parameters) {
         create: {
 
           request: function() {
-            // api request promise
+            // api api promise
             return $.Deferred()
               .always(module.event.request.complete)
               .done(module.event.request.done)
@@ -20713,13 +20713,13 @@ $.api = $.fn.api = function(parameters) {
             var
               xhr
             ;
-            // ajax request promise
+            // ajax api promise
             xhr = $.ajax(ajaxSettings)
               .always(module.event.xhr.always)
               .done(module.event.xhr.done)
               .fail(module.event.xhr.fail)
             ;
-            module.verbose('Created server request', xhr, ajaxSettings);
+            module.verbose('Created server api', xhr, ajaxSettings);
             return xhr;
           }
         },
@@ -20886,7 +20886,7 @@ $.api = $.fn.api = function(parameters) {
             xhr = module.get.xhr()
           ;
           if( xhr && xhr.state() !== 'resolved') {
-            module.debug('Cancelling API request');
+            module.debug('Cancelling API api');
             xhr.abort();
           }
         },
@@ -21135,10 +21135,10 @@ $.api.settings = {
   // whether to serialize closest form
   serializeForm        : false,
 
-  // how long to wait before request should occur
+  // how long to wait before api should occur
   throttle             : 0,
 
-  // whether to throttle first request or only repeated
+  // whether to throttle first api or only repeated
   throttleFirstRequest : true,
 
   // standard ajax settings
@@ -21154,18 +21154,18 @@ $.api.settings = {
   response          : false,
   responseAsync     : false,
 
-  // callbacks before request
+  // callbacks before api
   beforeSend  : function(settings) { return settings; },
   beforeXHR   : function(xhr) {},
   onRequest   : function(promise, xhr) {},
 
-  // after request
+  // after api
   onResponse  : false, // function(response) { },
 
   // response was successful, if JSON passed validation
   onSuccess   : function(response, $module) {},
 
-  // request finished without aborting
+  // api finished without aborting
   onComplete  : function(response, $module) {},
 
   // failed JSON success test
@@ -21174,15 +21174,15 @@ $.api.settings = {
   // server error
   onError     : function(errorMessage, $module) {},
 
-  // request aborted
+  // api aborted
   onAbort     : function(errorMessage, $module) {},
 
   successTest : false,
 
   // errors
   error : {
-    beforeSend        : 'The before send function has aborted the request',
-    error             : 'There was an error with your request',
+    beforeSend        : 'The before send function has aborted the api',
+    error             : 'There was an error with your api',
     exitConditions    : 'API Request Aborted. Exit conditions met',
     JSONParse         : 'JSON could not be parsed during error handling',
     legacyParameters  : 'You are using legacy API success callback names',
@@ -21192,10 +21192,10 @@ $.api.settings = {
     missingURL        : 'No URL specified for api event',
     noReturnedValue   : 'The beforeSend callback must return a settings object, beforeSend ignored.',
     noStorage         : 'Caching responses locally requires session storage',
-    parseError        : 'There was an error parsing your request',
+    parseError        : 'There was an error parsing your api',
     requiredParameter : 'Missing a required URL parameter: ',
     statusMessage     : 'Server gave an error: ',
-    timeout           : 'Your request timed out'
+    timeout           : 'Your api timed out'
   },
 
   regExp  : {

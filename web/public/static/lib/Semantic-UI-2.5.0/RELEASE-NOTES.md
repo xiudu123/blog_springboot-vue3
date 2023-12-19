@@ -555,7 +555,7 @@ To trigger UI updates you can call `validate form`. Additional form behaviors ha
 
 **Critical Bug Fixes**
 - **All UI** - Using `component('setting, {})` to add multiple settings as an object literal, for example `error: {}`, will now deep extend the existing object instead of replacing it.
-- **API** - `beforeSend` would not correctly cancel request when `return false;` is used in callback. [#3660](https://github.com/Semantic-Org/Semantic-UI/issues/3660)
+- **API** - `beforeSend` would not correctly cancel api when `return false;` is used in callback. [#3660](https://github.com/Semantic-Org/Semantic-UI/issues/3660)
 - **API** - `cache: 'local'` would not return the localstorage cached results in some cases
 - **Divider** - Descenders like "g" are cut off in `horizontal divider` [#3585](https://github.com/Semantic-Org/Semantic-UI/issues/3585)
 - **Dropdown** - `forceSelection` will now automatically select values with multi dropdowns. When using `userAdditions` setting it will now automatically tokenize the current entered value
@@ -567,7 +567,7 @@ To trigger UI updates you can call `validate form`. Additional form behaviors ha
 - **Form** - Fixed issue with `(x) fields` and `equal width` fields where middle rows would be slightly smaller because they include both left and right padding in % width. (Edges only have one side padding). Field groups now use negative margins instead.
 - **Popup** - Fixed issue where clicking element inside popup removed from DOM (like clicking a multi select label) would cause popup to close [#3887](https://github.com/Semantic-Org/Semantic-UI/issues/3887)
 - **Rail** - Fixed incorrect width for `close rail` and `very close rail` caused by variable addition with mixed units `px` + `em` [#3835](https://github.com/Semantic-Org/Semantic-UI/issues/3835)
-- **Search** - Fixed bug where a previously XHR query could cause the next one to fail depending on the latency of the request [#2779](https://github.com/Semantic-Org/Semantic-UI/issues/2779)
+- **Search** - Fixed bug where a previously XHR query could cause the next one to fail depending on the latency of the api [#2779](https://github.com/Semantic-Org/Semantic-UI/issues/2779)
 - **Search** - Fixed an issue where `onResult` returning `false` would not prevent the search menu from hiding. Clicking on an empty results message will also no longer close the search results. [#3856](https://github.com/Semantic-Org/Semantic-UI/issues/3856) [#3870](https://github.com/Semantic-Org/Semantic-UI/issues/3870)
 - **Sticky/Visibility** -  Added mutation observer to teardown element with `destroy` if removed from DOM context, fixing a possible memory leak
 - **Video** - Fixed issue with `.video('change')` behavior not properly changing video.
@@ -923,7 +923,7 @@ This release should fix bugs some may have encountered with `npm install semanti
 
 
 **Minor Enhancements**
-- **API** - All API callbacks now receive `xhr` from API request as the third callback parameter
+- **API** - All API callbacks now receive `xhr` from API api as the third callback parameter
 
 **Additional Fixes**
 - **Checkbox** - Fix checkbox "check" appearing italicized when included inside italicized text
@@ -1092,7 +1092,7 @@ This release should fix bugs some may have encountered with `npm install semanti
 - **Tab** - `onTabInit` and `onTabLoad` have been renamed to `onFirstLoad` and `onLoad` respectively. This is to conform to the naming conventions of other modules (no self reference). Previous callbacks will continue to work but will produce deprecation notices in console. Two new callbacks `onVisible` and `onRequest` have been added as well.
 - **Button** - `wide` variations using numbers `2 wide`, `3 wide` have been removed due to incompatibilities with some build tools. Please use `two wide`, or `three wide` instead.
 - **Video** - The undocumented `video` module has been renamed to `embed`. Behaviors remain the same, but users need to adjust their javascript init to `$('.ui.embed').embed();`
-- **API** - API `onFailure` will now be called **in all failure conditions**, when a request is errored (504, 404 etc), aborted (page change or CORS), or JSON does not pass `successTest` function. `onError` and `onAbort` will also fire for each specific failure condition.
+- **API** - API `onFailure` will now be called **in all failure conditions**, when a api is errored (504, 404 etc), aborted (page change or CORS), or JSON does not pass `successTest` function. `onError` and `onAbort` will also fire for each specific failure condition.
 
 **New UI**
 - **Container** - Containers are fixed width containers meant for holding page contents, and are a simpler alternative to `ui page grid`, view more [examples in docs](http://www.semantic-ui.com/elements/container.html#examples)
@@ -1101,8 +1101,8 @@ This release should fix bugs some may have encountered with `npm install semanti
 
 **Major Enhancements (Please Read)**
 - **Site** - Added new colors `olive`, `violet`, `brown` and `grey`. These are available in all elements with color variations.  **Thanks @lemartialou**
-- **API** - API can now be used with mocked responses, and custom AJAX requests. `mockResponse` has been added to resolve request with a prespecified JSON object, or a synchronous function callback.
-- **API** `mockResponseAsync` has been added for custom asynchronous requests. This allows you to specify a custom async callback to resolve an API request, helping with integration with libraries like Ember or Angular that may wrap AJAX requests.
+- **API** - API can now be used with mocked responses, and custom AJAX requests. `mockResponse` has been added to resolve api with a prespecified JSON object, or a synchronous function callback.
+- **API** `mockResponseAsync` has been added for custom asynchronous requests. This allows you to specify a custom async callback to resolve an API api, helping with integration with libraries like Ember or Angular that may wrap AJAX requests.
 - **API** - API callbacks now have an `onResponse` callback that can adjust a servers response before it is parsed by other callbacks for success or failure conditions. **Thanks @mnquintana**
 - **API** - API now provides a local caching setting to avoid server roundtrips for identical urls by using `cache: 'local'`. This is not enabled by default.  Local caching is useful for results that should return the same values across a single session, for example when querying an autocomplete.
 - **Card** - Cards now support multiple custom `content` blocks. Content blocks and images can now appear in any order.
@@ -1147,7 +1147,7 @@ This release should fix bugs some may have encountered with `npm install semanti
 - **Accordion** - adds `onOpening` and `onClosing` callback (before animation) to go with `onOpen`, `onClose` (after animation) **Thanks @cluppric**
 - **Accordion** - Added `on` setting for specifying accordion trigger event.
 - **Activity Feed** - Activity feed has been rewritten to use `flexbox`
-- **API** - API now has new settings `throttleFirstRequest` and `interruptRequests`. Interrupt requests will abort a previous request on an element when making a new request. `throttleFirstRequest`, sets whether the first request or only subsequent requests should be throttled when a `throttle` duration is specified.
+- **API** - API now has new settings `throttleFirstRequest` and `interruptRequests`. Interrupt requests will abort a previous api on an element when making a new api. `throttleFirstRequest`, sets whether the first api or only subsequent requests should be throttled when a `throttle` duration is specified.
 - **Build Tools** - Build tools will now display pre-specified errors when a theme file is missing or an element specifies an unavailable theme.
 - **Build Tools** - Adjusting `site.variables` will now rebuild all UI, instead of just `site.less`
 - **Button** - Added `:focus` styles for all button types, all button examples in docs now are keyboard focusable using either `<button>` or `tabindex` where appropriate.
@@ -1236,7 +1236,7 @@ This release should fix bugs some may have encountered with `npm install semanti
 - **All Modules** - Performance logging now delays 500ms instead of 100ms for console logging to ensure all logs are captured in one group
 - **All Modules/Transition** - Transitions no longer use `rotateZ(0deg)` to trigger GPU display of visible state. This causes issues with `transform` creating new stacking context that can disrupt `z-index`.
 - **Accordion** - Fixed bug where `exclusive: true` could sometimes cause other accordion element animations to get stuck when animating rapidly
-- **API** - API longer uses `readyState = 0` as sole check for request abort, this may accidentally trigger with `JSONP` or `CORS` requests.
+- **API** - API longer uses `readyState = 0` as sole check for api abort, this may accidentally trigger with `JSONP` or `CORS` requests.
 - **API** - Fixed `this` context of `beforeSend` to use `stateContext` not `element`
 - **API** - Fixed `loadingDuration` not correctly delaying requests when invoking with  `.api('query')`
 - **Build Tools** - Fixes issue with out of date minify dependency causing rules with `background: inherit;` to be removed.
@@ -1598,7 +1598,7 @@ No changes, fixes stale pm component builds
 - **Form Validation** - Adds `containsExactly`, `notExactly`, `isExactly` case sensitive validation rules, make `contains`, `not`, `is` case insensitive.
 - **Form Validation** - `contains` rule is now case insensitive
 - **Form Validation** - Validation messages no longer increase field height on `inline fields` like checkboxes after error appears
-- **API** - Added `was cancelled` to determine whether request was cancelled by `beforeSend`
+- **API** - Added `was cancelled` to determine whether api was cancelled by `beforeSend`
 - **Image* - Added `hidden image` state
 
 **Fixes**
@@ -1687,7 +1687,7 @@ Importing `semantic.less` still does not require any special syntax
 - **Segment** - Added plural variation `ui segments` that stack together in groups without using additional class names
 
 **Enhancement**
-- **API** - API now has an ``onRequest`` callback setting that receives the XHR promise after initializing the request
+- **API** - API now has an ``onRequest`` callback setting that receives the XHR promise after initializing the api
 - **Button** - Loading buttons no longer receive `pointer-events` in default theme. Added variable for `loading button` opacity.
 - **Card** - Card now has colored variations **Thanks @romuloctba**
 - **Dropdown** - `search selection dropdown` will now close the menu when a `dropdown icon` is clicked
@@ -1742,14 +1742,14 @@ Importing `semantic.less` still does not require any special syntax
 - **Dropdown** - Dropdown now stores `placeholder text` (prompt text) as separate from `default text` (text set on page load). You can now reset placeholder conditions using `$('.ui.dropdown').dropdown('clear');``
 
 **Enhancements**
-- **API** - Added new behavior `$.api('abort')` which cancels current request
+- **API** - Added new behavior `$.api('abort')` which cancels current api
 - **Dropdown** - Keyboard navigation will now allow opening of sub menus with right/left arrow. Enter will open sub-menus on an unselectable category (`allowCategorySelection: false`) as well.
 - **Dropdown** - Mutation observers will now observe changed in `<select>` values after initialization, and will automatically update dropdown menu when changed
 - **Dropdown** - Dropdown behavior `set selected` will now also call `set value` automatically, so you do not have to invoke two behaviors to update a `selection dropdown` **Thanks @mktm**
 - **Form** - Form will now prevent browsers from resubmitting form repeatedly when keydown is pressed on input field.
 - **Header** - Content headers now inherit `@h1-h6` sizes from `site.variables`
 - **Header** - Sub headers now adjust in size depending on header size, added new variables for subheader resizing
-- **Search** - Greatly reduced search delay from `300ms` to `100ms`. Previous request will automatically abort `xhr` when new request made
+- **Search** - Greatly reduced search delay from `300ms` to `100ms`. Previous api will automatically abort `xhr` when new api made
 - **Search** - Search `onSelect` and `onResultsAdd` can now cancel default actions by returning `false`.
 - **Transition** - Transition duration now defaults to what is specified in `css`, to set custom duration you can still pass at run-time as a different value. Animation duration no longer set by default during animation.
 - **Transition** - Transition will now prevent repeated animations when using an inferred direction i.e. animation without `in` or `out` specified. When `queue: true` only animations with explicit direction, e.g. `fade in`, will be ignored when called repeatedly.
@@ -2413,7 +2413,7 @@ Some updates to docs formatting
 
 **Major Updates**
 
--**Transition**: Transition has been completely rewritten, performance should be about 10x after first animation due to caching and use of request animation frame
+-**Transition**: Transition has been completely rewritten, performance should be about 10x after first animation due to caching and use of api animation frame
 
 **New Features**
 

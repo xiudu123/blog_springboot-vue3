@@ -357,7 +357,7 @@ $.fn.search = function(parameters) {
               searchHTML
             ;
             $.extend(true, apiSettings, settings.apiSettings);
-            module.verbose('Setting up API request', apiSettings);
+            module.verbose('Setting up API api', apiSettings);
             $module.api(apiSettings);
           }
         },

@@ -25,7 +25,7 @@ Migration info from `1.x` can be found in the [2.0 release notes](https://github
 
 ## User Support
 
-Please help us keep the issue tracker organized. For technical questions that do not include a specific [JSFiddle test case](https://jsfiddle.net/ca0rovs3/) (bug reports), or feature request please use [StackOverflow](http://stackoverflow.com/questions/tagged/semantic-ui) to find a solution.
+Please help us keep the issue tracker organized. For technical questions that do not include a specific [JSFiddle test case](https://jsfiddle.net/ca0rovs3/) (bug reports), or feature api please use [StackOverflow](http://stackoverflow.com/questions/tagged/semantic-ui) to find a solution.
 
 Visit our [contributing guide](https://github.com/Semantic-Org/Semantic-UI/blob/master/CONTRIBUTING.md) for more on what should be posted to GitHub Issues.
 
