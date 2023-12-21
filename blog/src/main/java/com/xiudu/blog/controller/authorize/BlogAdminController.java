@@ -1,5 +1,7 @@
 package com.xiudu.blog.controller.authorize;
 
+import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.Blog;
 import com.xiudu.blog.service.BlogService;
@@ -7,12 +9,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: 锈渎
@@ -28,6 +29,34 @@ public class BlogAdminController {
     @Autowired
     private BlogService blogService;
 
+    @Operation(summary = "查看博客", description = "用户根据userId查看博客")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "页码", required = false),
+    })
+    @GetMapping("/get/all")
+    public Result<?> getBlogAll(@RequestParam(defaultValue = "1") Integer pageNum) {
+        Long userId = Long.parseLong((String) StpUtil.getLoginId());
+
+        Page<Blog> blogPage = blogService.listBlogByUserId(pageNum, userId);
+        Map<String, Object> result = new HashMap<>();
+        result.put("pageInfo", blogPage);
+        result.put("prePage", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
+        result.put("nextPage", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
+        return Result.success(result);
+    }
+
+    @GetMapping("/get/search")
+    public Result<?> getBlogSearch(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam Map<String, String> query) {
+        System.out.println(query);
+        return Result.success();
+//        Long userId = Long.parseLong((String) StpUtil.getLoginId());
+//        Page<Blog> blogPage = blogService.listBlogByUserIdAndQuery(pageNum, userId, query);
+//        Map<String, Object> result = new HashMap<>();
+//        result.put("pageInfo", blogPage);
+//        result.put("prePage", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
+//        result.put("nextPage", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
+//        return Result.success(result);
+    }
 
 
     @Operation(summary = "添加博客", description = "添加博客")

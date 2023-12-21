@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.pojo.Blog;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 锈渎 on 2023/12/13 18:36
@@ -26,8 +27,9 @@ public interface BlogService {
 
     Blog getAndConvert(Long blogId);
     Long blogCount();
-    int blogPageCount();
     int blogPageCountByTypeId(Long typeId);
 
-
+    // 用户后台管理
+    Page<Blog> listBlogByUserId(Integer pageNum, Long userId);
+    Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Long userId, Map<String, String> query);
 }

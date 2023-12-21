@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author: 锈渎
@@ -143,11 +144,6 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int blogPageCount() {
-        return (int)(blogMapper.selectBlogCount() + 9) / 10;
-    }
-
-    @Override
     public int blogPageCountByTypeId(Long typeId) {
         return (int)(blogMapper.selectBlogCountByTypeId(typeId) + 9) / 10;
     }
@@ -163,6 +159,25 @@ public class BlogServiceImpl implements BlogService {
         return blog;
     }
 
+    @Override
+    public Page<Blog> listBlogByUserId(Integer pageNum, Long userId) {
+        Page<Blog> page = new Page<>(pageNum, 10);
+        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId).orderByDesc( "create_time");
+        return getBlogPage(page, queryWrapper);
+    }
+
+    @Override
+    public Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Long userId, Map<String, String> query) {
+        Page<Blog> page = new Page<>(pageNum, 10);
+        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        if(query.get("title") != null && !("".equals(query.get("title")))) queryWrapper.like("title", query.get("title"));
+        if(query.get("type_id") != null && !("-1".equals(query.get("type_id")))) queryWrapper.eq("type_id", query.get("type_id"));
+        if("1".equals(query.get("top"))) queryWrapper.eq("top", 1);
+        if("1".equals(query.get("published"))) queryWrapper.eq("published", 1);
+        return getBlogPage(page, queryWrapper);
+    }
 
     private Page<Blog> getBlogPage(Page<Blog> page, QueryWrapper<Blog> queryWrapper) {
         Page<Blog> blogPage = blogMapper.selectPage(page, queryWrapper);

@@ -1,5 +1,6 @@
 package com.xiudu.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xiudu.blog.mapper.UserMapper;
 import com.xiudu.blog.pojo.User;
 import com.xiudu.blog.service.UserService;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User checkUser(String username, String password) {
+
        return userMapper.selectByUsernameAndPassword(username, password);
     }
 

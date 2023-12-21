@@ -34,11 +34,7 @@ public class BlogController {
     })
     @GetMapping("/index")
     public Result<?> index(@RequestParam(defaultValue = "1") Integer pageNum) {
-        int pageCount = blogService.blogPageCount();
-        if((pageCount < pageNum) || (pageNum < 1)) {
-            if(pageNum < 1) pageNum = 1;
-            if(pageNum > pageCount) pageNum = pageCount;
-        }
+
         Page<Blog> blogPage = blogService.listBlogIndex(pageNum);
         Map<String, Object> result = new HashMap<>();
         result.put("pageInfo", blogPage);
@@ -55,11 +51,6 @@ public class BlogController {
     @GetMapping("/search")
     public Result<?> search(@RequestParam(defaultValue = "1") Integer pageNum,
                             @RequestParam String query) {
-        int pageCount = blogService.blogPageCount();
-        if((pageCount < pageNum) || (pageNum < 1)) {
-            if(pageNum < 1) pageNum = 1;
-            if(pageNum > pageCount) pageNum = pageCount;
-        }
 
         Page<Blog> blogPage = blogService.listBlogSearch(pageNum, query);
 
