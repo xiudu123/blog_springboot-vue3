@@ -30,6 +30,5 @@ public interface BlogService {
     int blogPageCountByTypeId(Long typeId);
 
     // 用户后台管理
-    Page<Blog> listBlogByUserId(Integer pageNum, Long userId);
     Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Long userId, Map<String, String> query);
 }

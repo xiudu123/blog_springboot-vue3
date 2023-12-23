@@ -29,15 +29,26 @@ public class BlogAdminController {
     @Autowired
     private BlogService blogService;
 
-    @Operation(summary = "查看博客", description = "用户根据userId查看博客")
-    @Parameters({
-            @Parameter(name = "pageNum", description = "页码", required = false),
-    })
-    @GetMapping("/get/all")
-    public Result<?> getBlogAll(@RequestParam(defaultValue = "1") Integer pageNum) {
+
+
+    @GetMapping("/get/search")
+    public Result<?> getBlogSearch(@RequestParam(defaultValue = "1") Integer pageNum,
+                                   @RequestParam(defaultValue = "") String title,
+                                   @RequestParam(defaultValue = "-1") String typeId,
+                                   @RequestParam(defaultValue = "false") Boolean top,
+                                   @RequestParam(defaultValue = "false") Boolean published) {
+
         Long userId = Long.parseLong((String) StpUtil.getLoginId());
 
-        Page<Blog> blogPage = blogService.listBlogByUserId(pageNum, userId);
+        Map<String, String> query= new HashMap<>();
+        query.put("title", title);
+        query.put("typeId", typeId);
+        if(top) query.put("top", "1");
+        else query.put("top", "0");
+        if(published) query.put("published", "1");
+        else query.put("published", "0");
+
+        Page<Blog> blogPage = blogService.listBlogByUserIdAndQuery(pageNum, userId, query);
         Map<String, Object> result = new HashMap<>();
         result.put("pageInfo", blogPage);
         result.put("prePage", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
@@ -45,29 +56,16 @@ public class BlogAdminController {
         return Result.success(result);
     }
 
-    @GetMapping("/get/search")
-    public Result<?> getBlogSearch(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam Map<String, String> query) {
-        System.out.println(query);
-        return Result.success();
-//        Long userId = Long.parseLong((String) StpUtil.getLoginId());
-//        Page<Blog> blogPage = blogService.listBlogByUserIdAndQuery(pageNum, userId, query);
-//        Map<String, Object> result = new HashMap<>();
-//        result.put("pageInfo", blogPage);
-//        result.put("prePage", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
-//        result.put("nextPage", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
-//        return Result.success(result);
+    @GetMapping("get/one")
+    public Result<?> getBlogOne(@RequestParam Long blogId) {
+        Blog blog = blogService.getBlog(blogId);
+        if(blog == null) return Result.error("该博客不存在或已被删除");
+        else return Result.success(blog);
     }
 
-
-    @Operation(summary = "添加博客", description = "添加博客")
-    @Parameters({
-            @Parameter(name = "title", description = "标题", required = true),
-            @Parameter(name = "typeId", description = "类型Id", required = true),
-            @Parameter(name = "firstPicture", description = "首图", required = true),
-            @Parameter(name = "content", description = "博客内容", required = true)
-    })
     @PostMapping("/add")
-    public Result<?> addBlog(Blog blog) {
+    public Result<?> addBlog(@RequestBody Blog blog) {
+
         if ("".equals(blog.getTitle()) || blog.getTitle() == null) {
             return Result.error("请输入标题");
         }
@@ -96,14 +94,6 @@ public class BlogAdminController {
         else return Result.success();
     }
 
-    @Operation(summary = "修改博客", description = "修改博客")
-    @Parameters({
-            @Parameter(name = "id", description = "博客id", required = true),
-            @Parameter(name = "title", description = "标题", required = true),
-            @Parameter(name = "typeId", description = "类型Id", required = true),
-            @Parameter(name = "firstPicture", description = "首图", required = true),
-            @Parameter(name = "content", description = "博客内容", required = true)
-    })
     @PostMapping("/update")
     public Result<?> updateBlog(@RequestBody Blog newBlog) {
         if("".equals(newBlog.getTitle()) || newBlog.getTitle() == null) {

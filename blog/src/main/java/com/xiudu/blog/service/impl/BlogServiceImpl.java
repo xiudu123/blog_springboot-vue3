@@ -149,6 +149,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
 
+
     @Override
     public Blog getAndConvert(Long blogId) { // 渲染博客;
         Blog blog = getBlog(blogId);
@@ -159,23 +160,18 @@ public class BlogServiceImpl implements BlogService {
         return blog;
     }
 
-    @Override
-    public Page<Blog> listBlogByUserId(Integer pageNum, Long userId) {
-        Page<Blog> page = new Page<>(pageNum, 10);
-        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", userId).orderByDesc( "create_time");
-        return getBlogPage(page, queryWrapper);
-    }
 
     @Override
     public Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Long userId, Map<String, String> query) {
         Page<Blog> page = new Page<>(pageNum, 10);
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", userId);
-        if(query.get("title") != null && !("".equals(query.get("title")))) queryWrapper.like("title", query.get("title"));
-        if(query.get("type_id") != null && !("-1".equals(query.get("type_id")))) queryWrapper.eq("type_id", query.get("type_id"));
+        queryWrapper.eq("user_id", userId).orderByDesc( "create_time");
+        System.out.println(query);
+
+        if(!("".equals(query.get("title"))))  queryWrapper.like("title", query.get("title"));
+        if(!("-1".equals(query.get("typeId")))) queryWrapper.eq("type_id", query.get("typeId"));
         if("1".equals(query.get("top"))) queryWrapper.eq("top", 1);
-        if("1".equals(query.get("published"))) queryWrapper.eq("published", 1);
+        if("1".equals(query.get("published"))) queryWrapper.eq("published", 0);
         return getBlogPage(page, queryWrapper);
     }
 

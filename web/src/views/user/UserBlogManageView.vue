@@ -14,9 +14,9 @@
             <!--                    分类-->
             <div class="field">
                 <!--                        <label>-->
-                <select class="ui search dropdown" name="typeId" v-model="search.type_id">
-                    <option value="-1">选择分类</option>
-                    <option value="1">只</option>
+                <select class="ui search dropdown" name="typeId"  v-model="search.type_id">
+                    <option value="-1"> </option>
+                    <option v-for="type in type_list.records" :key="type.id" :value="type.id"> {{ type.name }} </option>
                 </select>
                 <!--                        </label>-->
             </div>
@@ -37,7 +37,7 @@
             </div>
             <!--                    搜索-->
             <div class="field">
-                <button id="search-btn" type="button" class="ui teal basic button" @click="getBlogListSearch"> <i class="search icon"></i>搜索</button>
+                <button id="search-btn" type="button" class="ui teal basic button" @click="getBlogSearch(1)"> <i class="search icon"></i>搜索</button>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
     <!--文章栏-->
     <div class="ui segments">
         <div class="ui segment right aligned">
-            <a href="#" class="ui blue basic button">新增</a>
+            <router-link :to="{name : 'user_blog_input'}" class="ui blue basic button">新增</router-link>
         </div>
 
         <div id="table-container">
@@ -87,20 +87,18 @@
                     <td > {{ blogs.createTime }} </td>
                     <td > {{ blogs.updateTime }} </td>
                     <td>
-                        <button class="ui mini blue button">编辑</button>
-                        <button onclick="return confirm('确定要删除该博客吗？')" class="ui mini red button">删除</button>
+                        <button class="ui mini blue button" @click="updateBlog(blogs.id)">编辑</button>
+                        <button class="ui mini red button" @click="showConfirmDia(blogs.id)">删除</button>
                     </td>
                 </tr>
-
                 </tbody>
-
                 <tfoot>
                 <tr>
                     <th colspan="9">
                         <div class="ui right floated pagination menu">
 
                             <!--                            上一页-->
-                            <a href="#" class="icon item " style="border: none" v-if="blog_page.current !== 1" @click="getBlogList(blog_page.current - 1)">
+                            <a href="#" class="icon item " style="border: none" v-if="blog_page.current !== 1" @click="getBlogSearch(blog_page.current - 1)">
                                 <i class="left chevron icon"></i>
                             </a>
                             <!--                            页码-->
@@ -108,7 +106,7 @@
                                 <a href="#" class="item" > {{blog_page.current}} </a>
                             </div>
                             <!--                            下一页-->
-                            <a href="#" class="icon item" style="border: none" v-if="blog_page.current !== blog_page.total" @click="getBlogList(blog_page.current + 1)">
+                            <a href="#" class="icon item" style="border: none" v-if="blog_page.current !== blog_page.total" @click="getBlogSearch(blog_page.current + 1)">
                                 <i  class="right chevron icon"></i>
                             </a>
 
@@ -120,8 +118,27 @@
                     </th>
                 </tr>
                 </tfoot>
-
             </table>
+
+            <div class="ui mini basic modal">
+                <div class="ui icon header">
+                    <i class="archive icon"></i>
+                    是否删除
+                </div>
+                <div class="content">
+                    <p>确定要删除这篇博客吗?</p>
+                </div>
+                <div class="actions">
+                    <div class="ui red basic cancel inverted button">
+                        <i class="remove icon"></i>
+                        取消
+                    </div>
+                    <div class="ui green ok inverted button">
+                        <i class="checkmark icon"></i>
+                        确定
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -133,16 +150,20 @@
 import UserContentFieldCom from "@/components/UserContentFieldCom";
 import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
+import {useRouter} from "vue-router";
 
 export default {
     name: "UserBlogManageView",
     components: {UserContentFieldCom},
     setup() {
+        const router = useRouter();
         const success_message = ref("");
         const error_message = ref("");
         const blog_page = reactive({});
         const blog_list = reactive({});
+        const type_list = reactive({});
         const search = reactive({});
+        const isConfirmDia = ref(false);
         let blog_uid = 1;
         const close_success_message = () => {
             success_message.value = "";
@@ -153,12 +174,49 @@ export default {
         const generateUniqueId = () => {
             return blog_uid ++;
         }
-        const getBlogList = (page_num) => {
-            axios.get("http://127.0.0.1:3000/authorize/blog/get/all", {
-                params: {"pageNum": JSON.stringify(page_num)},
+
+        const showConfirmDia = (blog_id) => {
+            // eslint-disable-next-line no-undef
+            $('.ui.mini.basic.modal')
+                .modal({
+                    onShow:function () {
+                        console.log(blog_id)
+                    },
+                    onApprove: () => {
+                      console.log("确认");
+                      deleteBlog(blog_id);
+                    },
+                    onDeny: () => {
+
+                    }
+                })
+                .modal('show');
+
+        }
+
+        const getTypeList = () => {
+            axios.get("http://127.0.0.1:3000/authorize/types/get/all", {
                 headers: {
                     "satoken": localStorage.getItem("token"),
-                    'Content-Type': "application/json",
+                    'Content-Type': "application/x-www-form-urlencoded",
+                },
+            }).then(resp => {
+                type_list.records = resp.data.data;
+            }).catch();
+        }
+
+        const getBlogSearch = (page_num) => {
+            axios.get("http://127.0.0.1:3000/authorize/blog/get/search", {
+                params: {
+                    "pageNum": page_num,
+                    "title": search.title,
+                    "typeId": search.type_id,
+                    "top": search.top,
+                    "published": search.published
+                },
+                headers: {
+                    "satoken": localStorage.getItem("token"),
+                    'Content-Type': "application/x-www-form-urlencoded",
                 },
             }).then(resp => {
                 if(resp.data.error === "success") {
@@ -167,16 +225,39 @@ export default {
                     blog_page.pre = data.prePage;
                     blog_page.next = data.nextPage;
                     blog_page.current = data.pageInfo.current;
-                    blog_page.total = data.pages;
+                    blog_page.total = data.pageInfo.pages;
                     blog_list.records = data.pageInfo.records;
                 }
             }).catch(
             )
         }
 
+        const updateBlog = (blog_id) => {
+            router.push({
+                name: 'user_blog_update',
+                query: {
+                    id: blog_id
+                }
+            })
+        }
+
+        const deleteBlog = (blog_id) => {
+            axios.post("http://127.0.0.1:3000/authorize/blog/delete", blog_id, {
+                headers: {
+                    "satoken": localStorage.getItem("token"),
+                    'Content-Type': 'application/json',
+                },
+            }).then(() => {
+                getBlogSearch(blog_page.current);
+                success_message.value = "操作成功";
+            }).catch(() => {
+                error_message.value = "操作失败, 请稍后再试";
+            })
+        }
 
         onMounted(() => {
-            getBlogList(1);
+            getBlogSearch(1);
+            getTypeList();
         })
 
 
@@ -186,10 +267,16 @@ export default {
             close_success_message,
             close_error_message,
             generateUniqueId,
-            getBlogList,
+            getBlogSearch,
+            getTypeList,
+            showConfirmDia,
+            updateBlog,
+            deleteBlog,
+            type_list,
             blog_page,
             blog_list,
-            search
+            search,
+            isConfirmDia
         }
     }
 }

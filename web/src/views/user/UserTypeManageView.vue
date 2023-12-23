@@ -44,12 +44,12 @@
             </thead>
 
             <tbody>
-            <tr>
+            <tr v-for="type in type_list.records" :key="type.id">
                 <!--                    <div th:text="${type}"></div>-->
-                <td>1</td>
-                <td>codeforces</td>
-                <td>2023-5-28</td>
-                <td>2023-5-28</td>
+                <td> {{ generateUniqueId() }} </td>
+                <td> {{ type.name }} </td>
+                <td> {{ type.createTime }} </td>
+                <td> {{ type.updateTime }} </td>
                 <td>
                     <a href="#" class="ui mini blue button">编辑</a>
                     <a href="#" onclick="return confirm('确定要删除该分类吗？')" class="ui mini red button">删除</a>
@@ -92,23 +92,48 @@
 
 <script>
 import UserContentFieldCom from "@/components/UserContentFieldCom";
-import {ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
+import axios from "axios";
 export default {
     name: "UserTypeManage",
     components: {UserContentFieldCom,},
     setup() {
-        const error_message = ref("操作失败");
-        const success_message = ref("操作成功");
+        const error_message = ref("");
+        const success_message = ref("");
+        const type_list = reactive({});
+        let type_id = 1;
         const close_error_message = () => {
             error_message.value = "";
         }
         const close_success_message = () => {
             success_message.value = "";
         }
+        const generateUniqueId = () => {
+            return type_id ++;
+        }
+        const getTypeList = () => {
+            axios.get("http://127.0.0.1:3000/authorize/types/get/all", {
+                headers: {
+                    "satoken": localStorage.getItem("token"),
+                    'Content-Type': "application/x-www-form-urlencoded",
+                },
+            }).then(resp => {
+                type_list.records = resp.data.data;
+                console.log(type_list.records)
+            }).catch();
+        }
+
+        onMounted(() => {
+            getTypeList();
+        })
 
         return {
             error_message,
             success_message,
+            type_list,
+            type_id,
+            generateUniqueId,
+            getTypeList,
             close_error_message,
             close_success_message
         }

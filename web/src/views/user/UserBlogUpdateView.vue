@@ -20,7 +20,7 @@
                             <div class="ui fluid selection dropdown my-type"  @mouseup="typeMenu" >
                                 <input type="hidden" value="-1" name="typeId">
                                 <i class="dropdown icon"></i>
-                                <div class="default text">选择分类</div>
+                                <div class="default text">{{ blog_info.typeName }}</div>
                                 <div class="menu">
                                     <div class="item" v-for="type in type_list.records" :key="type.id" :data-value="type.id"> {{ type.name }} </div>
                                 </div>
@@ -73,23 +73,26 @@
 
 <script>
 import UserContentFieldCom from "@/components/UserContentFieldCom";
-import {onMounted, reactive, ref} from "vue";
+import {onBeforeMount, reactive, ref} from "vue";
 import axios from "axios";
+import {useRoute} from "vue-router";
 export default {
     name: "UserBlogInputView",
     components: {UserContentFieldCom,},
     setup() {
+        const router = useRoute();
         const error_message = ref("");
         const type_list = reactive({});
         const blog_info = reactive({
+            id: -1,
             title: "",
-            type_id: -1,
             firstPicture: "",
             content: "",
             overview: "",
             top: false,
             comment: false,
             published: true,
+            typeName: "",
         });
         const close_error_message = () => {
             error_message.value = "";
@@ -113,29 +116,58 @@ export default {
 
         const submit = () => {
             // eslint-disable-next-line no-undef
-            blog_info.typeId = $(".ui.dropdown.my-type").dropdown('get value');
-
-
-            axios.post("http://127.0.0.1:3000/authorize/blog/add", blog_info, {
+            const typeId = $(".ui.dropdown.my-type").dropdown('get value');
+            if(typeId !== "-1") blog_info.typeId = typeId;
+            axios.post("http://127.0.0.1:3000/authorize/blog/update", blog_info, {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': 'application/json',
                 },
             }).then((resp) => {
+                console.log(resp);
                 if(resp.data.error === "success") window.history.go(-1);
                 else {
                     error_message.value = resp.data.error;
                 }
             }).catch()
-
-
         }
+
+
         const noPublish = () => {
             blog_info.published = false;
             submit();
         }
-        onMounted(() => {
-            getTypeList()
+
+        const getBlog = () => {
+            blog_info.id = router.query.id;
+            axios.get("http://127.0.0.1:3000/authorize/blog/get/one", {
+                params: {
+                    "blogId" : blog_info.id,
+                },
+                headers: {
+                    "satoken": localStorage.getItem("token"),
+                    'Content-Type': "application/x-www-form-urlencoded",
+                },
+            }).then(resp => {
+                if(resp.data.error === "success") {
+                    const data = resp.data.data;
+                    blog_info.title = data.title;
+                    blog_info.typeId = data.typeId;
+                    blog_info.firstPicture = data.firstPicture;
+                    blog_info.content = data.content;
+                    blog_info.overview = data.overview;
+                    blog_info.top = data.top;
+                    blog_info.comment = data.comment;
+                    blog_info.published = true;
+                    blog_info.typeName = data.typeName;
+                }
+
+            }).catch()
+        }
+
+        onBeforeMount(() => {
+            getBlog()
+            getTypeList();
         })
 
         return {

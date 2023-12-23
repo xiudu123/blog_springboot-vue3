@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: 锈渎
@@ -20,6 +21,12 @@ import java.util.Date;
 public class TypeAdminController {
     @Autowired
     private TypeService typeService;
+
+    @GetMapping("/get/all")
+    public Result<?> getTypeAll() {
+        List<Type> types = typeService.listTypeAll();
+        return Result.success(types);
+    }
 
     @Operation(summary = "添加分类", description = "添加分类")
     @PostMapping("/add")

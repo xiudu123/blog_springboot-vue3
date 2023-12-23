@@ -9,6 +9,7 @@ import NotFoundView from "@/views/NotFoundView";
 import UserIndexView from "@/views/user/UserIndexView";
 import UserBlogInputView from "@/views/user/UserBlogInputView";
 import UserBlogManageView from "@/views/user/UserBlogManageView";
+import UserBlogUpdateView from "@/views/user/UserBlogUpdateView";
 import UserLoginView from "@/views/user/UserLoginView";
 import UserTypeInput from "@/views/user/UserTypeInputView";
 import UserTypeManage from "@/views/user/UserTypeManageView";
@@ -100,6 +101,14 @@ const routes = [
     path: "/user/blog/manage",
     name: "user_blog_manage",
     component: UserBlogManageView,
+    meta: {
+      requestAuth: true,
+    }
+  },
+  {
+    path: "/user/blog/update",
+    name: "user_blog_update",
+    component: UserBlogUpdateView,
     meta: {
       requestAuth: true,
     }

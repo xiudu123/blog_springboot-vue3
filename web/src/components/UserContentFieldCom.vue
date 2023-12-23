@@ -1,6 +1,5 @@
 <template>
     <!--导航-->
-<User/>
     <UserNavbarCom/>
     <!--中间元素-->
     <div id="main">
