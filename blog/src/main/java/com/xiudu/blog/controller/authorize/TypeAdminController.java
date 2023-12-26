@@ -1,5 +1,6 @@
 package com.xiudu.blog.controller.authorize;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.Type;
 import com.xiudu.blog.service.TypeService;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: 锈渎
@@ -21,6 +24,17 @@ import java.util.List;
 public class TypeAdminController {
     @Autowired
     private TypeService typeService;
+
+    @GetMapping("/get/search")
+    public Result<?> getTypeSearch(@RequestParam Integer pageNum, @RequestParam String typeName) {
+
+        Page<Type> typePage = typeService.listTypeAndSearch(pageNum, typeName);
+        Map<String, Object> result = new HashMap<>();
+        result.put("pageInfo", typePage);
+        result.put("prePage", (typePage.getCurrent() - (typePage.hasPrevious() ? 1 : 0)));
+        result.put("nextPage", (typePage.getCurrent() + (typePage.hasNext() ? 1 : 0)));
+        return Result.success(result);
+    }
 
     @GetMapping("/get/all")
     public Result<?> getTypeAll() {

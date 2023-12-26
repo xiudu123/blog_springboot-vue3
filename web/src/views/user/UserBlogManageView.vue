@@ -77,8 +77,8 @@
                 </thead>
 
                 <tbody>
-                <tr v-for="blogs in blog_list.records" :key="blogs.id">
-                    <td > {{ generateUniqueId() }} </td>
+                <tr v-for="(blogs, index) in blog_list.records" :key="blogs.id">
+                    <td > {{ index + 1 }} </td>
                     <td > {{ blogs.title }} </td>
                     <td > {{ blogs.typeName }} </td>
                     <td > {{ blogs.top ? "是" : "否" }} </td>
@@ -164,17 +164,12 @@ export default {
         const type_list = reactive({});
         const search = reactive({});
         const isConfirmDia = ref(false);
-        let blog_uid = 1;
         const close_success_message = () => {
             success_message.value = "";
         }
         const close_error_message = () => {
             error_message.value = "";
         }
-        const generateUniqueId = () => {
-            return blog_uid ++;
-        }
-
         const showConfirmDia = (blog_id) => {
             // eslint-disable-next-line no-undef
             $('.ui.mini.basic.modal')
@@ -195,7 +190,7 @@ export default {
         }
 
         const getTypeList = () => {
-            axios.get("http://127.0.0.1:3000/authorize/types/get/all", {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/types/get/all", {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': "application/x-www-form-urlencoded",
@@ -206,7 +201,7 @@ export default {
         }
 
         const getBlogSearch = (page_num) => {
-            axios.get("http://127.0.0.1:3000/authorize/blog/get/search", {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/get/search", {
                 params: {
                     "pageNum": page_num,
                     "title": search.title,
@@ -220,7 +215,6 @@ export default {
                 },
             }).then(resp => {
                 if(resp.data.error === "success") {
-                    blog_uid = 1;
                     const data = resp.data.data;
                     blog_page.pre = data.prePage;
                     blog_page.next = data.nextPage;
@@ -242,7 +236,7 @@ export default {
         }
 
         const deleteBlog = (blog_id) => {
-            axios.post("http://127.0.0.1:3000/authorize/blog/delete", blog_id, {
+            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/delete", blog_id, {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': 'application/json',
@@ -266,7 +260,6 @@ export default {
             error_message,
             close_success_message,
             close_error_message,
-            generateUniqueId,
             getBlogSearch,
             getTypeList,
             showConfirmDia,

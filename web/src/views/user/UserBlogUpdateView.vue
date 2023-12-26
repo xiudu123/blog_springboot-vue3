@@ -104,7 +104,7 @@ export default {
         }
 
         const getTypeList = () => {
-            axios.get("http://127.0.0.1:3000/authorize/types/get/all", {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/types/get/all", {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': "application/x-www-form-urlencoded",
@@ -118,7 +118,7 @@ export default {
             // eslint-disable-next-line no-undef
             const typeId = $(".ui.dropdown.my-type").dropdown('get value');
             if(typeId !== "-1") blog_info.typeId = typeId;
-            axios.post("http://127.0.0.1:3000/authorize/blog/update", blog_info, {
+            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/update", blog_info, {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ export default {
 
         const getBlog = () => {
             blog_info.id = router.query.id;
-            axios.get("http://127.0.0.1:3000/authorize/blog/get/one", {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/get/one", {
                 params: {
                     "blogId" : blog_info.id,
                 },

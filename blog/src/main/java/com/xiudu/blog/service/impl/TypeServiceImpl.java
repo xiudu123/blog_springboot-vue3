@@ -55,15 +55,6 @@ public class TypeServiceImpl implements TypeService {
         return typeMapper.updateById(newType);
     }
 
-    @Override
-    public Long typeCount() {
-        return typeMapper.selectCount();
-    }
-
-    @Override
-    public int typeCountPage() {
-        return (int)(typeMapper.selectCount() + 9) / 10;
-    }
 
     @Override
     public Boolean isEmptyByTypeName(String name) {
@@ -76,16 +67,12 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Page<Type> listType(Integer pageNum) {
+    public Page<Type> listTypeAndSearch(Integer pageNum, String typeName) {
         Page<Type> page = new Page<>(pageNum, 10);
         QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
+        if(typeName != null && !"".equals(typeName)) queryWrapper.like("name", typeName);
         return typeMapper.selectPage(page, queryWrapper);
-    }
-
-    @Override
-    public Type getTypeByName(String name) {
-        return typeMapper.selectByName(name);
     }
 
     @Override
@@ -93,7 +80,7 @@ public class TypeServiceImpl implements TypeService {
         List<Type> types = typeMapper.selectList(null);
         for(Type type : types) {
             QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("type_id", type.getId());
+            queryWrapper.eq("type_id", type.getId()).eq("published", "1");
             type.setCount(blogMapper.selectCount(queryWrapper));
         }
         return types;

@@ -10,6 +10,7 @@ export default({
         username: "",
         avatar: "",
         token: "",
+        email: "",
         loading: false, // 数据加载状态
     },
     getters: {
@@ -22,6 +23,7 @@ export default({
             state.nickname = user.nickname;
             state.avatar = user.avatar;
             state.is_login = user.is_login;
+            state.email = user.email;
         },
         updateLoading(state, loading) {
             state.loading = loading;
@@ -36,7 +38,7 @@ export default({
                 username: data.username,
                 password: data.password,
             }
-            axios.post("http://127.0.0.1:3000/user/login", param, {
+            axios.post(process.env.VUE_APP_API_BASE_URL + "/user/login", param, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -55,7 +57,7 @@ export default({
             });
         },
         userUpdateInfo(content, data) {
-            axios.get("http://127.0.0.1:3000/user/check", {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/user/check", {
                 headers: {
                     "satoken": data.token,
                     'Content-Type': "application/json",
@@ -64,7 +66,11 @@ export default({
             .then(resp => {
                 if(resp.data.error === "success") {
                     content.commit("updateUser", {
-                        ...resp.data.data,
+                        id: resp.data.data.id,
+                        username: resp.data.data.username,
+                        nickname: resp.data.data.nickname,
+                        avatar: resp.data.data.avatar,
+                        email: resp.data.data.email,
                         is_login: true,
                     })
                     content.commit("updateToken", resp.data.data.token);
@@ -76,7 +82,7 @@ export default({
             })
         },
         userLogout(content, data) {
-            axios.get("http://127.0.0.1:3000/user/logout", {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/user/logout", {
                 headers: {
                     "satoken": data.token,
                     'Content-Type': "application/json",

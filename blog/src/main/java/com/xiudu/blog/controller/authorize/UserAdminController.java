@@ -58,7 +58,6 @@ public class UserAdminController {
         Long userId = StpUtil.getLoginIdAsLong();
         User user = userService.selectUserById(userId);
         user.setPassword(null);
-
         return Result.success(user);
     }
 

@@ -67,7 +67,7 @@ public class BlogController {
     @Parameters({
             @Parameter(name = "blogId", description = "博客Id", required = true)
     })
-    @GetMapping("/blog")
+    @GetMapping("/blog/id")
     public Result<?> blog(@RequestParam Long blogId) {
         return Result.success(blogService.getAndConvert(blogId));
     }

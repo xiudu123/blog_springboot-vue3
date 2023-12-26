@@ -40,13 +40,18 @@ public class CommentController {
         List<Comment> comments = commentService.listCommentByBlogId(blogId);
         Map<Long, List<Comment>> childrenComment = eachChildrenComment(comments);
         Map<Long, String> idToName = new HashMap<>();
-        for(Comment comment : comments) idToName.put(comment.getId(), comment.getNickname());
+        Map<Long, Long> idToUserId = new HashMap<>();
+        for(Comment comment : comments) {
+            idToName.put(comment.getId(), comment.getNickname());
+            idToUserId.put(comment.getId(), comment.getUserId());
+        }
         if(childrenComment.containsKey(-1L)) Collections.reverse(childrenComment.get(-1L));
 
         Map<String, Object> result = new HashMap<>();
         result.put("comments", childrenComment.get(-1L));
         result.put("replyComments", childrenComment);
         result.put("idToName", idToName);
+        result.put("idToUserId", idToUserId);
         return Result.success(result);
     }
 
@@ -64,7 +69,6 @@ public class CommentController {
         if(StpUtil.isLogin()) {
             User user = userService.selectUserById((Long) StpUtil.getLoginId());
             comment.setAvatar(user.getAvatar());
-            comment.setAdminComment(true);
             comment.setNickname(user.getNickname());
         }
 

@@ -15,12 +15,9 @@ public interface TypeService {
 
     int updateType(Long id, Type type);
 
-    Long typeCount();
-    int typeCountPage();
     Boolean isEmptyByTypeName(String name);
     Type getType(Long id);
-    Page<Type> listType(Integer pageNum);
-    Type getTypeByName(String name);
+    Page<Type> listTypeAndSearch(Integer pageNum, String typeName);
     List<Type> listTypeAll();
 
 

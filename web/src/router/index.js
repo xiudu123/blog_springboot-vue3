@@ -14,13 +14,22 @@ import UserLoginView from "@/views/user/UserLoginView";
 import UserTypeInput from "@/views/user/UserTypeInputView";
 import UserTypeManage from "@/views/user/UserTypeManageView";
 import BlogView from "@/views/BlogView";
+import ImageView from "@/views/ImageView";
 import {nextTick} from "vue";
 import store from "@/store";
 const routes = [
   {
     path: "/",
     name: "home",
-    redirect: "/index",
+    redirect: "/show",
+    meta: {
+      requestAuth: false,
+    }
+  },
+  {
+    path: "/show",
+    name: "image",
+    component: ImageView,
     meta: {
       requestAuth: false,
     }

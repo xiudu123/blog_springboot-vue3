@@ -41,13 +41,6 @@ public class TypeShowController {
     @GetMapping("/type")
     public Result<?> types(@RequestParam(defaultValue = "1") Integer pageNum,
                            @RequestParam Long typeId) {
-        List<Type> types = typeService.listTypeAll();
-        int pageCount = blogService.blogPageCountByTypeId(typeId);
-
-        if((pageCount < pageNum) || (pageNum < 1)) {
-            if(pageNum < 1) pageNum = 1;
-            if(pageNum > pageCount) pageNum = pageCount;
-        }
 
         Page<Blog> page = blogService.listBlogByTypedId(pageNum, typeId);
 
@@ -59,7 +52,6 @@ public class TypeShowController {
                 .boxed()
                 .toList(); // 生成页码页表
         Map<String, Object> result = new HashMap<>();
-        result.put("types", types);
         result.put("pageNumbers", pageNumbers);
         result.put("pageInfo", page);
         result.put("prePage", (page.getCurrent() - (page.hasPrevious() ? 1 : 0)));
@@ -69,24 +61,12 @@ public class TypeShowController {
     }
 
     @GetMapping("/types")
-    public Result<?> getTypes(@RequestParam(defaultValue = "1") Integer pageNum) {
-        int pageCount = typeService.typeCountPage();
-        if((pageCount < pageNum) || (pageNum < 1)) {
-            if(pageNum < 1) pageNum = 1;
-            if(pageNum > pageCount) pageNum = pageCount;
-        }
-        Page<Type> page = typeService.listType(pageNum);
+    public Result<?> getTypes() {
 
-        int buttonCount = 5; // 分页按钮数量
-        int startPage = Math.max(1, (int)page.getCurrent() - buttonCount / 2); // 计算起始页码
-        int endPage = Math.min(startPage + buttonCount - 1, (int)page.getPages()); // 计算结束页码
-
-        List<Integer> pageNumbers = IntStream.rangeClosed(startPage, endPage)
-                .boxed().toList(); // 生成页码列表
+        List<Type> page = typeService.listTypeAll();
 
         Map<String, Object> result = new HashMap<>();
-        result.put("pageNumbers", pageNumbers);
-        result.put("typeInfo", page);
+        result.put("records", page);
 
         return Result.success(result);
     }

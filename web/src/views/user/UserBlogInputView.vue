@@ -101,7 +101,7 @@ export default {
         }
 
         const getTypeList = () => {
-            axios.get("http://127.0.0.1:3000/authorize/types/get/all", {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/types/get/all", {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': "application/x-www-form-urlencoded",
@@ -116,7 +116,7 @@ export default {
             blog_info.typeId = $(".ui.dropdown.my-type").dropdown('get value');
 
 
-            axios.post("http://127.0.0.1:3000/authorize/blog/add", blog_info, {
+            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/add", blog_info, {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': 'application/json',

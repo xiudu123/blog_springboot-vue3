@@ -31,5 +31,5 @@ public class Comment {
     private Long parentId; // 父级评论Id
     private Long topCommentId; // 层级评论Id
     private Long blogId; // 所属博客Id
-    private Boolean adminComment; // 是否是管理员评论
+    private Long userId; // 评论者Id, 游客是0
 }

@@ -26,6 +26,7 @@ public class User {
     private String username; // 姓名
     private String password; // 密码
     private String avatar; // 头像
+    private String email; // 邮箱
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")

@@ -6,6 +6,7 @@
                 <router-link :to="{name : 'user_blog_manage'} " class="item my-item m-mobile-hide" :class="route_name === 'user_blog_manage' ? 'active' : ''" @click = "click_link"><i class="folder open outline icon"></i>文章管理</router-link>
                 <router-link :to="{name : 'user_blog_input'} "  class="item my-item m-mobile-hide" :class="route_name === 'user_blog_input' ? 'active' : ''"  @click = "click_link"><i class="file alternate outline icon"></i>文章发布</router-link>
                 <router-link :to="{name : 'user_type_manage'} " class="item my-item m-mobile-hide" :class="route_name === 'user_type_manage' ? 'active' : ''" @click = "click_link"><i class="clone outline icon"></i>分类管理</router-link>
+
                 <div class="right my-item m-mobile-hide menu">
                     <div class="item">
                         <div class="ui dropdown item" @mouseup="dropMenu">
@@ -16,12 +17,15 @@
                             <i class="dropdown icon"></i>
 
                             <div class="menu">
+                                <router-link :to="{name : 'index'} " class="item" @click = "click_link">返回首页</router-link>
                                 <div class="item" @click="click_logout">注销</div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
         <button id="menu-toggle" class="ui menu black button icon my-menu m-mobile-show" @click="click_menu">
             <i class="sidebar icon"></i>

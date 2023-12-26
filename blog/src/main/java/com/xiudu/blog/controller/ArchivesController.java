@@ -33,7 +33,6 @@ public class ArchivesController {
             map.get(blog.getYear()).add(blog);
         }
 
-
         Map<String, Object> result = new HashMap<>();
         result.put("blogs", map);
         result.put("blotTotal", blogs.size());

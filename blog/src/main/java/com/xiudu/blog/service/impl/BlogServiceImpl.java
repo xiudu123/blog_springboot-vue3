@@ -61,29 +61,6 @@ public class BlogServiceImpl implements BlogService {
         return blog;
     }
 
-    @Override
-    public Page<Blog> listBlog(Integer pageNum, Blog blogRules) {
-        Page<Blog> page = new Page<>(pageNum, 10);
-        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-
-        // 查询条件
-        if(!isEmpty(blogRules.getTitle())) {
-            queryWrapper.like("title", blogRules.getTitle());
-        }
-        if(!isEmpty(blogRules.getTypeId()) && blogRules.getTypeId() > 0) {
-            queryWrapper.eq("type_id", blogRules.getTypeId());
-        }
-        if(!isEmpty(blogRules.getTop()) && blogRules.getTop()) {
-            queryWrapper.eq("top", blogRules.getTop());
-        }
-        if(!isEmpty(blogRules.getPublished()) && !blogRules.getPublished()) {
-            queryWrapper.eq("published", blogRules.getPublished());
-        }
-        queryWrapper.orderByDesc("update_time");
-
-        return getBlogPage(page, queryWrapper);
-    }
-
 
     @Override
     public Page<Blog> listBlogIndex(Integer pageNum) {
@@ -124,6 +101,7 @@ public class BlogServiceImpl implements BlogService {
         for(Blog blog : blogs) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
             LocalDateTime dateTime = LocalDateTime.parse(blog.getUpdateTime().toString(), formatter);
+            blog.setContent(null);
             blog.setYear(dateTime.getYear());
             blog.setMonth(dateTime.getMonthValue());
             blog.setDay(dateTime.getDayOfMonth());
@@ -142,12 +120,6 @@ public class BlogServiceImpl implements BlogService {
     public Long blogCount() {
         return blogMapper.selectBlogCount();
     }
-
-    @Override
-    public int blogPageCountByTypeId(Long typeId) {
-        return (int)(blogMapper.selectBlogCountByTypeId(typeId) + 9) / 10;
-    }
-
 
 
     @Override

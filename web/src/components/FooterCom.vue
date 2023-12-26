@@ -10,9 +10,9 @@
                 </div>
                 <div class="six wide column">
                     <h4 class="ui inverted header m-opacity-small">最新博客</h4>
-                    <div id="newBlog-container">
+                    <div id="newBlog-container" v-for="blog in blog_list.records" :key="blog.id">
                         <div class="ui inverted link list">
-                            <a href="#" target="_blank" class="item">这是一篇博客</a>
+                            <div class="item my-blog-title" @click="clickBlog(blog.id)"> {{ blog.title }} </div>
                         </div>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                     <div id="message-container">
                         <div class="ui inverted link list">
                             <div class="item">
-                                文章总数: <div class="ui orange header m-inline-block">&nbsp;200&nbsp;</div> 篇
+                                文章总数: <div class="ui orange header m-inline-block">&nbsp;{{ blog_count }}&nbsp;</div> 篇
                             </div>
                         </div>
                     </div>
@@ -40,16 +40,68 @@
 </template>
 
 <script>
+import {onMounted, reactive, ref} from "vue";
+import axios from "axios";
+import router from "@/router";
+
 export default {
-    name: "FooterCom"
+    name: "FooterCom",
+    setup(){
+        const blog_count = ref();
+        const blog_list = reactive({});
+
+        const getBlogCount = () => {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/footer/message", {
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded",
+                },
+            }).then(resp => {
+                blog_count.value = resp.data.data;
+            })
+        }
+
+        const getBlogList = () => {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/footer/newBlog", {
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded",
+                },
+            }).then(resp => {
+                blog_list.records = resp.data.data;
+            })
+        }
+
+        const clickBlog = (blog_id) => {
+            let routeUrl = router.resolve({
+                name: 'blog',
+                query: {
+                    id: blog_id
+                }
+            })
+            window.open(routeUrl.href, '_blank');
+        }
+
+        onMounted(() => {
+            getBlogCount();
+            getBlogList()
+        })
+
+        return{
+            blog_count,
+            blog_list,
+            clickBlog
+        }
+    }
 }
 </script>
 
 <style scoped>
-.my-footer{
-    position: absolute !important;
-    bottom: 0 !important;
-    width: 100% !important;
-}
 
+.my-blog-title {
+    border-radius:30px;
+    cursor: pointer;/*鼠标变成手指样式*/
+    transition: all 0.6s;/*所有属性变化在0.6秒内执行动画*/
+}
+.my-blog-title:hover {
+    transform: scale(1.3);/*鼠标放上之后元素变成1.4倍大小*/
+}
 </style>

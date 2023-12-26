@@ -1,6 +1,6 @@
 <template>
 <ContentFieldCom>
-    <div class="ui m-opacity m-margin-top-max">
+    <div style="opacity: 0.8">
         <img src="@/assets/img/effect.png" alt="" class="ui rounded bordered fluid image">
     </div>
     <div class="m-margin-top-max" align="center">

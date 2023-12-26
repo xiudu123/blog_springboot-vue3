@@ -23,13 +23,13 @@ public class FooterController {
     private BlogService blogService;
 
     @Operation(summary = "获取最新发布的3条博客", description = "获取最新发布的3条博客")
-    @GetMapping("/footer/newBlog")
+    @GetMapping("/newBlog")
     public Result<?> footerNewBlogs() {
         return Result.success(blogService.listTop(3L));
     }
 
     @Operation(summary = "博客总数", description = "博客总数")
-    @GetMapping("/footer/message")
+    @GetMapping("/message")
     public Result<?> footerBlogCount() {
         return Result.success(blogService.blogCount());
     }

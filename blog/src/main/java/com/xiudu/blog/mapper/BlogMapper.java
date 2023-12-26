@@ -16,9 +16,8 @@ public interface BlogMapper extends BaseMapper<Blog> {
     void updateViewById(Long id); // 浏览次数 ++;
 
     @Select("SELECT COUNT(*) FROM blog WHERE published = 1")
-    Long selectBlogCount();
+    Long selectBlogCount(); // 查找所有发布的博客数量
 
-    @Select("SELECT COUNT(*) FROM blog WHERE type_id = #{typeId} AND published = 1")
-    Long selectBlogCountByTypeId(Long typeId);
+
 
 }
