@@ -1,6 +1,5 @@
 package com.xiudu.blog.controller.authorize;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.Blog;
@@ -38,8 +37,6 @@ public class BlogAdminController {
                                    @RequestParam(defaultValue = "false") Boolean top,
                                    @RequestParam(defaultValue = "false") Boolean published) {
 
-        Long userId = Long.parseLong((String) StpUtil.getLoginId());
-
         Map<String, String> query= new HashMap<>();
         query.put("title", title);
         query.put("typeId", typeId);
@@ -48,11 +45,14 @@ public class BlogAdminController {
         if(published) query.put("published", "1");
         else query.put("published", "0");
 
-        Page<Blog> blogPage = blogService.listBlogByUserIdAndQuery(pageNum, userId, query);
+        Page<Blog> blogPage = blogService.listBlogByUserIdAndQuery(pageNum, query);
         Map<String, Object> result = new HashMap<>();
-        result.put("pageInfo", blogPage);
-        result.put("prePage", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
-        result.put("nextPage", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
+
+        result.put("records", blogPage.getRecords());
+        result.put("pageCurrent", blogPage.getCurrent());
+        result.put("pageTotal", blogPage.getPages());
+        result.put("pagePre", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
+        result.put("pageNext", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
         return Result.success(result);
     }
 
@@ -126,9 +126,7 @@ public class BlogAdminController {
 
         int successInsert = blogService.updateBlog(newBlog.getId(), newBlog);
         if(successInsert == 0) return Result.error("修改失败, 请稍后再试");
-        else {
-            return Result.success();
-        }
+        else return Result.success();
     }
 
     @Operation(summary = "删除博客", description = "删除博客")
@@ -145,6 +143,4 @@ public class BlogAdminController {
         if(successDelete == 0) return Result.error("删除失败, 请稍后再试");
         else return Result.success();
     }
-
-
 }

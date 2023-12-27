@@ -21,12 +21,12 @@ public interface BlogService {
     Page<Blog> listBlogSearch(Integer pageNum, String query);
     Page<Blog> listBlogByTypedId(Integer pageNum, Long typeId);
 
-    List<Blog> listBlogAll();
+    List<Blog> listBlogArchives();
     List<Blog> listTop(Long size);
 
     Blog getAndConvert(Long blogId);
     Long blogCount();
 
     // 用户后台管理
-    Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Long userId, Map<String, String> query);
+    Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Map<String, String> query);
 }

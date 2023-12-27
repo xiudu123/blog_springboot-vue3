@@ -9,7 +9,6 @@ export default({
         nickname: "",
         username: "",
         avatar: "",
-        token: "",
         email: "",
         loading: false, // 数据加载状态
     },
@@ -28,9 +27,6 @@ export default({
         updateLoading(state, loading) {
             state.loading = loading;
         },
-        updateToken(state, token) {
-            state.token = token;
-        }
     },
     actions: {
         userLogin(content, data) {
@@ -47,7 +43,6 @@ export default({
                 if(resp.data.error === "success") {
                     data.success();
                     localStorage.setItem("token", resp.data.data.token);
-                    content.commit("updateToken", resp.data.data.token);
                     router.push({name: "user_index"});
                 }
                 else data.error(resp.data);
@@ -59,7 +54,7 @@ export default({
         userUpdateInfo(content, data) {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/user/check", {
                 headers: {
-                    "satoken": data.token,
+                    "satoken": localStorage.getItem("token"),
                     'Content-Type': "application/json",
                 },
             })
@@ -73,7 +68,6 @@ export default({
                         email: resp.data.data.email,
                         is_login: true,
                     })
-                    content.commit("updateToken", resp.data.data.token);
                     data.success(resp.data);
                 }else data.error(resp);
             })
@@ -81,10 +75,10 @@ export default({
                 data.error(error);
             })
         },
-        userLogout(content, data) {
+        userLogout() {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/user/logout", {
                 headers: {
-                    "satoken": data.token,
+                    "satoken": localStorage.getItem("token"),
                     'Content-Type': "application/json",
                 },
             }).then(() => {

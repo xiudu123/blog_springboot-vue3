@@ -64,7 +64,7 @@
                 <div class="ui right aligned container">
                     <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
                     <button type="button" id="save-btn" class="ui secondary button" @click="noPublish">保存</button>
-                    <button type="button" id="publish-btn" class="ui blue button" @click="submit">发布</button>
+                    <button type="button" id="publish-btn" class="ui blue button" @click="submit()">发布</button>
                 </div>
             </form>
         </div>
@@ -76,13 +76,16 @@ import UserContentFieldCom from "@/components/UserContentFieldCom";
 import {onBeforeMount, reactive, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
+import router from "@/router";
 export default {
     name: "UserBlogInputView",
     components: {UserContentFieldCom,},
     setup() {
-        const router = useRoute();
+        const route = useRoute();
         const error_message = ref("");
-        const type_list = reactive({});
+        const type_list = reactive({
+            records: null,
+        });
         const blog_info = reactive({
             id: -1,
             title: "",
@@ -98,11 +101,19 @@ export default {
             error_message.value = "";
         }
 
+        /**
+         * @description: 展开类型下拉框
+         * @return void
+         */
         const typeMenu = () => {
             // eslint-disable-next-line no-undef
             $(".ui.dropdown").dropdown();
         }
 
+        /**
+         * @description: API 获取所有标签
+         * @return type_list(标签集合)
+         */
         const getTypeList = () => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/types/get/all", {
                 headers: {
@@ -110,15 +121,42 @@ export default {
                     'Content-Type': "application/x-www-form-urlencoded",
                 },
             }).then(resp => {
-                type_list.records = resp.data.data;
-            }).catch();
+                if(resp.data.error === 'success') {
+                    type_list.records = resp.data.data;
+                }
+            }).catch(() => {router.push({name:'500'})});
         }
 
+        /**
+         * @description: 提交博客
+         * @return void
+         */
         const submit = () => {
             // eslint-disable-next-line no-undef
             const typeId = $(".ui.dropdown.my-type").dropdown('get value');
             if(typeId !== "-1") blog_info.typeId = typeId;
-            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/update", blog_info, {
+            addBlog(blog_info);
+        }
+
+        /**
+         * @description: 保存博客
+         * @return void
+         */
+        const noPublish = () => {
+            blog_info.published = false;
+            // eslint-disable-next-line no-undef
+            const typeId = $(".ui.dropdown.my-type").dropdown('get value');
+            if(typeId !== "-1") blog_info.typeId = typeId;
+            addBlog(blog_info);
+        }
+
+        /**
+         * @description: API 修改博客
+         * @param {object} blog
+         * @return void
+         */
+        const addBlog = (blog) => {
+            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/update", blog, {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': 'application/json',
@@ -129,20 +167,19 @@ export default {
                 else {
                     error_message.value = resp.data.error;
                 }
-            }).catch()
+            }).catch(() => {router.push({name:'500'})})
         }
 
+        /**
+         * @description: 根据博客Id获取博客
+         * @param {number} blog_id
+         * @return blog_info(博客的所有信息)
+         */
+        const getBlog = (blog_id) => {
 
-        const noPublish = () => {
-            blog_info.published = false;
-            submit();
-        }
-
-        const getBlog = () => {
-            blog_info.id = router.query.id;
             axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/get/one", {
                 params: {
-                    "blogId" : blog_info.id,
+                    "blogId" : blog_id,
                 },
                 headers: {
                     "satoken": localStorage.getItem("token"),
@@ -160,13 +197,19 @@ export default {
                     blog_info.comment = data.comment;
                     blog_info.published = true;
                     blog_info.typeName = data.typeName;
+                }else {
+                    let routeUrl = router.resolve({
+                        name: '404',
+                    })
+                    window.open(routeUrl.href, '_self');
                 }
 
-            }).catch()
+            }).catch(() => {router.push({name:'500'})})
         }
 
         onBeforeMount(() => {
-            getBlog()
+            blog_info.id = route.query.id;
+            getBlog(blog_info.id)
             getTypeList();
         })
 

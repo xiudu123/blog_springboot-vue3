@@ -59,14 +59,14 @@
         <!-- 分页-->
         <div class="ui bottom segment m-opacity stackable grid">
             <div class="three wide column center aligned">
-                <a class="ui teal basic button item" @click="getBlog(blog_page.current - 1, type_now.value)">上一页</a>
+                <a class="ui teal basic button item" @click="getBlogList(blog_page.pre, type_now)">上一页</a>
             </div>
 
             <div class="ten wide column center aligned" style="margin: auto">
                 <p> <span> {{ blog_page.current }} </span> / <span> {{ blog_page.total }} </span> </p>
             </div>
             <div class="three wide column center aligned">
-                <a class="ui teal basic button item" @click="getBlog(blog_page.current + 1, type_now.value)">下一页</a>
+                <a class="ui teal basic button item" @click="getBlogList(blog_page.next, type_now)">下一页</a>
             </div>
         </div>
     </ContentFieldCom>
@@ -81,15 +81,49 @@ export default {
     name: "TypeView",
     components: {ContentFieldCom},
     setup() {
-        const type_list = reactive({});
-        const type_now = ref("");
-        const blog_list = reactive({});
-        const blog_page = reactive({
-            'next' : 0,
-            'pre' : 0,
-            'current' : 0,
-            'total' : 0,
+        const type_list = reactive({
+            records : null,
         });
+        const type_now = ref(0);
+        const blog_list = reactive({
+            records : null,
+        });
+        const blog_page = reactive({
+            next : 0,
+            pre : 0,
+            current : 0,
+            total : 0,
+        });
+
+        /**
+         * @description: 通过点击标签获取所属博客
+         * @param {number} type_id
+         * @return void
+         */
+        const clickType = (type_id) => {
+            type_now.value = type_id;
+            getBlogList(1, type_now.value);
+        }
+
+        /**
+         * @description: 通过点击博客跳转到博客页面
+         * @param {number} blog_id
+         * @return {void} 页面至博客跳转
+         */
+        const clickBlog = (blog_id) => {
+            let routeUrl = router.resolve({
+                name: 'blog',
+                query: {
+                    id: blog_id
+                }
+            })
+            window.open(routeUrl.href, '_blank');
+        }
+
+        /**
+         * @description: API 获取所有类型
+         * @return type_list(所有标签的集合)
+         */
         const getTypes = () => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/types", {
                 headers: {
@@ -99,9 +133,16 @@ export default {
                 if(resp.data.error === "success")  {
                     type_list.records = resp.data.data.records;
                 }
-            }).catch()
+            }).catch(() => {router.push({name:'500'})})
         }
-        const getBlog = (page_num, type_id) => {
+
+        /**
+         * @description: API 获取标签下所属的博客
+         * @param {number} page_num
+         * @param {number} type_id
+         * @return blog_list(博客集合), blog_page(页数信息)
+         */
+        const getBlogList = (page_num, type_id) => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/type", {
                 params: {
                     "pageNum" : page_num,
@@ -113,32 +154,18 @@ export default {
             }).then(resp => {
                 if(resp.data.error === "success") {
                     const data = resp.data.data;
-                    blog_list.records = data.pageInfo.records;
-                    blog_page.next = data.nextPage;
-                    blog_page.pre = data.prePage;
-                    blog_page.current = data.pageInfo.current;
-                    blog_page.total = data.pageInfo.pages;
+                    blog_list.records = data.records;
+                    blog_page.next = data.pageNext;
+                    blog_page.pre = data.pagePre;
+                    blog_page.current = data.pageCurrent;
+                    blog_page.total = data.pageTotal;
                 }
-            }).catch();
-        }
-
-        const clickType = (type_id) => {
-            type_now.value = type_id;
-            getBlog(1, type_now.value);
-        }
-
-        const clickBlog = (blog_id) => {
-            let routeUrl = router.resolve({
-                name: 'blog',
-                query: {
-                    id: blog_id
-                }
-            })
-            window.open(routeUrl.href, '_blank');
+            }).catch(() => {router.push({name:'500'})});
         }
 
         onMounted(() => {
             getTypes()
+            getBlogList(1, type_now.value);
         })
 
         return {
@@ -146,7 +173,8 @@ export default {
             type_now,
             blog_list,
             blog_page,
-            getBlog,
+
+            getBlogList,
             clickType,
             clickBlog
         }

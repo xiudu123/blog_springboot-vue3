@@ -30,8 +30,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> listCommentByBlogId(Long blogId) {
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("create_time");
         queryWrapper.eq("blog_id", blogId);
+        queryWrapper.orderByDesc("create_time");
         return commentMapper.selectList(queryWrapper);
     }
 

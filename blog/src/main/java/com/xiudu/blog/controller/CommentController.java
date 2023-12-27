@@ -1,9 +1,7 @@
 package com.xiudu.blog.controller;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.Comment;
-import com.xiudu.blog.pojo.User;
 import com.xiudu.blog.service.CommentService;
 import com.xiudu.blog.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,11 +64,6 @@ public class CommentController {
     public Result<?> post(@RequestBody Comment comment) {
         comment.setCreateTime(new Date());
         comment.setAvatar(avatar);
-        if(StpUtil.isLogin()) {
-            User user = userService.selectUserById((Long) StpUtil.getLoginId());
-            comment.setAvatar(user.getAvatar());
-            comment.setNickname(user.getNickname());
-        }
 
         int successInsert = commentService.insertComment(comment);
         if(successInsert == 0) return Result.error("评论失败, 请稍后再试");

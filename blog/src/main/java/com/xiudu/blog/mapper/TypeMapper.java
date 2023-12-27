@@ -12,16 +12,11 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface TypeMapper extends BaseMapper<Type> {
-    @Select("SELECT * FROM type WHERE name = #{name}")
-    Type selectByName(@Param("name") String name);
 
     @Select("SELECT COUNT(*) FROM type WHERE id = #{typeId}")
     Long selectCountByTypeId(@Param("typeId") Long typeId);
 
     @Select("SELECT COUNT(*) FROM type WHERE name = #{name}")
     Long selectCountByTypeName(@Param("name") String name);
-
-    @Select("SELECT COUNT(*) FROM type")
-    Long selectCount();
 
 }

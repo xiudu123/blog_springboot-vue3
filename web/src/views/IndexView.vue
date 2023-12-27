@@ -49,14 +49,13 @@
                 <!-- 分页-->
                 <div class="ui bottom segment m-opacity stackable grid">
                     <div class="three wide column center aligned">
-                        <a href="#" class="ui teal basic button item" @click="getBlog(blog_page.current - 1)">上一页</a>
+                        <div class="ui teal basic button item" @click="getBlogList(blog_page.pre)">上一页</div>
                     </div>
-
                     <div class="ten wide column center aligned" style="margin: auto">
                         <p> <span> {{ blog_page.current }} </span> / <span> {{ blog_page.total }} </span> </p>
                     </div>
                     <div class="three wide column center aligned">
-                        <a href="#" class="ui teal basic button item" @click="getBlog(blog_page.current + 1)">下一页</a>
+                        <div class="ui teal basic button item" @click="getBlogList(blog_page.next)">下一页</div>
                     </div>
                 </div>
             </div>
@@ -74,27 +73,21 @@ export default {
     name: "IndexView",
     components: {ContentFieldCom},
     setup() {
-        const blog_list = reactive({});
-        const blog_page = reactive({});
-        const getBlog = (page_num) => {
-            axios.get(process.env.VUE_APP_API_BASE_URL + "/index", {
-                params: {
-                    "pageNum": page_num,
-                },
-                headers: {
-                    'Content-Type': "application/x-www-form-urlencoded",
-                },
-            })
-                .then(resp =>  {
-                    const data = resp.data.data;
-                    blog_list.records = data.pageInfo.records;
-                    blog_page.pre = data.prePage;
-                    blog_page.next = data.nextPage;
-                    blog_page.current = data.pageInfo.current;
-                    blog_page.total = data.pageInfo.pages;
-                }).catch()
-        }
+        const blog_list = reactive({
+            records : null,
+        });
+        const blog_page = reactive({
+            next : 0,
+            pre : 0,
+            current : 0,
+            total : 0,
+        });
 
+        /**
+         * @description: 通过点击博客跳转页面
+         * @param {number} blog_id
+         * @return {void} 跳转至博客页面
+         */
         const clickBlog = (blog_id) => {
             let routeUrl = router.resolve({
                 name: 'blog',
@@ -105,15 +98,43 @@ export default {
             window.open(routeUrl.href, '_blank');
         }
 
+        /**
+         * @description: API 获取博客列表
+         * @param {number} page_num
+         * @return blog_list(博客列表), blog_page(页数信息)
+         */
+        const getBlogList = (page_num) => {
+            axios.get(process.env.VUE_APP_API_BASE_URL + "/index", {
+                params: {
+                    "pageNum": page_num,
+                },
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded",
+                },
+            }).then(resp =>  {
+                if(resp.data.error === "success") {
+                    const data = resp.data.data;
+                    blog_list.records = data.records;
+                    blog_page.pre = data.pagePre;
+                    blog_page.next = data.pageNext;
+                    blog_page.current = data.pageCurrent;
+                    blog_page.total = data.pageTotal;
+                }
+            }).catch(() => {router.push({name:'500'})})
+        }
+
+
+
         onMounted(() => {
-            getBlog(1)
+            getBlogList(1)
         })
 
         return {
-            getBlog,
-            clickBlog,
             blog_list,
-            blog_page
+            blog_page,
+
+            getBlogList,
+            clickBlog
         }
     }
 }

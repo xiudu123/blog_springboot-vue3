@@ -38,8 +38,11 @@ public class BlogController {
         Page<Blog> blogPage = blogService.listBlogIndex(pageNum);
         Map<String, Object> result = new HashMap<>();
         result.put("pageInfo", blogPage);
-        result.put("prePage", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
-        result.put("nextPage", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
+        result.put("records", blogPage.getRecords());
+        result.put("pageTotal", blogPage.getPages());
+        result.put("pageCurrent", blogPage.getCurrent());
+        result.put("pagePre", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
+        result.put("pageNext", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
         return Result.success(result);
     }
 
@@ -55,11 +58,9 @@ public class BlogController {
         Page<Blog> blogPage = blogService.listBlogSearch(pageNum, query);
 
         Map<String, Object> result = new HashMap<>();
-        result.put("query", query);
         result.put("pageInfo", blogPage);
         result.put("prePage", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
         result.put("nextPage", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
-
         return Result.success(result);
     }
 

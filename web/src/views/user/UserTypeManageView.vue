@@ -144,45 +144,66 @@
 import UserContentFieldCom from "@/components/UserContentFieldCom";
 import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
+import router from "@/router";
 export default {
     name: "UserTypeManage",
     components: {UserContentFieldCom,},
     setup() {
         const error_message = ref("");
         const success_message = ref("");
-        const type_list = reactive({});
-        const type_page = reactive({});
+        const type_list = reactive({
+            records: null
+        });
+        const type_page = reactive({
+            pre : 0,
+            next : 0,
+            current : 0,
+            total : 0
+        });
         const type_query_name = ref("");
         const type_post = reactive({
-            id: null,
+            id: -1,
             name: "",
         });
+
         const close_error_message = () => {
             error_message.value = "";
         }
         const close_success_message = () => {
             success_message.value = "";
         }
+
+        /**
+         * @description: 打开添加模态框
+         * @return void
+         */
         const showAddDia = () => {
             // eslint-disable-next-line no-undef
             $('.ui.modal.my-add')
                 .modal({
                     onShow:function () {
-                        type_post.id = null;
+                        type_post.id = -1;
                         type_post.name = "";
                     },
                     onApprove: () => {
-                        addType();
-                        type_post.id = null;
+                        addType(type_post.name);
+                        type_post.id = -1;
                         type_post.name = "";
                     },
                     onDeny: () => {
-                        type_post.id = null;
+                        type_post.id = -1;
                         type_post.name = "";
                     }
                 })
                 .modal('show');
         }
+
+        /**
+         * @description: 打开修改模态框
+         * @param {number} type_id
+         * @param {String} type_name
+         * @return void
+         */
         const showUpdateDia = (type_id, type_name) => {
             // eslint-disable-next-line no-undef
             $('.ui.modal.my-update')
@@ -192,17 +213,24 @@ export default {
                         type_post.name = type_name;
                     },
                     onApprove: () => {
-                        updateType();
-                        type_post.id = null;
+
+                        updateType(type_post.id, type_post.name);
+                        type_post.id = -1;
                         type_post.name = "";
                     },
                     onDeny: () => {
-                        type_post.id = null;
+                        type_post.id = -1;
                         type_post.name = "";
                     }
                 })
                 .modal('show');
         }
+
+        /**
+         * @description: 打开删除模态框
+         * @param {number} type_id
+         * @return void
+         */
         const showDeleteDia = (type_id) => {
             // eslint-disable-next-line no-undef
             $('.ui.modal.my-delete')
@@ -218,6 +246,11 @@ export default {
                 .modal('show');
         }
 
+        /**
+         * @description: API 获取类型列表
+         * @param {number} page_num
+         * @return type_list(类型列表), type_page(页数信息)
+         */
         const getTypeList = (page_num) => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/types/get/search", {
                 params:{
@@ -229,42 +262,66 @@ export default {
                     'Content-Type': "application/x-www-form-urlencoded",
                 },
             }).then(resp => {
-                type_list.records = resp.data.data.pageInfo.records;
-                type_page.pre = resp.data.data.prePage;
-                type_page.next = resp.data.data.nextPage;
-                type_page.current = resp.data.data.pageInfo.current;
-                type_page.total = resp.data.data.pageInfo.pages;
-            }).catch();
+                if(resp.data.error === 'success') {
+                    const data = resp.data.data;
+                    type_list.records = data.records;
+                    type_page.pre = data.pagePre;
+                    type_page.next = data.pageNext;
+                    type_page.current = data.pageCurrent;
+                    type_page.total = data.pageTotal;
+                }
+
+            }).catch(() => {router.push({name:'500'})});
         }
 
-        const addType = () => {
-            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/types/add", type_post, {
+        /**
+         * @description: 添加类型
+         * @param {number} type_id
+         * @param {String} type_name
+         * @return void
+         */
+        const addType = (type_name) => {
+            console.log(type_name);
+            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/types/add", {name: type_name}, {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': 'application/json',
                 },
             }).then(resp => {
                 if(resp.data.error === "success") {
-                    success_message.value = "操作成功";
+                    success_message.value = "添加成功";
                     getTypeList(1);
                 }else error_message.value = resp.data.error;
-            }).catch()
+            }).catch(() => {router.push({name:'500'})})
         }
 
-        const updateType = () => {
-            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/types/update", type_post, {
+        /**
+         * @description: 修改类型
+         * @param {number} type_id
+         * @param {String} type_name
+         * @return void
+         */
+        const updateType = (type_id, type_name) => {
+            console.log(type_id);
+            console.log(type_name);
+            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/types/update", {id: type_id, name: type_name}, {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': 'application/json',
                 },
             }).then(resp => {
                 if(resp.data.error === "success") {
-                    success_message.value = "操作成功";
+                    success_message.value = "修改成功";
                     getTypeList(type_page.current);
                 }else error_message.value = resp.data.error;
-            }).catch()
+            }).catch(() => {router.push({name:'500'})})
         }
 
+        /**
+         * @description: 删除类型
+         * @param {number} type_id
+         * @return void
+         */
         const deleteType = (type_id) => {
             axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/types/delete", type_id, {
                 headers: {
@@ -273,10 +330,10 @@ export default {
                 },
             }).then(resp => {
                 if(resp.data.error === "success") {
-                    success_message.value = "操作成功";
+                    success_message.value = "删除成功";
                     getTypeList(type_page.current);
                 }else error_message.value = resp.data.error;
-            }).catch()
+            }).catch(() => {router.push({name:'500'})})
         }
 
 
@@ -291,6 +348,7 @@ export default {
             type_page,
             type_query_name,
             type_post,
+
             getTypeList,
             close_error_message,
             close_success_message,

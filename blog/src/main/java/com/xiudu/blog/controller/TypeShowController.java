@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 /**
  * @author: 锈渎
@@ -44,19 +43,12 @@ public class TypeShowController {
 
         Page<Blog> page = blogService.listBlogByTypedId(pageNum, typeId);
 
-        int buttonCount = 5; // 分页数量按钮
-        int startPage = Math.max(1, (int)page.getCurrent() - buttonCount / 2); // 计算起始页码
-        int endPage = Math.min(startPage + buttonCount - 1, (int)page.getPages()); // 计算结束页码
-
-        List<Integer> pageNumbers = IntStream.rangeClosed(startPage, endPage)
-                .boxed()
-                .toList(); // 生成页码页表
         Map<String, Object> result = new HashMap<>();
-        result.put("pageNumbers", pageNumbers);
-        result.put("pageInfo", page);
-        result.put("prePage", (page.getCurrent() - (page.hasPrevious() ? 1 : 0)));
-        result.put("nextPage", (page.getCurrent() + (page.hasNext() ? 1 : 0)));
-        result.put("typeId", typeId);
+        result.put("records", page.getRecords());
+        result.put("pageCurrent", page.getCurrent());
+        result.put("pageTotal", page.getPages());
+        result.put("pagePre", (page.getCurrent() - (page.hasPrevious() ? 1 : 0)));
+        result.put("pageNext", (page.getCurrent() + (page.hasNext() ? 1 : 0)));
         return Result.success(result);
     }
 

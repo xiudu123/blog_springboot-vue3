@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-button-small">
-                        <div id="commentPost-btn" type="button" class="ui blue button m-mobile-wide" @click="postComment"><i class="edit icon"></i> 发布</div>
+                        <div id="commentPost-btn" type="button" class="ui blue button m-mobile-wide" @click="submitComment"><i class="edit icon"></i> 发布</div>
                     </div>
                 </div>
             </div>
@@ -169,52 +169,75 @@ import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 import {useStore} from "vuex";
-// import router from "@/router";
+import router from "@/router";
 export default {
     name: "BlogView",
     components: {ContentFieldCom},
     setup() {
-        const router = useRoute();
+        const route = useRoute();
         const store = useStore();
-        onMounted(() => {
-            // eslint-disable-next-line no-undef
-            tocbot.init({
-                // Where to render the table of contents.
-                tocSelector: '.js-toc',
-                // Where to grab the headings to build the table of contents.
-                contentSelector: '.js-toc-content',
-                // Which headings to grab inside the contentSelector element.
-                headingSelector: 'h1, h2, h3, h4, h5',
-            });
 
-            getBlog(router.query.id);
-            getComment(router.query.id);
-            setTimeout(() => {
-                comment_post.nickname = store.state.user.username;
-                comment_post.email = store.state.user.email;
-            }, 1000);
-        })
         const replyCommentId = ref(null);
-        const blog_info = reactive({});
-        const comment_info = reactive({});
+        const blog_info = reactive({
+            id : null,
+            first_picture : null,
+            title : null,
+            comment : null,
+            content : null,
+            create_time : null,
+            overview : null,
+            published : null,
+            top : null,
+            type_id : null,
+            type_name : null,
+            update_time : null,
+            user_id : null,
+            username : null,
+            views : null,
+        });
+        const comment_info = reactive({
+            idToName : null,
+            idToUserId : null,
+            comments : null,
+            replyComments : null,
+        });
         const comment_post = reactive({
             top_comment_id: -1,
             parent_id: -1,
             nickname: store.state.user.username,
             email: store.state.user.email,
         });
+        /**
+         * @description: 点击评论按钮跳转到评论位置
+         * @return void
+         */
         const click_comment_button = () => {
             // eslint-disable-next-line no-undef
             $(window).scrollTo('#comment-content', 500);
         }
+
+        /**
+         * @description: 点击留言按钮跳转到留言位置
+         * @return void
+         */
         const click_comment_reply = () => {
             // eslint-disable-next-line no-undef
             $(window).scrollTo('#comment-form', 500);
         }
+
+        /**
+         * @description: 点击顶部按钮回到页面顶部
+         * @return void
+         */
         const click_toolbar = () => {
             // eslint-disable-next-line no-undef
             $(window).scrollTo(0, 500);
         }
+
+        /**
+         * @description: 目录弹出
+         * @return void
+         */
         const mouse_toc_menu = () => {
             // eslint-disable-next-line no-undef
             $('#toc').popup({
@@ -225,6 +248,12 @@ export default {
             });
         }
 
+        /**
+         * @description: 回复评论
+         * @param {number} top_comment_id
+         * @param {number} parent_id
+         * @return void
+         */
         const reply = (top_comment_id, parent_id) => {
             comment_post.topCommentId = top_comment_id;
             comment_post.parentId = parent_id;
@@ -234,6 +263,21 @@ export default {
             $(window).scrollTo($('#comment-form'),500);
         }
 
+        /**
+         * @description: 提交评论
+         * @return viod
+         */
+        const submitComment = () => {
+            comment_post.blogId = blog_info.id;
+            comment_post.userId = store.state.user.id;
+            addComment(comment_post);
+        }
+
+        /**
+         * @description: 跳转到被回复的评论位置
+         * @param {number} parent_id
+         * @return void
+         */
         const clickReply = (parent_id) => {
             // eslint-disable-next-line no-undef
             $(window).scrollTo("#comment" + parent_id, 500, { offset: -100});
@@ -243,6 +287,11 @@ export default {
             }, 3000);
         }
 
+        /**
+         * @description: API 根据博客Id 获取博客信息
+         * @param {number} blog_id
+         * @return blog_info(博客的所有信息);
+         */
         const getBlog = (blog_id) => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/blog/id", {
                 params: {
@@ -269,10 +318,20 @@ export default {
                     blog_info.user_id = data.userId;
                     blog_info.username = data.username;
                     blog_info.views = data.views;
+                }else {
+                    let routeUrl = router.resolve({
+                        name: '404',
+                    })
+                    window.open(routeUrl.href, '_self');
                 }
-            }).catch();
+            }).catch(() => {router.push({name:'500'})});
         }
 
+        /**
+         * @description: API 根据博客Id 获取评论信息
+         * @param {number} blog_id
+         * @return comment_info(评论信息)
+         */
         const getComment = (blog_id) => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/comments/obtain", {
                 params: {
@@ -282,37 +341,64 @@ export default {
                     'Content-Type': "application/x-www-form-urlencoded",
                 },
             }).then(resp => {
-                comment_info.idToName = resp.data.data.idToName;
-                comment_info.idToUserId = resp.data.data.idToUserId;
-                comment_info.comments = resp.data.data.comments;
-                comment_info.replyComments = resp.data.data.replyComments;
-            }).catch()
+                if(resp.data.error === 'success') {
+                    const data = resp.data.data;
+                    comment_info.idToName = data.idToName;
+                    comment_info.idToUserId = data.idToUserId;
+                    comment_info.comments = data.comments;
+                    comment_info.replyComments = data.replyComments;
+                }
+
+            }).catch(() => {router.push({name:'500'})})
         }
 
-        const postComment = () => {
-            comment_post.blogId = blog_info.id;
-            comment_post.userId = store.state.user.id;
-            axios.post(process.env.VUE_APP_API_BASE_URL + "/comments/submit", comment_post, {
+        /**
+         * @description: API 添加评论
+         * @param {object} comment
+         * @return void
+         */
+        const addComment = (comment) => {
+            axios.post(process.env.VUE_APP_API_BASE_URL + "/comments/submit", comment, {
                 headers: {
                     'Content-Type': "application/json",
                 },
             }).then(() => {
                 window.location.reload();
-            }).catch()
+            }).catch(() => {router.push({name:'500'})})
         }
 
+        onMounted(() => {
+            // eslint-disable-next-line no-undef
+            tocbot.init({
+                // Where to render the table of contents.
+                tocSelector: '.js-toc',
+                // Where to grab the headings to build the table of contents.
+                contentSelector: '.js-toc-content',
+                // Which headings to grab inside the contentSelector element.
+                headingSelector: 'h1, h2, h3, h4, h5',
+            });
+
+            getBlog(route.query.id);
+            getComment(route.query.id);
+            setTimeout(() => {
+                comment_post.nickname = store.state.user.username;
+                comment_post.email = store.state.user.email;
+            }, 1000);
+        })
+
         return {
+            blog_info,
+            comment_info,
+            comment_post,
+            replyCommentId,
+
             click_comment_button,
             click_comment_reply,
             click_toolbar,
             clickReply,
             mouse_toc_menu,
             reply,
-            postComment,
-            blog_info,
-            comment_info,
-            comment_post,
-            replyCommentId
+            submitComment
         }
     }
 }

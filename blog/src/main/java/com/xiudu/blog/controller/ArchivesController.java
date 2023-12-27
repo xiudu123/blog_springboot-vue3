@@ -24,7 +24,7 @@ public class ArchivesController {
     @Operation(summary = "时间轴", description = "按照时间返回所有博客信息")
     @GetMapping("/archives")
     public Result<?> archives() {
-        List<Blog> blogs = blogService.listBlogAll();
+        List<Blog> blogs = blogService.listBlogArchives();
 
         // 降序排序
         Map<Integer, List<Blog>> map = new TreeMap<>(Comparator.reverseOrder());

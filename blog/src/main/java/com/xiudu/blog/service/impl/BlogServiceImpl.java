@@ -85,7 +85,7 @@ public class BlogServiceImpl implements BlogService {
 
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top");
-        queryWrapper.orderByDesc("update_time");
+        queryWrapper.orderByDesc("create_time");
         if(typeMapper.selectCountByTypeId(typeId) > 0) queryWrapper.eq("type_id", typeId);
 
         return getBlogPage(page, queryWrapper);
@@ -94,9 +94,9 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public List<Blog> listBlogAll() {
+    public List<Blog> listBlogArchives() {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("published", 1).orderByDesc("top", "update_time");
+        queryWrapper.eq("published", 1).orderByDesc( "create_time");
         List<Blog> blogs = blogMapper.selectList(queryWrapper);
         for(Blog blog : blogs) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
@@ -112,7 +112,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Blog> listTop(Long size) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("published", 1).orderByDesc("top", "update_time").last("LIMIT " + size.toString());
+        queryWrapper.eq("published", 1).orderByDesc("top", "create_time").last("LIMIT " + size.toString());
         return blogMapper.selectList(queryWrapper);
     }
 
@@ -134,11 +134,10 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Long userId, Map<String, String> query) {
+    public Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Map<String, String> query) {
         Page<Blog> page = new Page<>(pageNum, 10);
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", userId).orderByDesc( "create_time");
-        System.out.println(query);
+        queryWrapper.orderByDesc( "create_time");
 
         if(!("".equals(query.get("title"))))  queryWrapper.like("title", query.get("title"));
         if(!("-1".equals(query.get("typeId")))) queryWrapper.eq("type_id", query.get("typeId"));
@@ -154,17 +153,6 @@ public class BlogServiceImpl implements BlogService {
             blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
         }
         return blogPage;
-    }
-
-
-    private Boolean isEmpty(String object) {
-        return "".equals(object) || object == null;
-    }
-    private Boolean isEmpty(Boolean object) {
-        return object == null;
-    }
-    private Boolean isEmpty(Long object) {
-        return object == null;
     }
 
 }

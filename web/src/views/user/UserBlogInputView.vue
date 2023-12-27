@@ -75,12 +75,16 @@
 import UserContentFieldCom from "@/components/UserContentFieldCom";
 import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
+import router from "@/router";
 export default {
     name: "UserBlogInputView",
     components: {UserContentFieldCom,},
     setup() {
+
         const error_message = ref("");
-        const type_list = reactive({});
+        const type_list = reactive({
+            records: null
+        });
         const blog_info = reactive({
             title: "",
             type_id: -1,
@@ -91,15 +95,45 @@ export default {
             comment: false,
             published: true,
         });
+
         const close_error_message = () => {
             error_message.value = "";
         }
 
+        /**
+         * @description: 展开类型下拉框
+         * @return void
+         */
         const typeMenu = () => {
             // eslint-disable-next-line no-undef
             $(".ui.dropdown").dropdown();
         }
 
+        /**
+         * @description: 提交博客
+         * @return void
+         */
+        const submit = () => {
+            // eslint-disable-next-line no-undef
+            blog_info.typeId = $(".ui.dropdown.my-type").dropdown('get value');
+            addBlog(blog_info);
+        }
+
+        /**
+         * @description: 保存博客
+         * @return void
+         */
+        const noPublish = () => {
+            blog_info.published = false;
+            // eslint-disable-next-line no-undef
+            blog_info.typeId = $(".ui.dropdown.my-type").dropdown('get value');
+            addBlog(blog_info);
+        }
+
+        /**
+         * @description: API 获取所有标签
+         * @return type_list(标签集合)
+         */
         const getTypeList = () => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/types/get/all", {
                 headers: {
@@ -107,16 +141,19 @@ export default {
                     'Content-Type': "application/x-www-form-urlencoded",
                 },
             }).then(resp => {
-                type_list.records = resp.data.data;
-            }).catch();
+                if(resp.data.error === 'success') {
+                    type_list.records = resp.data.data;
+                }
+            }).catch(() => {router.push({name:'500'})});
         }
 
-        const submit = () => {
-            // eslint-disable-next-line no-undef
-            blog_info.typeId = $(".ui.dropdown.my-type").dropdown('get value');
-
-
-            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/add", blog_info, {
+        /**
+         * @description: API 添加博客
+         * @param {object} blog
+         * @return void
+         */
+        const addBlog = (blog) => {
+            axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/add", blog, {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': 'application/json',
@@ -126,14 +163,10 @@ export default {
                 else {
                     error_message.value = resp.data.error;
                 }
-            }).catch()
-
+            }).catch(() => {router.push({name:'500'})})
 
         }
-        const noPublish = () => {
-            blog_info.published = false;
-            submit();
-        }
+
         onMounted(() => {
             getTypeList()
         })
@@ -142,6 +175,7 @@ export default {
             error_message,
             type_list,
             blog_info,
+
             getTypeList,
             close_error_message,
             typeMenu,

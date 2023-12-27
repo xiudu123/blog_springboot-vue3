@@ -37,7 +37,7 @@
             </div>
             <!--                    搜索-->
             <div class="field">
-                <button id="search-btn" type="button" class="ui teal basic button" @click="getBlogSearch(1)"> <i class="search icon"></i>搜索</button>
+                <button id="search-btn" type="button" class="ui teal basic button" @click="getBlogSearch(1, search.title, search.type_id, search.top, search.published)"> <i class="search icon"></i>搜索</button>
             </div>
         </div>
     </div>
@@ -88,7 +88,7 @@
                     <td > {{ blogs.updateTime }} </td>
                     <td>
                         <button class="ui mini blue button" @click="updateBlog(blogs.id)">编辑</button>
-                        <button class="ui mini red button" @click="showConfirmDia(blogs.id)">删除</button>
+                        <button class="ui mini red button" @click="showDeleteDia(blogs.id)">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -98,7 +98,7 @@
                         <div class="ui right floated pagination menu">
 
                             <!--                            上一页-->
-                            <a href="#" class="icon item " style="border: none" v-if="blog_page.current !== 1" @click="getBlogSearch(blog_page.current - 1)">
+                            <a href="#" class="icon item " style="border: none" v-if="blog_page.current !== 1" @click="getBlogSearch(blog_page.current - 1, search.title, search.type_id, search.top, search.published)">
                                 <i class="left chevron icon"></i>
                             </a>
                             <!--                            页码-->
@@ -106,7 +106,7 @@
                                 <a href="#" class="item" > {{blog_page.current}} </a>
                             </div>
                             <!--                            下一页-->
-                            <a href="#" class="icon item" style="border: none" v-if="blog_page.current !== blog_page.total" @click="getBlogSearch(blog_page.current + 1)">
+                            <a href="#" class="icon item" style="border: none" v-if="blog_page.current !== blog_page.total" @click="getBlogSearch(blog_page.current + 1, search.title, search.type_id, search.top, search.published)">
                                 <i  class="right chevron icon"></i>
                             </a>
 
@@ -151,31 +151,51 @@ import UserContentFieldCom from "@/components/UserContentFieldCom";
 import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
 import {useRouter} from "vue-router";
+import router from "@/router";
 
 export default {
     name: "UserBlogManageView",
     components: {UserContentFieldCom},
     setup() {
-        const router = useRouter();
+        const route = useRouter();
         const success_message = ref("");
         const error_message = ref("");
-        const blog_page = reactive({});
-        const blog_list = reactive({});
-        const type_list = reactive({});
-        const search = reactive({});
-        const isConfirmDia = ref(false);
+        const blog_page = reactive({
+            pre : 0,
+            next : 0,
+            current : 0,
+            total : 0,
+        });
+        const blog_list = reactive({
+            records: null
+        });
+        const type_list = reactive({
+            records: null
+        });
+        const search = reactive({
+            title : '',
+            type_id : -1,
+            top :false ,
+            published : false
+        });
         const close_success_message = () => {
             success_message.value = "";
         }
         const close_error_message = () => {
             error_message.value = "";
         }
-        const showConfirmDia = (blog_id) => {
+
+        /**
+         * @description: 打开是否删除的模态框
+         * @param {number} blog_id
+         * @return void
+         */
+        const showDeleteDia = (blog_id) => {
             // eslint-disable-next-line no-undef
             $('.ui.mini.basic.modal')
                 .modal({
                     onShow:function () {
-                        console.log(blog_id)
+
                     },
                     onApprove: () => {
                       console.log("确认");
@@ -189,6 +209,25 @@ export default {
 
         }
 
+        /**
+         * @description: 根据博客Id跳转修改博客页面
+         * @param {number} blog_id
+         * @return void
+         */
+        const updateBlog = (blog_id) => {
+            route.push({
+                name: 'user_blog_update',
+                query: {
+                    id: blog_id
+                }
+            })
+        }
+
+
+        /**
+         * @description: API 获取所有类型
+         * @return type_list(类型列表)
+         */
         const getTypeList = () => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/types/get/all", {
                 headers: {
@@ -196,18 +235,29 @@ export default {
                     'Content-Type': "application/x-www-form-urlencoded",
                 },
             }).then(resp => {
-                type_list.records = resp.data.data;
-            }).catch();
+                if(resp.data.error === 'success') {
+                    type_list.records = resp.data.data;
+                }
+            }).catch(() => {router.push({name:'500'})});
         }
 
-        const getBlogSearch = (page_num) => {
+        /**
+         * @description: API 获取博客泪飙
+         * @param {number} page_num
+         * @param {String} title (查询博客标题)
+         * @param {number} type_id (查询博客的类型Id)
+         * @param {boolean} top (查询博客是否置顶)
+         * @param {boolean} published (查询博客是否发布)
+         * @return blog_list(博客列表), blog_page(页码信息)
+         */
+        const getBlogSearch = (page_num, title, type_id, top, published) => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/get/search", {
                 params: {
                     "pageNum": page_num,
-                    "title": search.title,
-                    "typeId": search.type_id,
-                    "top": search.top,
-                    "published": search.published
+                    "title": title,
+                    "typeId": type_id,
+                    "top": top,
+                    "published": published
                 },
                 headers: {
                     "satoken": localStorage.getItem("token"),
@@ -216,41 +266,40 @@ export default {
             }).then(resp => {
                 if(resp.data.error === "success") {
                     const data = resp.data.data;
-                    blog_page.pre = data.prePage;
-                    blog_page.next = data.nextPage;
-                    blog_page.current = data.pageInfo.current;
-                    blog_page.total = data.pageInfo.pages;
-                    blog_list.records = data.pageInfo.records;
+                    blog_page.pre = data.pagePre;
+                    blog_page.next = data.pageNext;
+                    blog_page.current = data.pageCurrent;
+                    blog_page.total = data.pageTotal;
+                    blog_list.records = data.records;
                 }
-            }).catch(
-            )
+            }).catch(() => {router.push({name:'500'})})
         }
 
-        const updateBlog = (blog_id) => {
-            router.push({
-                name: 'user_blog_update',
-                query: {
-                    id: blog_id
-                }
-            })
-        }
-
+        /**
+         * @description: API 根据博客Id删除博客
+         * @param {number} blog_id
+         * @return void
+         */
         const deleteBlog = (blog_id) => {
             axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/delete", blog_id, {
                 headers: {
                     "satoken": localStorage.getItem("token"),
                     'Content-Type': 'application/json',
                 },
-            }).then(() => {
-                getBlogSearch(blog_page.current);
-                success_message.value = "操作成功";
+            }).then((resp) => {
+                if(resp.data.error === 'success') {
+                    getBlogSearch(blog_page.current, search.title, search.type_id, search.top, search.published);
+                    success_message.value = "操作成功";
+                }else {
+                    error_message.value = resp.data.error;
+                }
             }).catch(() => {
                 error_message.value = "操作失败, 请稍后再试";
             })
         }
 
         onMounted(() => {
-            getBlogSearch(1);
+            getBlogSearch(1, search.title, search.type_id, search.top, search.published);
             getTypeList();
         })
 
@@ -258,18 +307,18 @@ export default {
         return {
             success_message,
             error_message,
-            close_success_message,
-            close_error_message,
-            getBlogSearch,
-            getTypeList,
-            showConfirmDia,
-            updateBlog,
-            deleteBlog,
             type_list,
             blog_page,
             blog_list,
             search,
-            isConfirmDia
+
+            close_success_message,
+            close_error_message,
+            getBlogSearch,
+            getTypeList,
+            showDeleteDia,
+            updateBlog,
+            deleteBlog,
         }
     }
 }

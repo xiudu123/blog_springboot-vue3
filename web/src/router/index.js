@@ -1,17 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ApiView from '../views/ApiView'
 import AboutView from "@/views/AboutView";
 import ArchivesView from "@/views/ArchivesView";
 import IndexView from "@/views/IndexView";
 import TypeView from "@/views/TypeView";
 import MessageView from "@/views/MessageView";
-import NotFoundView from "@/views/NotFoundView";
+import NotFoundView from "@/views/error/NotFoundView";
+import ServerErrorView from "@/views/error/ServerErrorView";
 import UserIndexView from "@/views/user/UserIndexView";
 import UserBlogInputView from "@/views/user/UserBlogInputView";
 import UserBlogManageView from "@/views/user/UserBlogManageView";
 import UserBlogUpdateView from "@/views/user/UserBlogUpdateView";
 import UserLoginView from "@/views/user/UserLoginView";
-import UserTypeInput from "@/views/user/UserTypeInputView";
 import UserTypeManage from "@/views/user/UserTypeManageView";
 import BlogView from "@/views/BlogView";
 import ImageView from "@/views/ImageView";
@@ -123,14 +122,6 @@ const routes = [
     }
   },
   {
-    path: "/user/type/input",
-    name: "user_type_input",
-    component: UserTypeInput,
-    meta: {
-      requestAuth: true,
-    }
-  },
-  {
     path: "/user/type/manage",
     name: "user_type_manage",
     component: UserTypeManage,
@@ -139,9 +130,9 @@ const routes = [
     }
   },
   {
-    path: "/api",
-    name: 'api',
-    component: ApiView,
+    path: "/500/",
+    name: "500",
+    component: ServerErrorView,
     meta: {
       requestAuth: false,
     }

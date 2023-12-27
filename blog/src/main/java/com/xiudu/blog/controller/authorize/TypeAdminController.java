@@ -30,9 +30,11 @@ public class TypeAdminController {
 
         Page<Type> typePage = typeService.listTypeAndSearch(pageNum, typeName);
         Map<String, Object> result = new HashMap<>();
-        result.put("pageInfo", typePage);
-        result.put("prePage", (typePage.getCurrent() - (typePage.hasPrevious() ? 1 : 0)));
-        result.put("nextPage", (typePage.getCurrent() + (typePage.hasNext() ? 1 : 0)));
+        result.put("records", typePage.getRecords());
+        result.put("pageCurrent", typePage.getCurrent());
+        result.put("pageTotal", typePage.getPages());
+        result.put("pagePre", (typePage.getCurrent() - (typePage.hasPrevious() ? 1 : 0)));
+        result.put("pageNext", (typePage.getCurrent() + (typePage.hasNext() ? 1 : 0)));
         return Result.success(result);
     }
 
@@ -63,6 +65,7 @@ public class TypeAdminController {
     @Operation(summary = "修改分类", description = "修改分类")
     @PostMapping("/update")
     public Result<?> updateType(@RequestBody Type newType) {
+        System.out.println(newType);
         Type oldType = typeService.getType(newType.getId());
         if(oldType == null) {
             return Result.error("该分类不存在或已被删除");

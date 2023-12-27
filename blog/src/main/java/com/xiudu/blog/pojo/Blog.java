@@ -25,7 +25,7 @@ public class Blog {
     private String content; // 内容
     private String firstPicture; // 首图
     private Long views; // 浏览次数
-    private  Boolean top; // 是否置顶
+    private Boolean top; // 是否置顶
     private Boolean published; // 是否发布
     private Boolean comment; // 是否开启评论
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
