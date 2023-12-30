@@ -28,6 +28,8 @@ public class CommentController {
     private UserService userService;
     @Value("${comment.avatar}")
     private String avatar;
+    @Value("${admin.avatar}")
+    private String adminAvatar;
 
     @Operation(summary = "获取评论", description = "根据博客的Id或许所属的所有评论的树形结构")
     @Parameters({
@@ -63,8 +65,8 @@ public class CommentController {
     @PostMapping("/submit")
     public Result<?> post(@RequestBody Comment comment) {
         comment.setCreateTime(new Date());
-        comment.setAvatar(avatar);
-
+        if(comment.getUserId() == 1) comment.setAvatar(adminAvatar);
+        else comment.setAvatar(avatar);
         int successInsert = commentService.insertComment(comment);
         if(successInsert == 0) return Result.error("评论失败, 请稍后再试");
         else return Result.success();

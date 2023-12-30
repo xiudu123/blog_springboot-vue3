@@ -5,7 +5,7 @@
     <form action="#" method="post" class="ui secondary segment form">
         <div class="inline fields">
             <div class="field">
-                <input type="text" name="title" placeholder="分类类型" v-model="type_query_name">
+                <input type="text" placeholder="分类类型" v-model="type_query_name">
             </div>
             <div class="field">
                 <div class="ui teal basic button" @click="getTypeList(1)"> <i class="search icon"></i>搜索</div>
@@ -173,6 +173,11 @@ export default {
             success_message.value = "";
         }
 
+        onMounted(() => {
+            document.title = "类型管理";
+            getTypeList(1);
+        })
+
         /**
          * @description: 打开添加模态框
          * @return void
@@ -336,10 +341,6 @@ export default {
             }).catch(() => {router.push({name:'500'})})
         }
 
-
-        onMounted(() => {
-            getTypeList(1);
-        })
 
         return {
             error_message,

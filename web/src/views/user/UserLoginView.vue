@@ -14,14 +14,14 @@
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="username" v-model="username" placeholder="用户名">
+                                    <input type="text" v-model="username" placeholder="用户名">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="password" v-model="password" placeholder="密码">
+                                    <input type="password" v-model="password" placeholder="密码">
                                 </div>
                             </div>
                             <button class="ui fluid large teal submit button">登   录</button>
@@ -40,13 +40,17 @@
 </template>
 
 <script>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import store from "@/store";
 export default {
     name: "UserLoginView",
     setup() {
         let error_message = ref("");
         let username = ref(""), password = ref("");
+        onMounted(() => {
+            document.title = "登录界面";
+        })
+
         const submitLogin = () => {
             error_message.value = "";
 
@@ -61,6 +65,7 @@ export default {
             })
 
         };
+
         return {
             error_message,
             username,

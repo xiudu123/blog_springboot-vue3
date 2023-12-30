@@ -101,7 +101,8 @@ public class BlogServiceImpl implements BlogService {
         for(Blog blog : blogs) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
             LocalDateTime dateTime = LocalDateTime.parse(blog.getUpdateTime().toString(), formatter);
-            blog.setContent(null);
+            blog.setContentHtml(null);
+            blog.setContentMarkdown(null);
             blog.setYear(dateTime.getYear());
             blog.setMonth(dateTime.getMonthValue());
             blog.setDay(dateTime.getDayOfMonth());
@@ -113,7 +114,12 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> listTop(Long size) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top", "create_time").last("LIMIT " + size.toString());
-        return blogMapper.selectList(queryWrapper);
+        List<Blog> blogs= blogMapper.selectList(queryWrapper);
+        for(Blog blog : blogs) {
+            blog.setContentHtml(null);
+            blog.setContentMarkdown(null);
+        }
+        return blogs;
     }
 
     @Override
@@ -125,8 +131,8 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog getAndConvert(Long blogId) { // 渲染博客;
         Blog blog = getBlog(blogId);
-        String content = blog.getContent();
-        blog.setContent(content);
+        String content = blog.getContentHtml();
+        blog.setContentHtml(content);
         blog.setViews(blog.getViews() + 1);
         blogMapper.updateViewById(blogId);
         return blog;
@@ -134,15 +140,16 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Map<String, String> query) {
+    public Page<Blog> listBlogAdminQuery(Integer pageNum, Map<String, String> query) {
         Page<Blog> page = new Page<>(pageNum, 10);
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc( "create_time");
 
-        if(!("".equals(query.get("title"))))  queryWrapper.like("title", query.get("title"));
-        if(!("-1".equals(query.get("typeId")))) queryWrapper.eq("type_id", query.get("typeId"));
-        if("1".equals(query.get("top"))) queryWrapper.eq("top", 1);
-        if("1".equals(query.get("published"))) queryWrapper.eq("published", 0);
+        if(!("".equals(query.get("title"))))       queryWrapper.like("title", query.get("title"));
+        if(!("-1".equals(query.get("typeId"))))    queryWrapper.eq("type_id", query.get("typeId"));
+        if(!("-1".equals(query.get("top"))))       queryWrapper.eq("top", query.get("top"));
+        if(!("-1".equals(query.get("published")))) queryWrapper.eq("published", query.get("published"));
+        if(!("-1".equals(query.get("comment"))))   queryWrapper.eq("comment", query.get("comment"));
         return getBlogPage(page, queryWrapper);
     }
 

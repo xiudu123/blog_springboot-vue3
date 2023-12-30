@@ -55,11 +55,16 @@ public class TypeShowController {
     @GetMapping("/types")
     public Result<?> getTypes() {
 
-        List<Type> page = typeService.listTypeAll();
+        List<Type> types = typeService.listTypeAll();
+        Map<String, Long> nameToId = new HashMap<>();
+
+        for(Type type : types) {
+            nameToId.put(type.getName(), type.getId());
+        }
 
         Map<String, Object> result = new HashMap<>();
-        result.put("records", page);
-
+        result.put("records", types);
+        result.put("nameToId", nameToId);
         return Result.success(result);
     }
 

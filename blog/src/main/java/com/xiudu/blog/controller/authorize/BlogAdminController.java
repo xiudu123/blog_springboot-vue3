@@ -34,19 +34,25 @@ public class BlogAdminController {
     public Result<?> getBlogSearch(@RequestParam(defaultValue = "1") Integer pageNum,
                                    @RequestParam(defaultValue = "") String title,
                                    @RequestParam(defaultValue = "-1") String typeId,
-                                   @RequestParam(defaultValue = "false") Boolean top,
-                                   @RequestParam(defaultValue = "false") Boolean published) {
+                                   @RequestParam(defaultValue = "-1") String top,
+                                   @RequestParam(defaultValue = "-1") String published,
+                                   @RequestParam(defaultValue = "-1") String comment) {
 
         Map<String, String> query= new HashMap<>();
         query.put("title", title);
         query.put("typeId", typeId);
-        if(top) query.put("top", "1");
-        else query.put("top", "0");
-        if(published) query.put("published", "1");
-        else query.put("published", "0");
+        query.put("top", top);
+        query.put("published", published);
+        query.put("comment", comment);
 
-        Page<Blog> blogPage = blogService.listBlogByUserIdAndQuery(pageNum, query);
+
+        Page<Blog> blogPage = blogService.listBlogAdminQuery(pageNum, query);
         Map<String, Object> result = new HashMap<>();
+
+        for(Blog blog : blogPage.getRecords()) {
+            blog.setContentMarkdown(null);
+            blog.setContentHtml(null);
+        }
 
         result.put("records", blogPage.getRecords());
         result.put("pageCurrent", blogPage.getCurrent());
@@ -75,7 +81,7 @@ public class BlogAdminController {
         if("".equals(blog.getFirstPicture()) || blog.getFirstPicture() == null) {
             return Result.error("请选择首图");
         }
-        if("".equals(blog.getContent()) || blog.getContent() == null) {
+        if("".equals(blog.getContentMarkdown()) || blog.getContentMarkdown() == null) {
             return Result.error("请编写博客内容");
         }
         if("".equals(blog.getOverview()) || blog.getOverview() == null) {
@@ -105,7 +111,7 @@ public class BlogAdminController {
         if("".equals(newBlog.getFirstPicture()) || newBlog.getFirstPicture() == null) {
             return Result.error("请选择首图");
         }
-        if("".equals(newBlog.getContent()) || newBlog.getContent() == null) {
+        if("".equals(newBlog.getContentMarkdown()) || newBlog.getContentMarkdown() == null) {
             return Result.error("请编写博客内容");
         }
         if("".equals(newBlog.getOverview()) || newBlog.getOverview() == null) {

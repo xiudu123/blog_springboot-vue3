@@ -28,5 +28,5 @@ public interface BlogService {
     Long blogCount();
 
     // 用户后台管理
-    Page<Blog> listBlogByUserIdAndQuery(Integer pageNum, Map<String, String> query);
+    Page<Blog> listBlogAdminQuery(Integer pageNum, Map<String, String> query);
 }

@@ -14,7 +14,6 @@ export default {
 
 body{
     background-image: url("@/assets/img/Saito_Asuka_3.jpg");
-    background-color: #D0F0FF;
     background-attachment:fixed;
     background-size: 100%;
     no-repeat: center top;

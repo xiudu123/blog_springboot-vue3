@@ -2,6 +2,7 @@ package com.xiudu.blog.config.Cors;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -14,11 +15,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsMapping implements WebMvcConfigurer {
 
-    @Override
     /**
      * 重新跨域支持方法
      * CorsRegistry
      */
+    @Override
     public void addCorsMappings(CorsRegistry registry) {
         // addMapping 添加可跨域的请求地址
         registry.addMapping("/**")
@@ -32,5 +33,17 @@ public class CorsMapping implements WebMvcConfigurer {
                 // .allowedHeaders()
                 // 预检请求存活时间 在此期间不再次发送预检请求
                 .maxAge(3600);
+    }
+
+    /**
+     * 放行静态资源
+     * ResourceHandlerRegistry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("favicon.ico")
+                .addResourceLocations("classpath:/static/favicon.ico");
     }
 }

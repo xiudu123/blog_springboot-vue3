@@ -5,7 +5,7 @@
             <div class="ui vertical segment">
 
                 <!--博客-->
-                <div class="ui padded segment m-opacity" style="background-color: #F7F7F7" v-for="blog in blog_list.records" :key="blog.id">
+                <div class="ui padded segment m-opacity my-blog-div" v-for="blog in blog_list.records" :key="blog.id">
 
                     <div class="ui mobile reversed stackable grid  m-margin-top-large" @click="clickBlog(blog.id)">
                         <!--博文信息-->
@@ -49,13 +49,13 @@
                 <!-- 分页-->
                 <div class="ui bottom segment m-opacity stackable grid">
                     <div class="three wide column center aligned">
-                        <div class="ui teal basic button item" @click="getBlogList(blog_page.pre)">上一页</div>
+                        <div class="ui teal basic button item" @click="pageTurning(blog_page.pre)">上一页</div>
                     </div>
                     <div class="ten wide column center aligned" style="margin: auto">
                         <p> <span> {{ blog_page.current }} </span> / <span> {{ blog_page.total }} </span> </p>
                     </div>
                     <div class="three wide column center aligned">
-                        <div class="ui teal basic button item" @click="getBlogList(blog_page.next)">下一页</div>
+                        <div class="ui teal basic button item" @click="pageTurning(blog_page.next)">下一页</div>
                     </div>
                 </div>
             </div>
@@ -69,10 +69,12 @@ import ContentFieldCom from "@/components/ContentFieldCom";
 import {onMounted, reactive} from "vue";
 import axios from "axios";
 import router from "@/router";
+import {useRoute} from "vue-router";
 export default {
     name: "IndexView",
     components: {ContentFieldCom},
     setup() {
+        const route = useRoute();
         const blog_list = reactive({
             records : null,
         });
@@ -82,6 +84,30 @@ export default {
             current : 0,
             total : 0,
         });
+        const query_info = reactive({
+            page_num: 1,
+        })
+
+        onMounted(() => {
+            document.title = "首页";
+            if(route.query.page_num) query_info.page_num = route.query.page_num;
+            getBlogList(query_info.page_num);
+        })
+
+        /**
+         * @description: 跳转上一页下一页（将参数显示在url上）
+         * @param {String} page_num
+         * @return void
+         */
+        const pageTurning = (page_num) => {
+            const routeUrl = router.resolve({
+                name: 'index',
+                query: {
+                    page_num: page_num
+                }
+            })
+            window.open(routeUrl.href, '_self');
+        }
 
         /**
          * @description: 通过点击博客跳转页面
@@ -92,7 +118,7 @@ export default {
             let routeUrl = router.resolve({
                 name: 'blog',
                 query: {
-                    id: blog_id
+                    details: blog_id
                 }
             })
             window.open(routeUrl.href, '_blank');
@@ -100,7 +126,7 @@ export default {
 
         /**
          * @description: API 获取博客列表
-         * @param {number} page_num
+         * @param {string | LocationQueryValue[]} page_num
          * @return blog_list(博客列表), blog_page(页数信息)
          */
         const getBlogList = (page_num) => {
@@ -124,16 +150,12 @@ export default {
         }
 
 
-
-        onMounted(() => {
-            getBlogList(1)
-        })
-
         return {
             blog_list,
             blog_page,
 
             getBlogList,
+            pageTurning,
             clickBlog
         }
     }
@@ -141,5 +163,11 @@ export default {
 </script>
 
 <style scoped>
+.my-blog-div:hover {
+    background-color: #F0F0F2;
+}
+.my-blog-div {
+    background-color: #FFFFFF;
+}
 
 </style>

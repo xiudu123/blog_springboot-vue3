@@ -29,7 +29,9 @@
             </div>
             <!--内容-->
             <div class="ui attached padded segment ">
-                {{blog_info.content}}
+<!--                {{blog_info.content}}-->
+                <div class="typo typo-selection m-padded-lr-responsive m-padded-tb js-toc-content" v-html="blog_info.content_html"></div>
+<!--                <div id="markdown1" ref="markdown1" />-->
             </div>
             <!--分类-->
             <div class="ui attached padded segment">
@@ -63,7 +65,8 @@
                             <h3 class="ui dividing header">评论</h3>
                             <div class="comment" v-for="comment in comment_info.comments" :key="comment.id">
                                 <a class="avatar">
-                                    <img src="@/assets/img/xiu.jpg" alt="" >
+<!--                                    <img src="@/assets/img/xiu.jpg" alt="" >-->
+                                    <img :src="baseUrl + comment.avatar" alt="">
                                 </a>
                                 <div class="content" :id="'comment' + comment.id" :class="{'flash-effect': comment.id === replyCommentId}">
                                     <a class="author">
@@ -86,7 +89,8 @@
                                 <div class="comments" v-if="comment_info.replyComments[comment.id]">
                                     <div class="comment" v-for="reply_comment in comment_info.replyComments[comment.id]" :key="reply_comment.id" :class="{'flash-effect': reply_comment.id === replyCommentId}">
                                         <a class="avatar">
-                                            <img src="https://unsplash.it/100/100?image=1005" alt="">
+<!--                                            <img src="https://unsplash.it/100/100?image=1005" alt="">-->
+                                            <img :src="baseUrl + reply_comment.avatar">
                                         </a>
                                         <div class="content" :id="'comment' + reply_comment.id">
                                             <span> {{ reply_comment.nickname }}</span>
@@ -132,13 +136,13 @@
                     <div class="field m-mobile-wide m-margin-button-small">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="nickname" placeholder="姓名" v-model="comment_post.nickname" :disabled="$store.state.user.username!==''">
+                            <input type="text" placeholder="姓名" v-model="comment_post.nickname" :disabled="$store.state.user.username!==''">
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-button-small">
                         <div class="ui left icon input">
                             <i class="mail icon"></i>
-                            <input type="email" name="email" placeholder="邮箱" v-model="comment_post.email" :disabled="$store.state.user.email!==''" >
+                            <input type="email" placeholder="邮箱" v-model="comment_post.email" :disabled="$store.state.user.email!==''" >
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-button-small">
@@ -170,20 +174,22 @@ import axios from "axios";
 import {useRoute} from "vue-router";
 import {useStore} from "vuex";
 import router from "@/router";
+
 export default {
     name: "BlogView",
     components: {ContentFieldCom},
     setup() {
         const route = useRoute();
         const store = useStore();
-
+        const baseUrl = process.env.VUE_APP_API_BASE_URL;
         const replyCommentId = ref(null);
         const blog_info = reactive({
             id : null,
             first_picture : null,
             title : null,
             comment : null,
-            content : null,
+            content_html : null,
+            content_markdown: null,
             create_time : null,
             overview : null,
             published : null,
@@ -202,11 +208,40 @@ export default {
             replyComments : null,
         });
         const comment_post = reactive({
-            top_comment_id: -1,
-            parent_id: -1,
+            topCommentId: -1,
+            parentId: -1,
             nickname: store.state.user.username,
             email: store.state.user.email,
+            userId: 0,
         });
+        onMounted(() => {
+            document.title = "博客详情";
+            getBlog(route.query.details);
+            getComment(route.query.details);
+            setTimeout(() => {
+                comment_post.nickname = store.state.user.username;
+                comment_post.email = store.state.user.email;
+                comment_post.userId = store.state.user.id;
+                tocbotInit();
+            }, 1000);
+        })
+
+        /**
+         * @description: 目录初始化
+         * @return void
+         */
+        const tocbotInit = () => {
+            // eslint-disable-next-line no-undef
+            tocbot.init({
+                // Where to render the table of contents.
+                tocSelector: '.js-toc',
+                // Where to grab the headings to build the table of contents.
+                contentSelector: '.js-toc-content',
+                // Which headings to grab inside the contentSelector element.
+                headingSelector: 'h1, h2, h3, h4, h5',
+            });
+        }
+
         /**
          * @description: 点击评论按钮跳转到评论位置
          * @return void
@@ -307,7 +342,8 @@ export default {
                     blog_info.first_picture = data.firstPicture;
                     blog_info.title = data.title;
                     blog_info.comment = data.comment;
-                    blog_info.content = data.content;
+                    blog_info.content_html = data.contentHtml;
+                    blog_info.content_markdown = data.contentMarkdown;
                     blog_info.create_time = data.createTime;
                     blog_info.overview = data.overview;
                     blog_info.published = data.published;
@@ -318,6 +354,8 @@ export default {
                     blog_info.user_id = data.userId;
                     blog_info.username = data.username;
                     blog_info.views = data.views;
+
+                    document.title = blog_info.title + "_" + document.title;
                 }else {
                     let routeUrl = router.resolve({
                         name: '404',
@@ -367,30 +405,12 @@ export default {
             }).catch(() => {router.push({name:'500'})})
         }
 
-        onMounted(() => {
-            // eslint-disable-next-line no-undef
-            tocbot.init({
-                // Where to render the table of contents.
-                tocSelector: '.js-toc',
-                // Where to grab the headings to build the table of contents.
-                contentSelector: '.js-toc-content',
-                // Which headings to grab inside the contentSelector element.
-                headingSelector: 'h1, h2, h3, h4, h5',
-            });
-
-            getBlog(route.query.id);
-            getComment(route.query.id);
-            setTimeout(() => {
-                comment_post.nickname = store.state.user.username;
-                comment_post.email = store.state.user.email;
-            }, 1000);
-        })
-
         return {
             blog_info,
             comment_info,
             comment_post,
             replyCommentId,
+            baseUrl,
 
             click_comment_button,
             click_comment_reply,

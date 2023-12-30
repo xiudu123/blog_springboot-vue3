@@ -22,7 +22,8 @@ public class Blog {
     @TableId(type = IdType.AUTO)
     private Long id;
     private String title; // 标题
-    private String content; // 内容
+    private String contentHtml; // html内容
+    private String contentMarkdown; // markdown内容
     private String firstPicture; // 首图
     private Long views; // 浏览次数
     private Boolean top; // 是否置顶

@@ -2,7 +2,7 @@
     <ContentFieldCom>
         <div class="ui segment m-padded-tb-large m-opacity">
             <div class="ui container center aligned">
-                <div class="ui labeled button m-margin-tb-tiny" v-for="type in type_list.records" :key="type.id" @click="clickType(type.id)">
+                <div class="ui labeled button m-margin-tb-tiny" v-for="type in type_list.records" :key="type.id" @click="clickType(type.name)">
                     <div class="ui basic button" > {{ type.name }} </div>
                     <div class="ui basic  left pointing label"> {{ type.count }} </div>
                 </div>
@@ -11,7 +11,7 @@
 
         <div class="ui top attached green segment m-opacity ">
             <!--博客-->
-            <div class="ui padded segment m-opacity" v-for="blog in blog_list.records" :key="blog.id">
+            <div class="ui padded segment m-opacity my-blog-div" v-for="blog in blog_list.records" :key="blog.id">
 
                 <div class="ui mobile reversed stackable grid  m-margin-top-large" style="min-width: 50vw;" @click="clickBlog(blog.id)">
                     <!--博文信息-->
@@ -46,9 +46,7 @@
                     </div>
                     <!--博文图片-->
                     <div class="five wide column">
-                        <a href="#" target="_blank">
-                            <img src="@/assets/img/Hancock.jpg" alt="" class="ui rounded image" style="height: 200px">
-                        </a>
+                        <img :src="blog.firstPicture" alt="" class="ui rounded image" style="width: 400px; height: 200px">
                     </div>
 
                 </div>
@@ -59,14 +57,14 @@
         <!-- 分页-->
         <div class="ui bottom segment m-opacity stackable grid">
             <div class="three wide column center aligned">
-                <a class="ui teal basic button item" @click="getBlogList(blog_page.pre, type_now)">上一页</a>
+                <a class="ui teal basic button item" @click="pageTurning(query_info.type_name, blog_page.pre)">上一页</a>
             </div>
 
             <div class="ten wide column center aligned" style="margin: auto">
                 <p> <span> {{ blog_page.current }} </span> / <span> {{ blog_page.total }} </span> </p>
             </div>
             <div class="three wide column center aligned">
-                <a class="ui teal basic button item" @click="getBlogList(blog_page.next, type_now)">下一页</a>
+                <a class="ui teal basic button item" @click="pageTurning(query_info.type_name, blog_page.next)">下一页</a>
             </div>
         </div>
     </ContentFieldCom>
@@ -74,17 +72,19 @@
 
 <script>
 import ContentFieldCom from "@/components/ContentFieldCom";
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive} from "vue";
 import axios from "axios";
 import router from "@/router";
+import {useRoute} from "vue-router";
 export default {
     name: "TypeView",
     components: {ContentFieldCom},
     setup() {
+        const route = useRoute();
         const type_list = reactive({
             records : null,
+            name_to_id: null
         });
-        const type_now = ref(0);
         const blog_list = reactive({
             records : null,
         });
@@ -94,15 +94,24 @@ export default {
             current : 0,
             total : 0,
         });
+        const query_info = reactive({
+            type_id: 0,
+            type_name: "",
+            page_num: 1,
+        });
+
+        onMounted(() => {
+            document.title = "标签";
+            getTypes()
+        })
 
         /**
          * @description: 通过点击标签获取所属博客
-         * @param {number} type_id
+         * @param {String} type_name
          * @return void
          */
-        const clickType = (type_id) => {
-            type_now.value = type_id;
-            getBlogList(1, type_now.value);
+        const clickType = (type_name) => {
+            pageTurning(type_name, 1);
         }
 
         /**
@@ -114,10 +123,40 @@ export default {
             let routeUrl = router.resolve({
                 name: 'blog',
                 query: {
-                    id: blog_id
+                    details: blog_id
                 }
             })
             window.open(routeUrl.href, '_blank');
+        }
+
+        /**
+         * @description: 刷新页面, 根据传参获取博客列表
+         * @return void
+         */
+        const refresh = () => {
+            if(route.query.type_name) {
+                query_info.type_name = route.query.type_name;
+                query_info.type_id = type_list.name_to_id[route.query.type_name];
+            }
+            if(route.query.page_num)query_info.page_num = route.query.page_num;
+            getBlogList(query_info.type_id, query_info.page_num);
+        }
+
+        /**
+         * @description: 跳转上一页下一页（将参数显示在url上）
+         * @param {String} type_name
+         * @param {String} page_num
+         * @return void
+         */
+        const pageTurning = (type_name, page_num) => {
+            const routeUrl = router.resolve({
+                name: 'type',
+                query: {
+                    type_name: type_name,
+                    page_num: page_num
+                }
+            })
+            window.open(routeUrl.href, '_self');
         }
 
         /**
@@ -132,17 +171,19 @@ export default {
             }).then(resp => {
                 if(resp.data.error === "success")  {
                     type_list.records = resp.data.data.records;
+                    type_list.name_to_id = resp.data.data.nameToId;
+                    refresh();
                 }
             }).catch(() => {router.push({name:'500'})})
         }
 
         /**
          * @description: API 获取标签下所属的博客
-         * @param {number} page_num
-         * @param {number} type_id
+         * @param {string | LocationQueryValue[]} page_num
+         * @param {string | LocationQueryValue[]} type_id
          * @return blog_list(博客集合), blog_page(页数信息)
          */
-        const getBlogList = (page_num, type_id) => {
+        const getBlogList = (type_id, page_num) => {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/type", {
                 params: {
                     "pageNum" : page_num,
@@ -163,25 +204,25 @@ export default {
             }).catch(() => {router.push({name:'500'})});
         }
 
-        onMounted(() => {
-            getTypes()
-            getBlogList(1, type_now.value);
-        })
-
         return {
             type_list,
-            type_now,
             blog_list,
             blog_page,
+            query_info,
 
-            getBlogList,
             clickType,
-            clickBlog
+            clickBlog,
+            pageTurning
         }
     }
 }
 </script>
 
 <style scoped>
-
+.my-blog-div:hover {
+    background-color: #F0F0F2;
+}
+.my-blog-div {
+    background-color: #FFFFFF;
+}
 </style>

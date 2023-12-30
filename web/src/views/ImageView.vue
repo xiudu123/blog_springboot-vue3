@@ -7,11 +7,7 @@
             </div>
             <div class="m-font-size-title" style="color: black">锈渎</div>
             <div>
-                <div class="ui circular icon button"><i class="qq icon"></i></div>
                 <a href="https://github.com/xiudu123" target="_blank" class="ui circular icon button"><i class="github icon"></i></a>
-            </div>
-            <div class="My_qq_qr ui flowing popup top left transition hidden">
-                <img src="@/assets/img/qrcode.png" alt="" class="ui rounded image">
             </div>
             <div class="m-font-size-text m-gradient-color m-margin-top-large" style="font-family: myFont,serif;">
                 须知少日拏云志 <br>
@@ -30,8 +26,15 @@
 </template>
 
 <script>
+import {onMounted} from "vue";
+
 export default {
-    name: "ImageView"
+    name: "ImageView",
+    setup() {
+        onMounted(() => {
+            document.title = "锈渎小栈";
+        })
+    }
 }
 </script>
 

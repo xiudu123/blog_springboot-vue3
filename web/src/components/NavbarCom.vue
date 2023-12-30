@@ -9,14 +9,14 @@
                 <router-link :to = "{name: 'archives'}" class="item m-item m-mobile-hide" :class="route_name === 'archives' ? 'active' : '' " @click = "click_link"><i class="clock outline icon"></i>时间轴</router-link>
                 <router-link :to = "{name: 'about'}" class="item m-item m-mobile-hide" :class="route_name === 'about' ? 'active' : '' " @click = "click_link"><i class="info icon"></i>关于我</router-link>
                 <div class="right item m-item m-mobile-hide">
-                    <form action="#" name="search" method="get" target="_blank">
+<!--                    <form action="#" method="get" target="_blank">-->
                         <div class="ui icon inverted transparent input">
-                            <input type="text" name="query" placeholder="搜索..." id="search">
+                            <input type="text" placeholder="搜索..." id="search">
                             <label for="search">
                                 <i class="search link icon"></i>
                             </label>
                         </div>
-                    </form>
+<!--                    </form>-->
                 </div>
             </div>
         </div>

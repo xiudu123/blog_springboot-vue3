@@ -8,9 +8,8 @@
             </div>
 
             <form id="blog-form" action="#" method="post" class="ui form">
-                <input type="hidden" name="published">
                 <div class="required field">
-                    <input type="text" name="title" placeholder="标题" v-model="blog_info.title">
+                    <input type="text" placeholder="标题" v-model="blog_info.title">
                 </div>
 
                 <div class="field">
@@ -18,7 +17,6 @@
                         <div class="ui left labeled action input">
                             <label class="ui compact teal basic label">分类</label>
                             <div class="ui fluid selection dropdown my-type"  @mouseup="typeMenu" >
-                                <input type="hidden" value="-1" name="typeId">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">选择分类</div>
                                 <div class="menu">
@@ -32,31 +30,32 @@
                 <div class="field">
                     <div class="ui left labeled input">
                         <label class="ui teal basic label">首图</label>
-                        <input type="text" name="firstPicture" placeholder="首图引用地址" v-model="blog_info.firstPicture">
+                        <input type="text" placeholder="首图引用地址" v-model="blog_info.firstPicture">
                     </div>
                 </div>
 
                 <div class="field">
-                    <div id="md-content">
-                        <textarea name="content"  cols="30" rows="10" placeholder="请编辑博客内容..." v-model="blog_info.content"></textarea>
-                    </div>
+<!--                    <div id="md-content">-->
+<!--                        <textarea cols="30" rows="10" placeholder="请编辑博客内容..." v-model="blog_info.content"></textarea>-->
+                        <div id="markdown1" ref="markdown1" />
+<!--                    </div>-->
                 </div>
 
                 <div class="field">
                     <div>博客描述编写</div>
                     <label>
-                        <textarea name="overview"  cols="30" rows="5" placeholder="请编辑博客描述..." v-model="blog_info.overview"></textarea>
+                        <textarea  cols="30" rows="5" placeholder="请编辑博客描述..." v-model="blog_info.overview"></textarea>
                     </label>
                 </div>
 
                 <div align="right" style="margin-right: 1em">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="top" name="top" class="hidden" v-model="blog_info.top">
+                        <input type="checkbox" id="top" class="hidden" v-model="blog_info.top">
                         <label for="top">置顶</label>
                     </div>
                     &emsp;
                     <div class="ui checkbox">
-                        <input type="checkbox" id="comment" name="comment" class="hidden" v-model="blog_info.comment">
+                        <input type="checkbox" id="comment" class="hidden" v-model="blog_info.comment">
                         <label for="comment">开启评论</label>
                     </div>
                 </div>
@@ -76,6 +75,8 @@ import UserContentFieldCom from "@/components/UserContentFieldCom";
 import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
 import router from "@/router";
+import Cherry from 'cherry-markdown'
+import "cherry-markdown/dist/cherry-markdown.min.css";
 export default {
     name: "UserBlogInputView",
     components: {UserContentFieldCom,},
@@ -95,10 +96,17 @@ export default {
             comment: false,
             published: true,
         });
-
+        const cherryInstance=ref(null);
         const close_error_message = () => {
             error_message.value = "";
         }
+
+
+        onMounted(() => {
+            getTypeList();
+            cherrryInit();
+            document.title = "添加博客";
+        })
 
         /**
          * @description: 展开类型下拉框
@@ -116,6 +124,8 @@ export default {
         const submit = () => {
             // eslint-disable-next-line no-undef
             blog_info.typeId = $(".ui.dropdown.my-type").dropdown('get value');
+            blog_info.contentHtml = cherryInstance.value.getHtml();
+            blog_info.contentMarkdown = cherryInstance.value.getMarkdown();
             addBlog(blog_info);
         }
 
@@ -127,6 +137,8 @@ export default {
             blog_info.published = false;
             // eslint-disable-next-line no-undef
             blog_info.typeId = $(".ui.dropdown.my-type").dropdown('get value');
+            blog_info.contentHtml = cherryInstance.value.getHtml();
+            blog_info.contentMarkdown = cherryInstance.value.getMarkdown();
             addBlog(blog_info);
         }
 
@@ -162,14 +174,99 @@ export default {
                 if(resp.data.error === "success") window.history.go(-1);
                 else {
                     error_message.value = resp.data.error;
+                    // eslint-disable-next-line no-undef
+                    $(window).scrollTo(0, 500);
                 }
             }).catch(() => {router.push({name:'500'})})
 
         }
 
-        onMounted(() => {
-            getTypeList()
-        })
+        /**
+         * @description: 初始化编辑器
+         * @return void
+         */
+        const cherrryInit = () => {
+            cherryInstance.value = new Cherry({
+                id: 'markdown1',
+                value: '# welcome to cherry editor!',
+                emoji: {
+                    useUnicode: true,
+                },
+                editor: {
+                    theme: 'default'
+                },
+                codeBlock: {
+                    theme: 'dark', // 默认为深色主题
+                    wrap: true, // 超出长度是否换行，false则显示滚动条
+                    lineNumber: true, // 默认显示行号
+                    copyCode: true, // 是否显示“复制”按钮
+                    editCode: true, // 是否显示“编辑”按钮
+                    changeLang: true, // 是否显示“切换语言”按钮
+                    customRenderer: {
+                        // 自定义语法渲染器
+                    },
+                    mermaid: {
+                        svg2img: false, // 是否将mermaid生成的画图变成img格式
+                    },
+                },
+                mathBlock: {
+                    engine: 'MathJax', // katex或MathJax
+                    src: '',
+                    plugins: true, // 默认加载插件
+                },
+                inlineMath: {
+                    engine: 'MathJax', // katex或MathJax
+                    src: '',
+                },
+                header: {
+                    /**
+                     * 标题的样式：
+                     *  - default       默认样式，标题前面有锚点
+                     *  - autonumber    标题前面有自增序号锚点
+                     *  - none          标题没有锚点
+                     */
+                    anchorStyle: 'autonumber',
+                },
+                toolbars: {
+                    theme: 'light',
+                    toolbar: ['bold', 'italic', 'underline', 'strikethrough', '|', 'color', 'header', '|', 'list', { insert: ['image', 'link', 'br', 'formula', 'toc', 'table', 'line-table', 'bar-table', 'word'] }, 'settings'],
+                    bubble: ['bold', 'italic', 'underline', 'strikethrough', 'sub', 'sup', '|', 'size', 'color'],
+                    float: ['h1', 'h2', 'h3', '|', 'checklist', 'quote', 'quickTable', 'code'],
+                    customMenu: []
+                },
+                engine: {
+                    syntax: {
+                        table: {
+                            enableChart: false,
+                            externals: [ 'echarts' ]
+                        },
+                    },
+                    customSyntax: {}
+                },
+                externals: {},
+                fileUpload(file, callback) {
+                    // console.log(file);
+                    // callback("https://oj.swust.edu.cn/assets/images/user/default.png");
+                    // callback(process.env.VUE_APP_API_BASE_URL + "/static/img/avatar.jpg");
+                    // api.post(file).then(url => {
+                    //   callback(url)
+                    // })
+                    const formData = new FormData();
+                    formData.append("file", file);
+                    axios.post(process.env.VUE_APP_API_BASE_URL + "/upload/picture/markdown", formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    }).then(resp => {
+                            if(resp.data.error === 'success') {
+                                const picture_url = resp.data.data;
+                                callback(picture_url);
+                            }
+
+                        })
+                }
+            })
+        }
 
         return {
             error_message,

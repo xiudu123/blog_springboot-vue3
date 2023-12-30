@@ -8,7 +8,6 @@
         </div>
         <div class="my-font">锈渎</div>
         <div>
-            <div class="ui circular icon button"><i class="qq icon"></i></div>
             <a href="https://github.com/xiudu123" target="_blank" class="ui circular icon button"><i class="github icon"></i></a>
         </div>
 
@@ -24,9 +23,15 @@
 
 <script>
 import ContentFieldCom from "@/components/ContentFieldCom";
+import {onMounted} from "vue";
 export default {
     name: "AboutView",
     components: {ContentFieldCom},
+    setup() {
+        onMounted(() => {
+            document.title = "关于我";
+        })
+    }
 }
 </script>
 

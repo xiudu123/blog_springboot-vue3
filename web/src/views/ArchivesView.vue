@@ -13,7 +13,7 @@
             </div>
         </h2>
 
-        <div class="item m-padded" v-for="blog in blogs" :key="blog.id" @click="getBlog(blog.id)">
+        <div class="item m-padded my-blog-div" v-for="blog in blogs" :key="blog.id" @click="getBlog(blog.id)">
                 <span>
                     <i class="mini teal circle icon"></i>&nbsp;&nbsp; <span style="cursor: pointer;">{{blog.title}}</span>
                 </span>
@@ -43,6 +43,12 @@ export default {
             records : null,
         });
         const blog_total = ref("");
+
+        onMounted(() => {
+            document.title = "时间轴";
+            getBlogList()
+        })
+
         /**
          * @description: API 获取博客列表
          * @return blog_list(博客列表), blog_total(博客总数)
@@ -66,15 +72,11 @@ export default {
             let routeUrl = router.resolve({
                 name: 'blog',
                 query: {
-                    id: blog_id
+                    details: blog_id
                 }
             })
             window.open(routeUrl.href, '_blank');
         }
-
-        onMounted(() => {
-            getBlogList()
-        })
 
         return {
             blog_list,
@@ -88,5 +90,10 @@ export default {
 </script>
 
 <style scoped>
-
+.my-blog-div:hover {
+    background-color: #F0F0F2 !important;
+}
+.my-blog-div {
+    background-color: #FFFFFF !important;
+}
 </style>

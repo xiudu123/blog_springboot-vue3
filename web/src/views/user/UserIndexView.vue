@@ -11,7 +11,10 @@
 import UserContentFieldCom from "@/components/UserContentFieldCom";
 export default {
     name: "UserIndex",
-    components: {UserContentFieldCom}
+    components: {UserContentFieldCom},
+    setup() {
+        document.title = "登录成功";
+    }
 }
 </script>
 
