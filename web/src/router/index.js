@@ -149,7 +149,7 @@ const routes = [
     path: "/:catAll(.*)",
     redirect: "/404/",
     meta: {
-        requestAuth: false,
+      requestAuth: false,
     }
   }
 ]
@@ -162,19 +162,19 @@ const router = createRouter({
 // 处理页面访问权限问题
 router.beforeEach((to, from, next) => {
   if(!store.state.user.is_login && localStorage.getItem("token")) {
-      store.dispatch("userUpdateInfo", {
-        token: localStorage.getItem("token"),
-        success() {
+    store.dispatch("userUpdateInfo", {
+      token: localStorage.getItem("token"),
+      success() {
 
-        },
-        error() {
-          localStorage.removeItem("token");
-        },
-      }).then(() => {
+      },
+      error() {
+        localStorage.removeItem("token");
+      },
+    }).then(() => {
 
-      }).catch(() => {
+    }).catch(() => {
 
-      });
+    });
     next();
   }else if(to.meta.requestAuth && !store.state.user.is_login) {
     next({name: "user_login"});
@@ -185,12 +185,18 @@ router.beforeEach((to, from, next) => {
 })
 
 // 导航完成后滚动到顶部
-router.afterEach(() => {
-  // 确保在页面渲染完毕后执行滚动
-  nextTick(() => {
-    // eslint-disable-next-line no-undef
-    $(window).scrollTo(0, 500);
-  });
+router.afterEach((to) => {
+  // 检查路由是否有锚点
+  const hasAnchor = to.hash !== "";
+  // 如果没有锚点就进行滚动
+  if(!hasAnchor) {
+    // 确保在页面渲染完毕后执行滚动
+    nextTick(() => {
+      // eslint-disable-next-line no-undef
+      $(window).scrollTo(0, 500);
+    });
+  }
+
 });
 
 export default router
