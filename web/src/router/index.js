@@ -149,7 +149,7 @@ const routes = [
     path: "/:catAll(.*)",
     redirect: "/404/",
     meta: {
-        requestAuth: false,
+      requestAuth: false,
     }
   }
 ]
@@ -162,19 +162,19 @@ const router = createRouter({
 // 处理页面访问权限问题
 router.beforeEach((to, from, next) => {
   if(!store.state.user.is_login && localStorage.getItem("token")) {
-      store.dispatch("userUpdateInfo", {
-        token: localStorage.getItem("token"),
-        success() {
+    store.dispatch("userUpdateInfo", {
+      token: localStorage.getItem("token"),
+      success() {
 
-        },
-        error() {
-          localStorage.removeItem("token");
-        },
-      }).then(() => {
+      },
+      error() {
+        localStorage.removeItem("token");
+      },
+    }).then(() => {
 
-      }).catch(() => {
+    }).catch(() => {
 
-      });
+    });
     next();
   }else if(to.meta.requestAuth && !store.state.user.is_login) {
     next({name: "user_login"});

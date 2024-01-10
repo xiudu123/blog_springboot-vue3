@@ -1,9 +1,9 @@
 <template>
-<ContentFieldCom>
+    <ContentFieldCom>
 
-    <div class="ui segment center aligned m-opacity">
-        共 <h2 class="ui orange header m-text-thin m-inline-block">{{ blog_total }}</h2> 篇博客
-    </div>
+        <div class="ui segment center aligned m-opacity">
+            共 <h2 class="ui orange header m-text-thin m-inline-block">{{ blog_total }}</h2> 篇博客
+        </div>
 
     <div class="ui big fluid vertical menu m-opacity" v-for="year in blog_list.years" :key="year">
         <h2 class="ui header m-margin-tb-tiny">
@@ -14,19 +14,20 @@
         </h2>
 
         <div class="item m-padded my-blog-div" v-for="blog in blog_list.records[year]" :key="blog.id" @click="getBlog(blog.id)">
+
                 <span>
                     <i class="mini teal circle icon"></i>&nbsp;&nbsp; <span style="cursor: pointer;">{{blog.title}}</span>
                 </span>
-            <div class="ui mini blue basic button" style="margin-left: 10px; cursor: default" v-if="blog.top">置顶</div>
-            <div class="ui teal basic left pointing label m-padded-tb-tiny">
-                <span >{{blog.month}}</span>
-                &nbsp; 月 &nbsp;
-                <span >{{blog.day}}</span>
+                <div class="ui mini blue basic button" style="margin-left: 10px; cursor: default" v-if="blog.top">置顶</div>
+                <div class="ui teal basic left pointing label m-padded-tb-tiny">
+                    <span >{{blog.month}}</span>
+                    &nbsp; 月 &nbsp;
+                    <span >{{blog.day}}</span>
+                </div>
             </div>
-        </div>
 
-    </div>
-</ContentFieldCom>
+        </div>
+    </ContentFieldCom>
 </template>
 
 <script>
