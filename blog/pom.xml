@@ -8,6 +8,7 @@
         <version>3.2.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.xiudu</groupId>
     <artifactId>blog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -16,6 +17,11 @@
     <properties>
         <java.version>17</java.version>
     </properties>
+
+    <!-- 打包成jar包 -->
+    <packaging>jar</packaging>
+
+
     <dependencies>
 
         <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
@@ -129,6 +135,15 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>

@@ -28,13 +28,21 @@ public class ArchivesController {
 
         // 降序排序
         Map<Integer, List<Blog>> map = new TreeMap<>(Comparator.reverseOrder());
+        ArrayList<Integer> year = new ArrayList<>();
         for(Blog blog : blogs) {
-            if(!map.containsKey(blog.getYear())) map.put(blog.getYear(), new ArrayList<>());
+            if(!map.containsKey(blog.getYear())) {
+                map.put(blog.getYear(), new ArrayList<>());
+                year.add(blog.getYear());
+            }
             map.get(blog.getYear()).add(blog);
         }
 
+        // 逆序排序;
+        year.sort(Comparator.reverseOrder());
+
         Map<String, Object> result = new HashMap<>();
         result.put("blogs", map);
+        result.put("years", year);
         result.put("blotTotal", blogs.size());
         return Result.success(result);
     }

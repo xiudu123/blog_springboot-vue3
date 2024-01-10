@@ -1,6 +1,8 @@
 package com.xiudu.blog.controller;
 
 import com.xiudu.blog.config.api.Result;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +21,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/upload/picture")
 public class PictureController {
-
+    @Value("${serverPictureUrl}")
+    private String serverPictureUrl;
     @PostMapping("/markdown")
     public Result<?> editorMd (@RequestBody MultipartFile file) throws Exception{
         System.out.println(file);
@@ -28,10 +31,11 @@ public class PictureController {
         String suffix = trueFileName.substring(trueFileName.lastIndexOf("."));
         String fileName = UUID.randomUUID().toString().replace("-","")+suffix;
 
-
-        String path = ResourceUtils.getURL("classpath:").getPath();
-        File targetFile = new File(path,"static/img/upload/" + fileName);
-
+//
+//        String path = ResourceUtils.getURL("classpath:").getPath();
+        ApplicationHome h = new ApplicationHome(getClass());
+        String dirPath = h.getSource().getParentFile().toString();
+        File targetFile = new File(dirPath,"static/img/upload/" + fileName);
 
         if(!targetFile.exists()){
             targetFile.mkdirs();
@@ -49,7 +53,9 @@ public class PictureController {
 //        res.put("success", 1);
 //        res.put("message", "upload success!");
 
-        return Result.success( "http://127.0.0.1:3000"+"/img/upload/"+fileName);
+        System.out.println(dirPath);
+        System.out.println(fileName);
+        return Result.success( serverPictureUrl+"/img/upload/"+fileName);
 
     }
 

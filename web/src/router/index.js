@@ -185,12 +185,18 @@ router.beforeEach((to, from, next) => {
 })
 
 // 导航完成后滚动到顶部
-router.afterEach(() => {
-  // 确保在页面渲染完毕后执行滚动
-  nextTick(() => {
-    // eslint-disable-next-line no-undef
-    $(window).scrollTo(0, 500);
-  });
+router.afterEach((to) => {
+  // 检查路由是否有锚点
+  const hasAnchor = to.hash !== "";
+  // 如果没有锚点就进行滚动
+  if(!hasAnchor) {
+    // 确保在页面渲染完毕后执行滚动
+    nextTick(() => {
+      // eslint-disable-next-line no-undef
+      $(window).scrollTo(0, 500);
+    });
+  }
+
 });
 
 export default router

@@ -5,15 +5,15 @@
         共 <h2 class="ui orange header m-text-thin m-inline-block">{{ blog_total }}</h2> 篇博客
     </div>
 
-    <div class="ui big fluid vertical menu m-opacity" v-for="(blogs, year) in blog_list.records" :key="year">
+    <div class="ui big fluid vertical menu m-opacity" v-for="year in blog_list.years" :key="year">
         <h2 class="ui header m-margin-tb-tiny">
             <div style="text-align: center">{{ year }}</div>
             <div style="text-align: right">
-                共 <span style="color: orange">{{ blogs.length }}</span> 篇 &nbsp;&nbsp;&nbsp;
+                共 <span style="color: orange">{{ blog_list.records[year].length }}</span> 篇 &nbsp;&nbsp;&nbsp;
             </div>
         </h2>
 
-        <div class="item m-padded my-blog-div" v-for="blog in blogs" :key="blog.id" @click="getBlog(blog.id)">
+        <div class="item m-padded my-blog-div" v-for="blog in blog_list.records[year]" :key="blog.id" @click="getBlog(blog.id)">
                 <span>
                     <i class="mini teal circle icon"></i>&nbsp;&nbsp; <span style="cursor: pointer;">{{blog.title}}</span>
                 </span>
@@ -41,6 +41,7 @@ export default {
     setup() {
         const blog_list = reactive({
             records : null,
+            years: null,
         });
         const blog_total = ref("");
 
@@ -57,7 +58,9 @@ export default {
             axios.get(process.env.VUE_APP_API_BASE_URL + "/archives")
                 .then(resp => {
                     blog_list.records = resp.data.data.blogs;
+                    blog_list.years = resp.data.data.years;
                     blog_total.value = resp.data.data.blotTotal;
+                    console.log(resp);
                 }).catch(() => {
                     router.push({name:'500'})
                 }
