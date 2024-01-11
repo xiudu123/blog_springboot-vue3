@@ -174,7 +174,6 @@ import axios from "axios";
 import {useRoute} from "vue-router";
 import {useStore} from "vuex";
 import router from "@/router";
-import tocbot from "echarts/lib/echarts";
 
 export default {
     name: "BlogView",
@@ -231,21 +230,17 @@ export default {
         })
 
         /**
-         * @description: 给博客正文的每个标题赋一个唯一id
+         * @description: 给博客正文的每个标题赋一个id
          * @param {Object} element
-         * @return void
+         * @return 没有返回信息写 void / 有返回信息 {返回类型} 描述信息
          */
         const addTitleId = (element) => {
             let id = 1;
-            console.log("!!!")
-            console.log(element)
             // eslint-disable-next-line no-undef
             element.childNodes.forEach((child) => {
                 console.log(child);
-                if(child.nodeType === 1 && child.tagName.match(/^H[1-6]$/)) { // 匹配 h1 ~ h6标题
+                if(child.nodeType === 1 && child.tagName.match(/^H[1-6]$/)) {
                     let hyphenated = "myUnique-" + id; // 非 ANSI 编码会会导致toc bot目录无法跳转
-                    console.log(child);
-                    console.log(hyphenated);
                     // eslint-disable-next-line no-undef
                     child.setAttribute('id', hyphenated);
                     ++ id;
@@ -468,4 +463,5 @@ export default {
         background-color: white;
     }
 }
+
 </style>
