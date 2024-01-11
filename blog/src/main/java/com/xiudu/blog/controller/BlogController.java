@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.Blog;
 import com.xiudu.blog.service.BlogService;
+import com.xiudu.blog.util.Singleton.BlogSingletonHungry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -35,10 +36,12 @@ public class BlogController {
     @GetMapping("/index")
     public Result<?> index(@RequestParam(defaultValue = "1") Integer pageNum) {
 
+        BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
+
         Page<Blog> blogPage = blogService.listBlogIndex(pageNum);
         Map<String, Object> result = new HashMap<>();
         result.put("pageInfo", blogPage);
-        result.put("records", blogPage.getRecords());
+        result.put("records", blogSingletonHungry.showAllExceptContent(blogPage.getRecords()));
         result.put("pageTotal", blogPage.getPages());
         result.put("pageCurrent", blogPage.getCurrent());
         result.put("pagePre", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));

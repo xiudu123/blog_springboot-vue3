@@ -61,7 +61,6 @@ export default {
                     blog_list.records = resp.data.data.blogs;
                     blog_list.years = resp.data.data.years;
                     blog_total.value = resp.data.data.blotTotal;
-                    console.log(resp);
                 }).catch(() => {
                     router.push({name:'500'})
                 }

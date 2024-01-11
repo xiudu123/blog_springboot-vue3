@@ -30,7 +30,7 @@
             <!--内容-->
             <div class="ui attached padded segment ">
 <!--                {{blog_info.content}}-->
-                <div class="typo typo-selection m-padded-lr-responsive m-padded-tb js-toc-content" v-html="blog_info.content_html"></div>
+                <div ref="tocContent" class="typo typo-selection m-padded-lr-responsive m-padded-tb js-toc-content" v-html="blog_info.content_html"></div>
 <!--                <div id="markdown1" ref="markdown1" />-->
             </div>
             <!--分类-->
@@ -153,7 +153,7 @@
         </div>
     </ContentFieldCom>
 
-    <div class="ui vertical icon buttons m-padded-tb-large m-fixed m-right-bottom">
+    <div class="ui vertical icon buttons m-padded-tb-large m-fixed m-right-center">
         <button id="toc" type="button" class="ui teal button" @mouseenter="mouse_toc_menu">目录</button>
         <div id="comment-button" class="ui teal button"  v-if="blog_info.comment" @click="click_comment_button">评论</div>
         <div id="comment-reply" class="ui teal button" v-if="blog_info.comment" @click="click_comment_reply">留言</div>
@@ -174,6 +174,7 @@ import axios from "axios";
 import {useRoute} from "vue-router";
 import {useStore} from "vuex";
 import router from "@/router";
+import tocbot from "echarts/lib/echarts";
 
 export default {
     name: "BlogView",
@@ -214,6 +215,7 @@ export default {
             email: store.state.user.email,
             userId: 0,
         });
+        const tocContent = ref(null);
         onMounted(() => {
             document.title = "博客详情";
             getBlog(route.query.details);
@@ -222,9 +224,34 @@ export default {
                 comment_post.nickname = store.state.user.username;
                 comment_post.email = store.state.user.email;
                 comment_post.userId = store.state.user.id;
+                addTitleId(tocContent.value.childNodes[0]);
                 tocbotInit();
+
             }, 1000);
         })
+
+        /**
+         * @description: 给博客正文的每个标题赋一个唯一id
+         * @param {Object} element
+         * @return void
+         */
+        const addTitleId = (element) => {
+            let id = 1;
+            console.log("!!!")
+            console.log(element)
+            // eslint-disable-next-line no-undef
+            element.childNodes.forEach((child) => {
+                console.log(child);
+                if(child.nodeType === 1 && child.tagName.match(/^H[1-6]$/)) { // 匹配 h1 ~ h6标题
+                    let hyphenated = "myUnique-" + id; // 非 ANSI 编码会会导致toc bot目录无法跳转
+                    console.log(child);
+                    console.log(hyphenated);
+                    // eslint-disable-next-line no-undef
+                    child.setAttribute('id', hyphenated);
+                    ++ id;
+                }
+            })
+        }
 
         /**
          * @description: 目录初始化
@@ -239,6 +266,9 @@ export default {
                 contentSelector: '.js-toc-content',
                 // Which headings to grab inside the contentSelector element.
                 headingSelector: 'h1, h2, h3, h4, h5',
+                // scrollEndCallback: function () {
+                //     window.scrollTo(window.scrollX, window.scrollY - 80);
+                // }
             });
         }
 
@@ -411,6 +441,7 @@ export default {
             comment_post,
             replyCommentId,
             baseUrl,
+            tocContent,
 
             click_comment_button,
             click_comment_reply,

@@ -3,6 +3,7 @@ package com.xiudu.blog.controller;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.Blog;
 import com.xiudu.blog.service.BlogService;
+import com.xiudu.blog.util.Singleton.BlogSingletonHungry;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class ArchivesController {
     @Operation(summary = "时间轴", description = "按照时间返回所有博客信息")
     @GetMapping("/archives")
     public Result<?> archives() {
+        BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
         List<Blog> blogs = blogService.listBlogArchives();
 
         // 降序排序
@@ -34,7 +36,7 @@ public class ArchivesController {
                 map.put(blog.getYear(), new ArrayList<>());
                 year.add(blog.getYear());
             }
-            map.get(blog.getYear()).add(blog);
+            map.get(blog.getYear()).add(blogSingletonHungry.showAllExceptContent(blog));
         }
 
         // 逆序排序;

@@ -136,6 +136,10 @@
     bottom: 20px !important;
     right: 0 !important;
 }
+.m-right-center {
+    right: 0;
+    top: 50%;
+}
 /*---------center--------*/
 .m-center{
     text-align: center;

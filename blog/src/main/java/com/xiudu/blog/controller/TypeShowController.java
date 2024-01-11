@@ -6,6 +6,7 @@ import com.xiudu.blog.pojo.Blog;
 import com.xiudu.blog.pojo.Type;
 import com.xiudu.blog.service.BlogService;
 import com.xiudu.blog.service.TypeService;
+import com.xiudu.blog.util.Singleton.BlogSingletonHungry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -38,11 +39,11 @@ public class TypeShowController {
     @GetMapping("/type")
     public Result<?> types(@RequestParam(defaultValue = "1") Integer pageNum,
                            @RequestParam Long typeId) {
-
+        BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
         Page<Blog> page = blogService.listBlogByTypedId(pageNum, typeId);
 
         Map<String, Object> result = new HashMap<>();
-        result.put("records", page.getRecords());
+        result.put("records", blogSingletonHungry.showAllExceptContent(page.getRecords()));
         result.put("pageCurrent", page.getCurrent());
         result.put("pageTotal", page.getPages());
         result.put("pagePre", (page.getCurrent() - (page.hasPrevious() ? 1 : 0)));
