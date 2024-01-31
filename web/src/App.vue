@@ -22,9 +22,4 @@ body{
     width: 100%;
 }
 
-@font-face {
-    font-family: myFont;
-    src: url("@/assets/font/MaoKenZhuYuanTi-MaokenZhuyuanTi-2.ttf");
-}
-
 </style>

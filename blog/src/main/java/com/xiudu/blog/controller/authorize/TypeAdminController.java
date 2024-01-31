@@ -1,17 +1,15 @@
 package com.xiudu.blog.controller.authorize;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.Type;
 import com.xiudu.blog.service.TypeService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author: 锈渎
@@ -25,26 +23,26 @@ public class TypeAdminController {
     @Autowired
     private TypeService typeService;
 
+    @Operation(summary = "搜索分类", description = "根据分类名字模糊查询")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "当前页数", required = false),
+            @Parameter(name = "typeName", description = "分类名字", required = true)
+    })
     @GetMapping("/get/search")
-    public Result<?> getTypeSearch(@RequestParam Integer pageNum, @RequestParam String typeName) {
-
-        Page<Type> typePage = typeService.listTypeAndSearch(pageNum, typeName);
-        Map<String, Object> result = new HashMap<>();
-        result.put("records", typePage.getRecords());
-        result.put("pageCurrent", typePage.getCurrent());
-        result.put("pageTotal", typePage.getPages());
-        result.put("pagePre", (typePage.getCurrent() - (typePage.hasPrevious() ? 1 : 0)));
-        result.put("pageNext", (typePage.getCurrent() + (typePage.hasNext() ? 1 : 0)));
-        return Result.success(result);
+    public Result<?> getTypeSearch(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam String typeName) {
+        return Result.success(typeService.listTypeAndSearch(pageNum, typeName));
     }
 
+    @Operation(summary = "搜索分类", description = "查询所有的分类")
     @GetMapping("/get/all")
     public Result<?> getTypeAll() {
-        List<Type> types = typeService.listTypeAll();
-        return Result.success(types);
+        return Result.success(typeService.listTypeAll());
     }
 
     @Operation(summary = "添加分类", description = "添加分类")
+    @Parameters({
+            @Parameter(name = "type", description = "分类类", required = true)
+    })
     @PostMapping("/add")
     public Result<?> addType(@RequestBody Type type) {
         if ("".equals(type.getName()) || type.getName() == null) {
@@ -54,18 +52,18 @@ public class TypeAdminController {
             return Result.error("该分类已存在");
         }
 
-        Date date = new Date();
-        type.setCreateTime(date);
-        type.setUpdateTime(date);
+
         int successInsert = typeService.insertType(type);
         if(successInsert == 0) return Result.error("添加失败, 请稍后再试");
         else return Result.success();
     }
 
     @Operation(summary = "修改分类", description = "修改分类")
+    @Parameters({
+            @Parameter(name = "newType", description = "添加的分类", required = true)
+    })
     @PostMapping("/update")
     public Result<?> updateType(@RequestBody Type newType) {
-        System.out.println(newType);
         Type oldType = typeService.getType(newType.getId());
         if(oldType == null) {
             return Result.error("该分类不存在或已被删除");
@@ -86,7 +84,10 @@ public class TypeAdminController {
         else return Result.success();
     }
 
-    @Operation(summary = "删除分类", description = "删除分类")
+    @Operation(summary = "删除分类", description = "根据分类Id删除分类")
+    @Parameters({
+            @Parameter(name = "typeId", description = "分类Id", required = true)
+    })
     @PostMapping("/delete")
     public Result<?> deleteType(@RequestBody Long typeId) {
         if(typeService.getType(typeId) == null) {

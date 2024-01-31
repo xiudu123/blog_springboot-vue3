@@ -5,16 +5,21 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.handler.CustomException;
 import com.xiudu.blog.mapper.*;
 import com.xiudu.blog.pojo.Blog;
+import com.xiudu.blog.pojo.BlogContent;
+import com.xiudu.blog.pojo.DTO.BlogDTO;
+import com.xiudu.blog.pojo.VO.blog.BlogArchiveVO;
+import com.xiudu.blog.pojo.VO.blog.BlogFooterVO;
+import com.xiudu.blog.pojo.VO.blog.BlogIndexVO;
+import com.xiudu.blog.pojo.VO.blog.BlogViewVO;
+import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
 import com.xiudu.blog.service.BlogService;
+import com.xiudu.blog.service.TypeService;
+import com.xiudu.blog.util.Singleton.BlogSingletonHungry;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: 锈渎
@@ -31,135 +36,293 @@ public class BlogServiceImpl implements BlogService {
     private TypeMapper typeMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private BlogContentMapper blogContentMapper;
 
+    /**
+     *
+     * @param userId 用户id
+     * @param blogDTO 博客
+     * @return 0 - 插入失败; 1 - 插入成功
+     */
     @Transactional
     @Override
-    public int insertBlog(Blog blog) {
-        return blogMapper.insert(blog);
+    public int insertBlog(Long userId, BlogDTO blogDTO) {
+        Date date = new Date();
+        Blog blog = new Blog()
+                .setTitle(blogDTO.getTitle())
+                .setFirstPicture(blogDTO.getFirstPicture())
+                .setViews(0L)
+                .setTop(blogDTO.getTop())
+                .setPublished(blogDTO.getPublished())
+                .setComment(blogDTO.getComment())
+                .setCreateTime(date)
+                .setUpdateTime(date)
+                .setOverview(blogDTO.getOverview())
+                .setUserId(userId)
+                .setTypeId(blogDTO.getTypeId());
+
+        int insertSuccess = blogMapper.insert(blog);
+        if(insertSuccess == 0) return 0;
+
+        BlogContent blogContent = new BlogContent()
+                .setId(blog.getId())
+                .setContentHtml(blogDTO.getContentHtml())
+                .setContentMarkdown(blogDTO.getContentMarkdown());
+
+        return blogContentMapper.insert(blogContent);
     }
 
+    /**
+     * @param blogId 博客Id
+     * @return 0 - 删除成功, 1 - 删除失败
+     */
     @Transactional
     @Override
     public int deleteBlog(Long blogId) {
-        return blogMapper.deleteById(blogId);
+        return (blogMapper.deleteById(blogId) & blogContentMapper.deleteById(blogId));
     }
 
+    /**
+     *
+     * @param oldBlog 修改之前的博客
+     * @param newBlogDTO 修改之后的博客
+     * @return 0 - 修改成功, 1 - 修改失败
+     */
     @Transactional
     @Override
-    public int updateBlog(Long blogId, Blog blog) {
-        return blogMapper.updateById(blog);
+    public int updateBlog(Blog oldBlog, BlogDTO newBlogDTO) {
+        Date date = new Date();
+        Blog blog = new Blog()
+                .setId(newBlogDTO.getId())
+                .setTitle(newBlogDTO.getTitle())
+                .setFirstPicture(newBlogDTO.getFirstPicture())
+                .setTop(newBlogDTO.getTop())
+                .setPublished(newBlogDTO.getPublished())
+                .setComment(newBlogDTO.getComment())
+                .setOverview(newBlogDTO.getOverview())
+                .setTypeId(newBlogDTO.getTypeId())
+                .setUpdateTime(date)
+                .setCreateTime(oldBlog.getCreateTime())
+                .setUserId(oldBlog.getUserId())
+                .setViews(oldBlog.getViews());
+
+        int updateSuccess = blogMapper.updateById(blog);
+        if(updateSuccess == 0) return 0;
+
+        BlogContent blogContent = new BlogContent()
+                .setId(newBlogDTO.getId())
+                .setContentHtml(newBlogDTO.getContentHtml())
+                .setContentMarkdown(newBlogDTO.getContentMarkdown());
+
+        return blogContentMapper.updateById(blogContent);
     }
 
+    /**
+     *
+     * @param blogId 博客Id
+     * @return 根据博客Id返回的博客
+     */
     @Override
     public Blog getBlog(Long blogId) {
         Blog blog = blogMapper.selectById(blogId);
         if(blog == null) {
             throw new CustomException(404, "该博客不存在");
         }
-        blog.setTypeName(typeMapper.selectById(blog.getTypeId()).getName());
-        blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
         return blog;
     }
 
-
+    /**
+     *
+     * @param pageNum 分页当前页
+     * @return 博客列表
+     * @description: 首页的博客分页列表
+     */
     @Override
-    public Page<Blog> listBlogIndex(Integer pageNum) {
-        Page<Blog> page = new Page<>(pageNum, 10);
+    public Map<String, Object> listBlogIndex(Integer pageNum) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top", "create_time");
-        return getBlogPage(page, queryWrapper);
+        return getBlogPage(pageNum, queryWrapper, 1);
     }
 
+    // TODO 首页搜索
     @Override
-    public Page<Blog> listBlogSearch(Integer pageNum, String query) {
-        Page<Blog> page = new Page<>(pageNum, 10);
+    public Map<String, Object> listBlogSearch(Integer pageNum, String query) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top", "create_time");
         queryWrapper.like("title", query);
-        return getBlogPage(page, queryWrapper);
+        return getBlogPage(pageNum, queryWrapper, 1);
     }
 
+    /**
+     * @param pageNum 分页当前页
+     * @param typeId 标签Id
+     * @return 根据标签Id返回的博客列表
+     */
     @Override
-    public Page<Blog> listBlogByTypedId(Integer pageNum, Long typeId) {
-        Page<Blog> page = new Page<>(pageNum, 10);
+    public Map<String, Object> listBlogByTypedId(Integer pageNum, Long typeId) {
 
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top");
         queryWrapper.orderByDesc("create_time");
         if(typeMapper.selectCountByTypeId(typeId) > 0) queryWrapper.eq("type_id", typeId);
 
-        return getBlogPage(page, queryWrapper);
+        return getBlogPage(pageNum, queryWrapper, 2);
     }
 
 
-
+    /**
+     *
+     * @return 按时间降序排列的博客列表, 降序排的年，博客总数
+     * @description: 时光轴上的博客列表
+     * @sql
+     * SELECT id, title, top, create_time FROM blog <br>
+     * WHERE published = 1 <br>
+     * ORDER BY create_time DESC <br>
+     */
     @Override
-    public List<Blog> listBlogArchives() {
+    public Map<String, Object> listBlogArchives() {
+        // sql查询
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("published", 1).orderByDesc( "create_time");
+        queryWrapper
+                .select("id", "title", "top", "create_time")
+                .eq("published", 1)
+                .orderByDesc( "create_time");
+
+        BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
+        List<BlogArchiveVO> blogArchiveDTOS = blogSingletonHungry.BlogToArchive(blogMapper.selectList(queryWrapper));
+
+        // 将博客按时间降序排序
+        Map<Integer, List<BlogArchiveVO>> map = new TreeMap<>(Comparator.reverseOrder());
+        ArrayList<Integer> year = new ArrayList<>();
+        for(BlogArchiveVO blog : blogArchiveDTOS) {
+            if(!map.containsKey(blog.getYear())) {
+                map.put(blog.getYear(), new ArrayList<>());
+                year.add(blog.getYear());
+            }
+            map.get(blog.getYear()).add(blog);
+        }
+
+        // 逆序排序;
+        year.sort(Comparator.reverseOrder());
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("blogs", map);
+        result.put("years", year);
+        result.put("blotTotal", blogArchiveDTOS.size());
+
+        return result;
+    }
+
+    /**
+     * @param size Long 页脚博客数量
+     * @return 最新发布前 size 的博客列表
+     * @sql
+     * SELECT id, title FROM blog <br>
+     * WHERE published = 1 <br>
+     * ORDER BY top DESC, create_time DESC <br>
+     * LIMIT {size}
+     */
+    @Override
+    public List<BlogFooterVO> listTop(Long size) {
+        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
+        queryWrapper
+                .select("id", "title")
+                .eq("published", 1)
+                .orderByDesc( "create_time")
+                .last("LIMIT " + size.toString());
         List<Blog> blogs = blogMapper.selectList(queryWrapper);
-        for(Blog blog : blogs) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-            LocalDateTime dateTime = LocalDateTime.parse(blog.getUpdateTime().toString(), formatter);
-            blog.setContentHtml(null);
-            blog.setContentMarkdown(null);
-            blog.setYear(dateTime.getYear());
-            blog.setMonth(dateTime.getMonthValue());
-            blog.setDay(dateTime.getDayOfMonth());
-        }
-        return blogs;
+
+        BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
+        return blogSingletonHungry.BlogToFooter(blogs);
     }
 
-    @Override
-    public List<Blog> listTop(Long size) {
-        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("published", 1).orderByDesc("top", "create_time").last("LIMIT " + size.toString());
-        List<Blog> blogs= blogMapper.selectList(queryWrapper);
-        for(Blog blog : blogs) {
-            blog.setContentHtml(null);
-            blog.setContentMarkdown(null);
-        }
-        return blogs;
-    }
-
+    /**
+     *
+     * @return 博客总数
+     * @sql SELECT COUNT(*) FROM blog  WHERE published = 1
+     */
     @Override
     public Long blogCount() {
         return blogMapper.selectBlogCount();
     }
 
 
+    /**
+     *
+     * @param blogId 博客id
+     * @return 博客
+     * @description: 根据id获取博客所有信息，并使浏览量 +1
+     */
     @Override
-    public Blog getAndConvert(Long blogId) { // 渲染博客;
+    public BlogViewVO getAndConvert(Long blogId) { // 渲染博客;
         Blog blog = getBlog(blogId);
-        String content = blog.getContentHtml();
-        blog.setContentHtml(content);
         blog.setViews(blog.getViews() + 1);
         blogMapper.updateViewById(blogId);
-        return blog;
+        return BlogSingletonHungry.getInstance().BlogToView(blog, typeMapper, userMapper, blogContentMapper);
+    }
+
+    @Override
+    public BlogAdminUpdateVO getBlogUpdate(Long blogId) {
+        Blog blog = getBlog(blogId);
+        return BlogSingletonHungry.getInstance().BlogToUpdate(blog, typeMapper, blogContentMapper);
     }
 
 
+    /**
+     * @param pageNum 分页当前页
+     * @param query 查询条件
+     * @return 根据查询条件返回的博客列表
+     */
     @Override
-    public Page<Blog> listBlogAdminQuery(Integer pageNum, Map<String, String> query) {
-        Page<Blog> page = new Page<>(pageNum, 10);
+    public Map<String, Object> listBlogAdminQuery(Integer pageNum, Map<String, String> query) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc( "create_time");
 
-        if(!("".equals(query.get("title"))))       queryWrapper.like("title", query.get("title"));
         if(!("-1".equals(query.get("typeId"))))    queryWrapper.eq("type_id", query.get("typeId"));
         if(!("-1".equals(query.get("top"))))       queryWrapper.eq("top", query.get("top"));
         if(!("-1".equals(query.get("published")))) queryWrapper.eq("published", query.get("published"));
         if(!("-1".equals(query.get("comment"))))   queryWrapper.eq("comment", query.get("comment"));
-        return getBlogPage(page, queryWrapper);
+        if(!("".equals(query.get("title"))))       queryWrapper.like("title", query.get("title"));
+
+        return getBlogPage(pageNum, queryWrapper, 3);
     }
 
-    private Page<Blog> getBlogPage(Page<Blog> page, QueryWrapper<Blog> queryWrapper) {
+    // TODO limit深度查询优化
+    /**
+     * @param pageNum 分页的当前页
+     * @param queryWrapper 查询条件
+     * @return 博客列表
+     * @description: 博客分页查询 <br>
+     * 1 - 首页 博客列表 <br>
+     * 2 - 根据分类 博客列表 <br>
+     * 3 - 管理员搜索 博客列表 <br>
+     */
+    private Map<String, Object> getBlogPage(Integer pageNum, QueryWrapper<Blog> queryWrapper, int op) {
+        if(pageNum <= 0) pageNum = 1;
+        Page<Blog> page = new Page<>(pageNum, 10);
         Page<Blog> blogPage = blogMapper.selectPage(page, queryWrapper);
-        for(Blog blog : blogPage.getRecords()) {
-            blog.setTypeName(typeMapper.selectById(blog.getTypeId()).getName());
-            blog.setUsername(userMapper.selectById(blog.getUserId()).getNickname());
+        // 如果 pageNum 超过了总页数, 则重新查询最后一页
+        if(blogPage.getCurrent() > blogPage.getPages()) {
+            blogPage = blogMapper.selectPage(new Page<>(blogPage.getPages(), 10), queryWrapper);
         }
-        return blogPage;
+
+
+        Map<String, Object> result = new HashMap<>();
+        BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
+//        result.put("pageInfo", blogPage);
+        if(op == 1 || op == 2) {
+            result.put("records", blogSingletonHungry.BlogToIndex(blogPage.getRecords(), typeMapper, userMapper));
+        }else if(op == 3) {
+            result.put("records", blogSingletonHungry.BlogToAdmin(blogPage.getRecords(), typeMapper));
+        }
+//        result.put("records", blogPage.getRecords());
+        result.put("pageTotal", blogPage.getPages());
+        result.put("pageCurrent", blogPage.getCurrent());
+        result.put("pagePre", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
+        result.put("pageNext", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
+
+        return result;
     }
 
 }

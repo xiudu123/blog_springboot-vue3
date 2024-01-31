@@ -88,12 +88,10 @@ export default {
         });
         const blog_info = reactive({
             title: "",
-            type_id: -1,
             firstPicture: "",
-            content: "",
             overview: "",
             top: false,
-            comment: false,
+            comment: true,
             published: true,
         });
         const cherryInstance=ref(null);
@@ -165,6 +163,7 @@ export default {
          * @return void
          */
         const addBlog = (blog) => {
+            console.log(blog)
             axios.post(process.env.VUE_APP_API_BASE_URL + "/authorize/blog/add", blog, {
                 headers: {
                     "satoken": localStorage.getItem("token"),

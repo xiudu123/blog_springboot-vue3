@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: 锈渎
  * @date: 2023/12/15 20:11
  * @code: 面向对象面向君， 不负代码不负卿。
- * @description:
+ * @description: 页脚上的信心
  */
 
 @RestController

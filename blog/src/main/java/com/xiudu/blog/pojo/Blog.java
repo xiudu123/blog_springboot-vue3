@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
@@ -18,12 +19,11 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Blog {
     @TableId(type = IdType.AUTO)
     private Long id;
     private String title; // 标题
-    private String contentHtml; // html内容
-    private String contentMarkdown; // markdown内容
     private String firstPicture; // 首图
     private Long views; // 浏览次数
     private Boolean top; // 是否置顶

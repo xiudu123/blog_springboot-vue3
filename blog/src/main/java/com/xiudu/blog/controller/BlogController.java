@@ -1,10 +1,7 @@
 package com.xiudu.blog.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.Result;
-import com.xiudu.blog.pojo.Blog;
 import com.xiudu.blog.service.BlogService;
-import com.xiudu.blog.util.Singleton.BlogSingletonHungry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -13,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author: 锈渎
@@ -35,18 +30,7 @@ public class BlogController {
     })
     @GetMapping("/index")
     public Result<?> index(@RequestParam(defaultValue = "1") Integer pageNum) {
-
-        BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
-
-        Page<Blog> blogPage = blogService.listBlogIndex(pageNum);
-        Map<String, Object> result = new HashMap<>();
-        result.put("pageInfo", blogPage);
-        result.put("records", blogSingletonHungry.showAllExceptContent(blogPage.getRecords()));
-        result.put("pageTotal", blogPage.getPages());
-        result.put("pageCurrent", blogPage.getCurrent());
-        result.put("pagePre", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
-        result.put("pageNext", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
-        return Result.success(result);
+        return Result.success(blogService.listBlogIndex(pageNum));
     }
 
     @Operation(summary = "搜索博客", description = "按题目名称搜索博客")
@@ -57,15 +41,9 @@ public class BlogController {
     @GetMapping("/search")
     public Result<?> search(@RequestParam(defaultValue = "1") Integer pageNum,
                             @RequestParam String query) {
-
-        Page<Blog> blogPage = blogService.listBlogSearch(pageNum, query);
-
-        Map<String, Object> result = new HashMap<>();
-        result.put("pageInfo", blogPage);
-        result.put("prePage", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
-        result.put("nextPage", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
-        return Result.success(result);
+        return Result.success(blogService.listBlogSearch(pageNum, query));
     }
+
 
     @Operation(summary = "根据Id获取博客信息", description = "根据Id获取博客信息")
     @Parameters({
@@ -75,7 +53,5 @@ public class BlogController {
     public Result<?> blog(@RequestParam Long blogId) {
         return Result.success(blogService.getAndConvert(blogId));
     }
-
-
 
 }

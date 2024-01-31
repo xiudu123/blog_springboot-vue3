@@ -17,6 +17,4 @@ public interface UserMapper extends BaseMapper<User> {
     User selectByUsernameAndPassword(@Param("username") String username,
                                      @Param("password") String password);
 
-    @Select("SELECT * FROM user WHERE id = #{userId}")
-    User selectByUserId(@Param("userId") Long userId);
 }

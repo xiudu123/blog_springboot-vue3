@@ -3,7 +3,6 @@ package com.xiudu.blog.controller;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.pojo.Comment;
 import com.xiudu.blog.service.CommentService;
-import com.xiudu.blog.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -24,8 +23,6 @@ import java.util.*;
 public class CommentController {
     @Autowired
     private CommentService commentService;
-    @Autowired
-    private UserService userService;
     @Value("${comment.avatar}")
     private String avatar;
     @Value("${admin.avatar}")

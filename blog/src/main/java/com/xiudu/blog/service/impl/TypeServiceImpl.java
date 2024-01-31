@@ -12,7 +12,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: 锈渎
@@ -28,9 +31,17 @@ public class TypeServiceImpl implements TypeService {
     @Autowired
     private BlogMapper blogMapper;
 
+    /**
+     *
+     * @param type 添加的类型
+     * @return 0 - 添加失败， 1 - 添加成功
+     */
     @Transactional
     @Override
     public int insertType(Type type) {
+        Date date = new Date();
+        type.setCreateTime(date);
+        type.setUpdateTime(date);
         return typeMapper.insert(type);
     }
 
@@ -56,6 +67,12 @@ public class TypeServiceImpl implements TypeService {
     }
 
 
+    /**
+     *
+     * @param name 标签名字
+     * @return 判断标签名字是否cunz
+     * @sql SELECT COUNT(*) FROM type WHERE name = {name}
+     */
     @Override
     public Boolean isEmptyByTypeName(String name) {
         return typeMapper.selectCountByTypeName(name) == 0;
@@ -66,15 +83,48 @@ public class TypeServiceImpl implements TypeService {
         return typeMapper.selectById(id);
     }
 
+    // TODO Limit深分页优化
+    /**
+     *
+     * @param pageNum 分页的当前页
+     * @param typeName 标签的名字
+     * @return 标签列表
+     * @description: 标签分页查询
+     */
     @Override
-    public Page<Type> listTypeAndSearch(Integer pageNum, String typeName) {
-        Page<Type> page = new Page<>(pageNum, 10);
+    public Map<String, Object> listTypeAndSearch(Integer pageNum, String typeName) {
+        // 查询条件
         QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("id");
+        queryWrapper.orderByDesc("create_time");
         if(typeName != null && !"".equals(typeName)) queryWrapper.like("name", typeName);
-        return typeMapper.selectPage(page, queryWrapper);
+
+
+        if(pageNum <= 0) pageNum = 1;
+        Page<Type> page = new Page<>(pageNum, 10);
+
+        Page<Type> typePage = typeMapper.selectPage(page, queryWrapper);
+
+        if(typePage.getCurrent() > typePage.getPages()) {
+            typePage = typeMapper.selectPage(new Page<>(typePage.getPages(), 10), queryWrapper);
+        }
+
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("records", typePage.getRecords());
+        result.put("pageCurrent", typePage.getCurrent());
+        result.put("pageTotal", typePage.getPages());
+        result.put("pagePre", (typePage.getCurrent() - (typePage.hasPrevious() ? 1 : 0)));
+        result.put("pageNext", (typePage.getCurrent() + (typePage.hasNext() ? 1 : 0)));
+
+        return result;
     }
 
+    /**
+     * @return 所有标签
+     * @description: 查询标签的博客数量时用到了sql
+     * @sql
+     * SELECT *, (SELECT COUNT(*) FROM blog WHERE blog_id = type_id AND published = 1) FROM type;
+     */
     @Override
     public List<Type> listTypeAll() {
         List<Type> types = typeMapper.selectList(null);

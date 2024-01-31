@@ -82,6 +82,7 @@
                     <th>是否置顶</th>
                     <th>是否发布</th>
                     <th>开启评论</th>
+                    <th>浏览次数</th>
                     <th>创建时间</th>
                     <th>更新时间</th>
                     <th>操作</th>
@@ -96,6 +97,7 @@
                     <td > {{ blogs.top ? "是" : "否" }} </td>
                     <td > {{ blogs.published ? "发布" : "未发布" }} </td>
                     <td > {{ blogs.comment ? "开启" : "未开启" }} </td>
+                    <td > {{ blogs.view }} </td>
                     <td > {{ blogs.createTime }} </td>
                     <td > {{ blogs.updateTime }} </td>
                     <td>
@@ -107,7 +109,7 @@
 
                 <tfoot>
                 <tr>
-                    <th colspan="9">
+                    <th colspan="10">
                         <div class="ui right floated pagination menu">
 
                             <!--                            上一页-->

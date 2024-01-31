@@ -74,7 +74,7 @@ export default {
             let routeUrl = router.resolve({
                 name: 'blog',
                 query: {
-                    id: blog_id
+                    details: blog_id
                 }
             })
             window.open(routeUrl.href, '_blank');

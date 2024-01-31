@@ -96,7 +96,7 @@ export default {
             content_markdown: "",
             overview: "",
             top: false,
-            comment: false,
+            comment: true,
             published: true,
             typeName: "",
         });
@@ -206,7 +206,6 @@ export default {
                     blog_info.comment = data.comment;
                     blog_info.published = true;
                     blog_info.typeName = data.typeName;
-
                     cherrryInit();
                     document.title = blog_info.title + "_" + document.title;
                 }else {

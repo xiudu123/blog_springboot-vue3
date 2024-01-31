@@ -9,7 +9,7 @@
             <div>
                 <a href="https://github.com/xiudu123" target="_blank" class="ui circular icon button"><i class="github icon"></i></a>
             </div>
-            <div class="m-font-size-text m-gradient-color m-margin-top-large" style="font-family: myFont,serif;">
+            <div class="m-font-size-text m-gradient-color m-margin-top-large">
                 须知少日拏云志 <br>
                 曾许人间第一流
             </div>

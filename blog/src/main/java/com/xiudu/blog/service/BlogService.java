@@ -1,7 +1,10 @@
 package com.xiudu.blog.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.pojo.Blog;
+import com.xiudu.blog.pojo.DTO.BlogDTO;
+import com.xiudu.blog.pojo.VO.blog.BlogFooterVO;
+import com.xiudu.blog.pojo.VO.blog.BlogViewVO;
+import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
 
 import java.util.List;
 import java.util.Map;
@@ -10,23 +13,24 @@ import java.util.Map;
  * Created by 锈渎 on 2023/12/13 18:36
  */
 public interface BlogService {
-    int insertBlog(Blog blog);
+    int insertBlog(Long userId, BlogDTO blog);
 
     int deleteBlog(Long blogId);
 
-    int updateBlog(Long blogId, Blog blog);
+    int updateBlog(Blog oldBlog, BlogDTO newBlog);
 
     Blog getBlog(Long blogId);
-    Page<Blog> listBlogIndex(Integer pageNum);
-    Page<Blog> listBlogSearch(Integer pageNum, String query);
-    Page<Blog> listBlogByTypedId(Integer pageNum, Long typeId);
+    Map<String, Object> listBlogIndex(Integer pageNum);
+    Map<String, Object> listBlogSearch(Integer pageNum, String query);
+    Map<String, Object> listBlogByTypedId(Integer pageNum, Long typeId);
 
-    List<Blog> listBlogArchives();
-    List<Blog> listTop(Long size);
+    Map<String, Object> listBlogArchives();
+    List<BlogFooterVO> listTop(Long size);
 
-    Blog getAndConvert(Long blogId);
+    BlogViewVO getAndConvert(Long blogId);
+    BlogAdminUpdateVO getBlogUpdate(Long blogId);
     Long blogCount();
 
     // 用户后台管理
-    Page<Blog> listBlogAdminQuery(Integer pageNum, Map<String, String> query);
+    Map<String, Object> listBlogAdminQuery(Integer pageNum, Map<String, String> query);
 }
