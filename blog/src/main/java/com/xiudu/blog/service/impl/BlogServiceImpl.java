@@ -2,22 +2,23 @@ package com.xiudu.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiudu.blog.config.api.ResultStatus;
 import com.xiudu.blog.config.handler.CustomException;
 import com.xiudu.blog.mapper.*;
-import com.xiudu.blog.pojo.Blog;
-import com.xiudu.blog.pojo.BlogContent;
-import com.xiudu.blog.pojo.DTO.BlogDTO;
+import com.xiudu.blog.pojo.DO.Blog;
+import com.xiudu.blog.pojo.DO.BlogContent;
+import com.xiudu.blog.pojo.DO.Type;
+import com.xiudu.blog.pojo.DTO.blog.BlogDTO;
 import com.xiudu.blog.pojo.VO.blog.BlogArchiveVO;
 import com.xiudu.blog.pojo.VO.blog.BlogFooterVO;
-import com.xiudu.blog.pojo.VO.blog.BlogIndexVO;
 import com.xiudu.blog.pojo.VO.blog.BlogViewVO;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
 import com.xiudu.blog.service.BlogService;
-import com.xiudu.blog.service.TypeService;
 import com.xiudu.blog.util.Singleton.BlogSingletonHungry;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.*;
 
@@ -49,6 +50,11 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int insertBlog(Long userId, BlogDTO blogDTO) {
         Date date = new Date();
+        if(blogDTO.getPublished()) {
+            Long typeId = blogDTO.getTypeId();
+            typeMapper.addCountById(typeId);
+        }
+
         Blog blog = new Blog()
                 .setTitle(blogDTO.getTitle())
                 .setFirstPicture(blogDTO.getFirstPicture())
@@ -61,16 +67,20 @@ public class BlogServiceImpl implements BlogService {
                 .setOverview(blogDTO.getOverview())
                 .setUserId(userId)
                 .setTypeId(blogDTO.getTypeId());
-
-        int insertSuccess = blogMapper.insert(blog);
-        if(insertSuccess == 0) return 0;
+        int insertSuccess1 = blogMapper.insert(blog);
 
         BlogContent blogContent = new BlogContent()
                 .setId(blog.getId())
                 .setContentHtml(blogDTO.getContentHtml())
                 .setContentMarkdown(blogDTO.getContentMarkdown());
 
-        return blogContentMapper.insert(blogContent);
+
+        int insertSuccess2 = blogContentMapper.insert(blogContent);
+        if((insertSuccess1 & insertSuccess2) == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
+            return 0;
+        }
+        return 1;
     }
 
     /**
@@ -79,8 +89,15 @@ public class BlogServiceImpl implements BlogService {
      */
     @Transactional
     @Override
-    public int deleteBlog(Long blogId) {
-        return (blogMapper.deleteById(blogId) & blogContentMapper.deleteById(blogId));
+    public int deleteBlog(Long blogId, Long typeId) {
+        typeMapper.deleteById(typeId);
+        int deleteSuccess1 = blogMapper.deleteById(blogId);
+        int deleteSuccess2 = blogContentMapper.deleteById(blogId);
+        if((deleteSuccess1 & deleteSuccess2) == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
+            return 0;
+        }
+        return 1;
     }
 
     /**
@@ -93,6 +110,16 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int updateBlog(Blog oldBlog, BlogDTO newBlogDTO) {
         Date date = new Date();
+
+        if(oldBlog.getPublished()) {
+            Long oldTypeId = oldBlog.getTypeId();
+            typeMapper.deleteCountById(oldTypeId);
+        }
+        if(newBlogDTO.getPublished()) {
+            Long newTypeId = newBlogDTO.getTypeId();
+            typeMapper.addCountById(newTypeId);
+        }
+
         Blog blog = new Blog()
                 .setId(newBlogDTO.getId())
                 .setTitle(newBlogDTO.getTitle())
@@ -106,16 +133,19 @@ public class BlogServiceImpl implements BlogService {
                 .setCreateTime(oldBlog.getCreateTime())
                 .setUserId(oldBlog.getUserId())
                 .setViews(oldBlog.getViews());
-
-        int updateSuccess = blogMapper.updateById(blog);
-        if(updateSuccess == 0) return 0;
-
+        int updateSuccess1 = blogMapper.updateById(blog);
         BlogContent blogContent = new BlogContent()
                 .setId(newBlogDTO.getId())
                 .setContentHtml(newBlogDTO.getContentHtml())
                 .setContentMarkdown(newBlogDTO.getContentMarkdown());
 
-        return blogContentMapper.updateById(blogContent);
+        int updateSuccess2 = blogContentMapper.updateById(blogContent);
+        if((updateSuccess1 & updateSuccess2) == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
+            return 0;
+        }
+
+        return 1;
     }
 
     /**
@@ -127,7 +157,7 @@ public class BlogServiceImpl implements BlogService {
     public Blog getBlog(Long blogId) {
         Blog blog = blogMapper.selectById(blogId);
         if(blog == null) {
-            throw new CustomException(404, "该博客不存在");
+            throw new CustomException(ResultStatus.NOT_FOUND_BLOG);
         }
         return blog;
     }
@@ -257,6 +287,9 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public BlogViewVO getAndConvert(Long blogId) { // 渲染博客;
         Blog blog = getBlog(blogId);
+        if(!blog.getPublished()) {
+            throw new CustomException(ResultStatus.NO_PERMISSION);
+        }
         blog.setViews(blog.getViews() + 1);
         blogMapper.updateViewById(blogId);
         return BlogSingletonHungry.getInstance().BlogToView(blog, typeMapper, userMapper, blogContentMapper);

@@ -2,12 +2,15 @@ package com.xiudu.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiudu.blog.config.api.ResultStatus;
 import com.xiudu.blog.config.handler.CustomException;
 import com.xiudu.blog.mapper.BlogMapper;
 import com.xiudu.blog.mapper.TypeMapper;
-import com.xiudu.blog.pojo.Blog;
-import com.xiudu.blog.pojo.Type;
+import com.xiudu.blog.pojo.DO.Blog;
+import com.xiudu.blog.pojo.DO.Type;
+import com.xiudu.blog.pojo.VO.type.TypeIndexVO;
 import com.xiudu.blog.service.TypeService;
+import com.xiudu.blog.util.Singleton.TypeSingletonHungry;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +31,6 @@ public class TypeServiceImpl implements TypeService {
 
     @Autowired
     private TypeMapper typeMapper;
-    @Autowired
-    private BlogMapper blogMapper;
 
     /**
      *
@@ -42,6 +43,7 @@ public class TypeServiceImpl implements TypeService {
         Date date = new Date();
         type.setCreateTime(date);
         type.setUpdateTime(date);
+        type.setCount(0L);
         return typeMapper.insert(type);
     }
 
@@ -50,32 +52,22 @@ public class TypeServiceImpl implements TypeService {
     public int deleteType(Long id) {
         Type type = typeMapper.selectById(id);
         if(type == null) {
-            throw new CustomException(404, "该类型不存在或已被删除");
+            throw new CustomException(ResultStatus.NOT_FOUND_TYPE);
         }
         return typeMapper.deleteById(id);
     }
 
     @Transactional
     @Override
-    public int updateType(Long id, Type newType) {
-        Type oldType = typeMapper.selectById(id);
+    public int updateType(Type newType) {
+        Type oldType = typeMapper.selectById(newType.getId());
         if(oldType == null) {
-            throw new CustomException(404, "该类型不存在或已被删除");
+            throw new CustomException(ResultStatus.NOT_FOUND_TYPE);
         }
-        newType.setId(id);
+        Date date = new Date();
+        newType.setCreateTime(oldType.getCreateTime())
+                .setUpdateTime(date);
         return typeMapper.updateById(newType);
-    }
-
-
-    /**
-     *
-     * @param name 标签名字
-     * @return 判断标签名字是否cunz
-     * @sql SELECT COUNT(*) FROM type WHERE name = {name}
-     */
-    @Override
-    public Boolean isEmptyByTypeName(String name) {
-        return typeMapper.selectCountByTypeName(name) == 0;
     }
 
     @Override
@@ -126,14 +118,8 @@ public class TypeServiceImpl implements TypeService {
      * SELECT *, (SELECT COUNT(*) FROM blog WHERE blog_id = type_id AND published = 1) FROM type;
      */
     @Override
-    public List<Type> listTypeAll() {
-        List<Type> types = typeMapper.selectList(null);
-        for(Type type : types) {
-            QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("type_id", type.getId()).eq("published", "1");
-            type.setCount(blogMapper.selectCount(queryWrapper));
-        }
-        return types;
+    public List<TypeIndexVO> listTypeAll() {
+        return TypeSingletonHungry.getInstance().TypeToIndex(typeMapper.selectList(null));
     }
 
 

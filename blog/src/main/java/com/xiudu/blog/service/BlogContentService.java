@@ -1,6 +1,6 @@
 package com.xiudu.blog.service;
 
-import com.xiudu.blog.pojo.BlogContent;
+import com.xiudu.blog.pojo.DO.BlogContent;
 
 /**
  * Created by 锈渎 on 2024/1/30 19:26

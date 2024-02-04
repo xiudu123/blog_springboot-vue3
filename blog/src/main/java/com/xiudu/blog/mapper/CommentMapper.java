@@ -1,7 +1,7 @@
 package com.xiudu.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.xiudu.blog.pojo.Comment;
+import com.xiudu.blog.pojo.DO.Comment;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -39,4 +39,10 @@ public class Result<T> {
         return new Result<>(System.currentTimeMillis(),500, "fail", null);
     }
 
+    public static Result<?> error(ResultStatus resultStatus) {
+        return new Result<>(System.currentTimeMillis(), resultStatus.getStatus(), resultStatus.getMessage(), null);
+    }
+    public static Result<?> error(ResultStatus resultStatus, Object data) {
+        return new Result<>(System.currentTimeMillis(), resultStatus.getStatus(), resultStatus.getMessage(), data);
+    }
 }

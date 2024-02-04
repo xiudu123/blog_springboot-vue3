@@ -1,4 +1,4 @@
-package com.xiudu.blog.pojo;
+package com.xiudu.blog.pojo.DO;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
@@ -18,6 +19,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class User {
 
     @TableId(type = IdType.AUTO)
@@ -28,7 +30,7 @@ public class User {
     private String avatar; // 头像
     private String email; // 邮箱
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
-    private Date createTime;
+    private Date createTime; // 创建时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
-    private Date updateTime;
+    private Date updateTime; // 修改时间
 }

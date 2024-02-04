@@ -1,7 +1,7 @@
 package com.xiudu.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.xiudu.blog.pojo.Blog;
+import com.xiudu.blog.pojo.DO.Blog;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;

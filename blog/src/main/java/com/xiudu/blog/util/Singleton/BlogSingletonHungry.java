@@ -3,8 +3,7 @@ package com.xiudu.blog.util.Singleton;
 import com.xiudu.blog.mapper.BlogContentMapper;
 import com.xiudu.blog.mapper.TypeMapper;
 import com.xiudu.blog.mapper.UserMapper;
-import com.xiudu.blog.pojo.Blog;
-import com.xiudu.blog.pojo.DTO.BlogDTO;
+import com.xiudu.blog.pojo.DO.Blog;
 import com.xiudu.blog.pojo.VO.blog.*;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminVO;
@@ -19,7 +18,7 @@ import java.util.Locale;
  * @author: 锈渎
  * @date: 2024/1/10 14:07
  * @code: 面向对象面向君， 不负代码不负卿。
- * @description:
+ * @description: 单例模式： 用于 博客 类的 pojo 转换
  */
 public class BlogSingletonHungry {
 
@@ -89,6 +88,7 @@ public class BlogSingletonHungry {
                 .setUpdateTime(blog.getUpdateTime())
                 .setTypeName(typeMapper.selectById(blog.getTypeId()).getName())
                 .setUsername(userMapper.selectById(blog.getUserId()).getUsername())
+                .setUserId(blog.getUserId())
                 .setContentHtml(blogContentMapper.selectHtmlById(blog.getId()));
     }
 

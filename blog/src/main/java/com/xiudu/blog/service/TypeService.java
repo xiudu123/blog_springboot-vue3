@@ -1,7 +1,7 @@
 package com.xiudu.blog.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xiudu.blog.pojo.Type;
+import com.xiudu.blog.pojo.DO.Type;
+import com.xiudu.blog.pojo.VO.type.TypeIndexVO;
 
 import java.util.List;
 import java.util.Map;
@@ -14,12 +14,12 @@ public interface TypeService {
 
     int deleteType(Long id);
 
-    int updateType(Long id, Type type);
+    int updateType(Type type);
 
-    Boolean isEmptyByTypeName(String name);
+
     Type getType(Long id);
     Map<String, Object> listTypeAndSearch(Integer pageNum, String typeName);
-    List<Type> listTypeAll();
+    List<TypeIndexVO> listTypeAll();
 
 
 

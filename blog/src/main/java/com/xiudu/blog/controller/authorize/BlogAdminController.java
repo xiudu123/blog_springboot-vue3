@@ -1,19 +1,23 @@
 package com.xiudu.blog.controller.authorize;
 
 import com.xiudu.blog.config.api.Result;
-import com.xiudu.blog.pojo.Blog;
-import com.xiudu.blog.pojo.BlogContent;
-import com.xiudu.blog.pojo.DTO.BlogDTO;
+import com.xiudu.blog.config.api.ResultStatus;
+import com.xiudu.blog.pojo.DO.Blog;
+import com.xiudu.blog.pojo.DO.BlogContent;
+import com.xiudu.blog.pojo.DTO.blog.BlogCreateGroup;
+import com.xiudu.blog.pojo.DTO.blog.BlogDTO;
+import com.xiudu.blog.pojo.DTO.blog.BlogUpdateGroup;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
 import com.xiudu.blog.service.BlogContentService;
 import com.xiudu.blog.service.BlogService;
+import com.xiudu.blog.service.TypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +37,8 @@ public class BlogAdminController {
     private BlogService blogService;
     @Autowired
     private BlogContentService blogContentService;
+    @Autowired
+    private TypeService typeService;
 
 
     @Operation(summary = "根据条件查询博客列表", description = "根据条件查询博客列表")
@@ -69,7 +75,7 @@ public class BlogAdminController {
     @GetMapping("get/one")
     public Result<?> getBlogOne(@RequestParam Long blogId) {
         BlogAdminUpdateVO blog = blogService.getBlogUpdate(blogId);
-        if(blog == null) return Result.error("该博客不存在或已被删除");
+        if(blog == null) return Result.error(ResultStatus.NOT_FOUND_BLOG);
         else return Result.success(blog);
     }
 
@@ -78,28 +84,22 @@ public class BlogAdminController {
             @Parameter(name = "blog", description = "博客类", required = true)
     })
     @PostMapping("/add")
-    public Result<?> addBlog(@RequestBody BlogDTO blogDTO) {
-        // 参数校验
-        if ("".equals(blogDTO.getTitle()) || blogDTO.getTitle() == null) {
-            return Result.error("请输入标题");
-        }
-        if(blogDTO.getTypeId() == null || blogDTO.getTypeId() < 1) {
-            return Result.error("请选择分类");
-        }
-        if("".equals(blogDTO.getFirstPicture()) || blogDTO.getFirstPicture() == null) {
-            return Result.error("请选择首图");
-        }
-        if("".equals(blogDTO.getContentMarkdown()) || blogDTO.getContentMarkdown() == null) {
-            return Result.error("请编写博客内容");
-        }
+    public Result<?> addBlog(@Validated(BlogCreateGroup.class) @RequestBody BlogDTO blogDTO) {
+        // 设置默认参数
         if("".equals(blogDTO.getOverview()) || blogDTO.getOverview() == null) {
             blogDTO.setOverview("作者很懒，没有写描述");
         }
         if(blogDTO.getComment() == null) blogDTO.setComment(false);
         if(blogDTO.getTop() == null) blogDTO.setTop(false);
+
+        // 分类不存在
+        if(typeService.getType(blogDTO.getTypeId()) == null) {
+            return Result.error(ResultStatus.NOT_FOUND_TYPE);
+        }
+
         // 插入
         int successInsert = blogService.insertBlog(1L, blogDTO);
-        if(successInsert == 0) return Result.error("添加失败, 请稍后再试");
+        if(successInsert == 0) return Result.error(ResultStatus.INSERT_ERROR_BLOG);
         else return Result.success();
     }
 
@@ -108,41 +108,32 @@ public class BlogAdminController {
             @Parameter(name = "blog", description = "博客类", required = true)
     })
     @PostMapping("/update")
-    public Result<?> updateBlog(@RequestBody BlogDTO newBlogDTO) {
-        // 参数校验
-        if("".equals(newBlogDTO.getTitle()) || newBlogDTO.getTitle() == null) {
-            return Result.error("请输入标题");
-        }
-        if(newBlogDTO.getTypeId() == null || newBlogDTO.getTypeId() < 1) {
-            return Result.error("请选择分类");
-        }
-        if("".equals(newBlogDTO.getFirstPicture()) || newBlogDTO.getFirstPicture() == null) {
-            return Result.error("请选择首图");
-        }
-        if("".equals(newBlogDTO.getContentMarkdown()) || newBlogDTO.getContentMarkdown() == null) {
-            return Result.error("请编写博客内容");
-        }
+    public Result<?> updateBlog(@Validated(BlogUpdateGroup.class) @RequestBody BlogDTO newBlogDTO) {
+        // 设置默认参数
         if("".equals(newBlogDTO.getOverview()) || newBlogDTO.getOverview() == null) {
             newBlogDTO.setOverview("作者很懒，没有写描述");
         }
+        if(newBlogDTO.getComment() == null) newBlogDTO.setComment(false);
+        if(newBlogDTO.getTop() == null) newBlogDTO.setTop(false);
 
         // 找到原博客
         Blog oldBlog = blogService.getBlog(newBlogDTO.getId());
         BlogContent oldBlogContent = blogContentService.getBlogContent(newBlogDTO.getId());
         if(oldBlog == null || oldBlogContent == null) {
-            return Result.error("该博客不存在或已被删除");
+            return Result.error(ResultStatus.NOT_FOUND_BLOG);
+        }
+        if(typeService.getType(newBlogDTO.getTypeId()) == null) {
+            return Result.error(ResultStatus.NOT_FOUND_TYPE);
         }
 
         // 假设多用户，判断是否有权限修改
         if(!check(1L, oldBlog.getUserId())) {
-            return Result.error("权限不足");
+            return Result.error(ResultStatus.NO_PERMISSION);
         }
-        if(newBlogDTO.getComment() == null) newBlogDTO.setComment(false);
-        if(newBlogDTO.getTop() == null) newBlogDTO.setTop(false);
 
         // 修改
         int successUpdate = blogService.updateBlog(oldBlog, newBlogDTO);
-        if(successUpdate == 0) return Result.error("修改失败, 请稍后再试");
+        if(successUpdate == 0) return Result.error(ResultStatus.UPDATE_ERROR_BLOG);
         else return Result.success();
     }
 
@@ -157,17 +148,17 @@ public class BlogAdminController {
 
         // 博客不存在
         if(blog == null) {
-            return Result.error("该博客不存在或已被删除");
+            return Result.error(ResultStatus.NOT_FOUND_BLOG);
         }
 
         // 假设是多用户，判断是否有权限删除
         if(!check(1L, blog.getUserId())) {
-            return Result.error("权限不足");
+            return Result.error(ResultStatus.NO_PERMISSION);
         }
 
         // 删除
-        int successDelete = blogService.deleteBlog(blogId);
-        if(successDelete == 0) return Result.error("删除失败, 请稍后再试");
+        int successDelete = blogService.deleteBlog(blogId, blog.getTypeId());
+        if(successDelete == 0) return Result.error(ResultStatus.DELETE_ERROR_BLOG);
         else return Result.success();
     }
 

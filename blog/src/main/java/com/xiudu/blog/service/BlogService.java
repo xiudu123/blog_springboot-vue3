@@ -1,7 +1,7 @@
 package com.xiudu.blog.service;
 
-import com.xiudu.blog.pojo.Blog;
-import com.xiudu.blog.pojo.DTO.BlogDTO;
+import com.xiudu.blog.pojo.DO.Blog;
+import com.xiudu.blog.pojo.DTO.blog.BlogDTO;
 import com.xiudu.blog.pojo.VO.blog.BlogFooterVO;
 import com.xiudu.blog.pojo.VO.blog.BlogViewVO;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
@@ -15,7 +15,7 @@ import java.util.Map;
 public interface BlogService {
     int insertBlog(Long userId, BlogDTO blog);
 
-    int deleteBlog(Long blogId);
+    int deleteBlog(Long blogId, Long typeId);
 
     int updateBlog(Blog oldBlog, BlogDTO newBlog);
 

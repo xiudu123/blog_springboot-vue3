@@ -1,5 +1,6 @@
 package com.xiudu.blog.config.handler;
 
+import com.xiudu.blog.config.api.ResultStatus;
 import lombok.Getter;
 
 /**
@@ -20,5 +21,9 @@ public class CustomException extends RuntimeException{
     public CustomException(String message) {
         super(message);
         this.code = 5;
+    }
+    public CustomException(ResultStatus resultStatus) {
+        super(resultStatus.getMessage());
+        this.code = resultStatus.getStatus();
     }
 }

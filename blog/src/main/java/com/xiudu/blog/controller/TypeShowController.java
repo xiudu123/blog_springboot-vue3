@@ -1,7 +1,8 @@
 package com.xiudu.blog.controller;
 
 import com.xiudu.blog.config.api.Result;
-import com.xiudu.blog.pojo.Type;
+import com.xiudu.blog.pojo.DO.Type;
+import com.xiudu.blog.pojo.VO.type.TypeIndexVO;
 import com.xiudu.blog.service.BlogService;
 import com.xiudu.blog.service.TypeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,11 +43,11 @@ public class TypeShowController {
     @GetMapping("/types")
     public Result<?> getTypes() {
 
-        List<Type> types = typeService.listTypeAll();
+        List<TypeIndexVO> types = typeService.listTypeAll();
 
         Map<String, Long> nameToId = new HashMap<>();
 
-        for(Type type : types) {
+        for(TypeIndexVO type : types) {
             nameToId.put(type.getName(), type.getId());
         }
 

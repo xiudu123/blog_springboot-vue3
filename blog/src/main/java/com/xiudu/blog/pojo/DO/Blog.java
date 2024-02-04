@@ -1,4 +1,4 @@
-package com.xiudu.blog.pojo;
+package com.xiudu.blog.pojo.DO;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -36,12 +36,5 @@ public class Blog {
     private String overview; // 概述
     private Long userId; // 发布者Id
     private Long typeId; // 类型Id
-
-    // 不与数据库关联
-    private transient String typeName;
-    private transient String username;
-    private transient Integer year;
-    private transient Integer month;
-    private transient Integer day;
 
 }

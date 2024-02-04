@@ -1,7 +1,5 @@
-package com.xiudu.blog.pojo;
+package com.xiudu.blog.pojo.DO;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +16,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class BlogContent {
-    private Long id;
-    private String contentHtml;
-    private String contentMarkdown;
+    private Long id; // 跟 blog 表 id 一致
+    private String contentHtml; // html内容
+    private String contentMarkdown; // markdown内容
 }

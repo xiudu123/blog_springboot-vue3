@@ -37,6 +37,7 @@
             <tr>
                 <th></th>
                 <th>分类类型</th>
+                <th>博客数量</th>
                 <th>创建时间</th>
                 <th>修改时间</th>
                 <th>操作</th>
@@ -48,6 +49,7 @@
                 <!--                    <div th:text="${type}"></div>-->
                 <td> {{ index + 1 }} </td>
                 <td> {{ type.name }} </td>
+                <td> {{ type.count }} </td>
                 <td> {{ type.createTime }} </td>
                 <td> {{ type.updateTime }} </td>
                 <td>
@@ -58,7 +60,7 @@
             </tbody>
             <tfoot>
             <tr>
-                <th colspan="5">
+                <th colspan="6">
                     <div class="ui right floated pagination menu">
                         <!--                            上一页-->
                         <a class="icon item" v-if="type_page.current !== 1" @click="getTypeList(type_page.current - 1)">

@@ -46,11 +46,11 @@
                         <img src="@/assets/img/xiu.jpg" alt="" class="ui rounded bordered image" style="width: 110px; border-radius: 50%">
                     </div>
                     <div class="thirteen wide column" style="color: black">
-                        <ui class="list">
+                        <ol class="list">
                             <li>作者：<span>{{ blog_info.username }}</span></li>
                             <li>发布时间：<span>{{ blog_info.create_time }}</span></li>
                             <li>更新时间：<span>{{ blog_info.update_time }}</span></li>
-                        </ui>
+                        </ol>
 
                     </div>
 
@@ -66,7 +66,7 @@
                             <div class="comment" v-for="comment in comment_info.comments" :key="comment.id">
                                 <a class="avatar">
 <!--                                    <img src="@/assets/img/xiu.jpg" alt="" >-->
-                                    <img :src="baseUrl + comment.avatar" alt="">
+                                    <img :src="comment.avatar" alt="">
                                 </a>
                                 <div class="content" :id="'comment' + comment.id" :class="{'flash-effect': comment.id === replyCommentId}">
                                     <a class="author">
@@ -90,10 +90,12 @@
                                     <div class="comment" v-for="reply_comment in comment_info.replyComments[comment.id]" :key="reply_comment.id" :class="{'flash-effect': reply_comment.id === replyCommentId}">
                                         <a class="avatar">
 <!--                                            <img src="https://unsplash.it/100/100?image=1005" alt="">-->
-                                            <img :src="baseUrl + reply_comment.avatar">
+                                            <img :src="reply_comment.avatar" alt="">
                                         </a>
                                         <div class="content" :id="'comment' + reply_comment.id">
                                             <span> {{ reply_comment.nickname }}</span>
+                                            <div>
+                                            </div>
                                             <div class="ui mini basic teal left pointing label m-padded-mini" v-if="reply_comment.userId === blog_info.user_id">
                                                 博主
                                             </div>
@@ -149,6 +151,7 @@
                         <div id="commentPost-btn" type="button" class="ui blue button m-mobile-wide" @click="submitComment"><i class="edit icon"></i> 发布</div>
                     </div>
                 </div>
+                <div v-if="error_message" class="ui mini negative message"> {{error_message}} </div>
             </div>
         </div>
     </ContentFieldCom>
@@ -181,8 +184,8 @@ export default {
     setup() {
         const route = useRoute();
         const store = useStore();
-        const baseUrl = process.env.VUE_APP_API_BASE_URL;
         const replyCommentId = ref(null);
+        let error_message = ref("");
         const blog_info = reactive({
             id : null,
             first_picture : null,
@@ -238,7 +241,7 @@ export default {
             let id = 1;
             // eslint-disable-next-line no-undef
             element.childNodes.forEach((child) => {
-                console.log(child);
+                // console.log(child);
                 if(child.nodeType === 1 && child.tagName.match(/^H[1-6]$/)) {
                     let hyphenated = "myUnique-" + id; // 非 ANSI 编码会会导致toc bot目录无法跳转
                     // eslint-disable-next-line no-undef
@@ -425,8 +428,12 @@ export default {
                 headers: {
                     'Content-Type': "application/json",
                 },
-            }).then(() => {
-                window.location.reload();
+            }).then((resp) => {
+                if(resp.data.error === "success") {
+                    window.location.reload();
+                }else {
+                    error_message.value = resp.data.error;
+                }
             }).catch(() => {router.push({name:'500'})})
         }
 
@@ -435,8 +442,8 @@ export default {
             comment_info,
             comment_post,
             replyCommentId,
-            baseUrl,
             tocContent,
+            error_message,
 
             click_comment_button,
             click_comment_reply,

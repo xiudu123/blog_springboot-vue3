@@ -3,10 +3,13 @@ package com.xiudu.blog.controller.authorize;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.xiudu.blog.config.api.Result;
-import com.xiudu.blog.pojo.User;
+import com.xiudu.blog.config.api.ResultStatus;
+import com.xiudu.blog.pojo.DO.User;
+import com.xiudu.blog.pojo.DTO.user.LoginDTO;
 import com.xiudu.blog.service.UserService;
 import com.xiudu.blog.util.MD5Utils;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,25 +31,18 @@ public class UserAdminController {
     private UserService userService;
 
     @PostMapping("/login")
-    public Result<?> login(@RequestBody User user) {
+    public Result<?> login(@Valid @RequestBody LoginDTO loginDTO) {
         // 获取账号密码
-        String username = user.getUsername();
-        String password = user.getPassword();
-        // 账号密码判空
-        if("".equals(username) || username == null) {
-            return Result.error("用户名不能为空");
-        }
-        if("".equals(password) || password == null) {
-            return Result.error("密码不能为空");
-        }
+        String username = loginDTO.getUsername();
+        String password = loginDTO.getPassword();
 
         // 密码进行 md5 加密
         password = MD5Utils.code(password);
 
         // 查询用户
-        user = userService.checkUser(username, password);
+        User user = userService.checkUser(username, password);
         if(user == null) {
-            return Result.error("用户名或者密码错误");
+            return Result.error(ResultStatus.LOGIN_CHECK_ERROR);
         }
 
         StpUtil.login(user.getId());
@@ -62,7 +58,7 @@ public class UserAdminController {
     @GetMapping("/check")
     public Result<?> checkToken() {
         if(!StpUtil.isLogin()) {
-            return Result.error(401, "登录已过期，请重新登录");
+            return Result.error(ResultStatus.LOGIN_EXPIRED);
         }
         Long userId = StpUtil.getLoginIdAsLong();
         User user = userService.selectUserById(userId);

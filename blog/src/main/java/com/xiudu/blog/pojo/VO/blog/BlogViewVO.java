@@ -30,6 +30,6 @@ public class BlogViewVO {
     private Date updateTime;
     private String typeName;
     private String username;
-
+    private Long userId;
     private String contentHtml;
 }

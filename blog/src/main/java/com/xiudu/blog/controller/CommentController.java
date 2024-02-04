@@ -1,11 +1,14 @@
 package com.xiudu.blog.controller;
 
 import com.xiudu.blog.config.api.Result;
-import com.xiudu.blog.pojo.Comment;
+import com.xiudu.blog.config.api.ResultStatus;
+import com.xiudu.blog.pojo.DO.Comment;
+import com.xiudu.blog.pojo.DTO.comment.CommentDTO;
 import com.xiudu.blog.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +55,7 @@ public class CommentController {
         return Result.success(result);
     }
 
-    @Operation(summary = "提交评论（待完成）", description = "提交评论")
+    @Operation(summary = "提交评论", description = "提交评论")
     @Parameters({
             @Parameter(name = "comment", description = "评论内容", required = true),
             @Parameter(name = "blogId", description = "博客Id", required = true),
@@ -60,12 +63,11 @@ public class CommentController {
             @Parameter(name = "parentId", description = "父亲评论Id", required = true)
     })
     @PostMapping("/submit")
-    public Result<?> post(@RequestBody Comment comment) {
-        comment.setCreateTime(new Date());
-        if(comment.getUserId() == 1) comment.setAvatar(adminAvatar);
-        else comment.setAvatar(avatar);
-        int successInsert = commentService.insertComment(comment);
-        if(successInsert == 0) return Result.error("评论失败, 请稍后再试");
+    public Result<?> post(@Valid @RequestBody CommentDTO commentDTO) {
+        if(commentDTO.getUserId() == 0) commentDTO.setAvatar(avatar);
+        else commentDTO.setAvatar(adminAvatar);
+        int successInsert = commentService.insertComment(commentDTO);
+        if(successInsert == 0) return Result.error(ResultStatus.INSERT_ERROR_COMMENT);
         else return Result.success();
     }
 

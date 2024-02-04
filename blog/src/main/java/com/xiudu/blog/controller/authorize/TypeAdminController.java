@@ -1,15 +1,19 @@
 package com.xiudu.blog.controller.authorize;
 
 import com.xiudu.blog.config.api.Result;
-import com.xiudu.blog.pojo.Type;
+import com.xiudu.blog.config.api.ResultStatus;
+import com.xiudu.blog.pojo.DO.Type;
+import com.xiudu.blog.pojo.DTO.type.TypeCreateGroup;
+import com.xiudu.blog.pojo.DTO.type.TypeDTO;
+import com.xiudu.blog.pojo.DTO.type.TypeUpdateGroup;
 import com.xiudu.blog.service.TypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 
 /**
  * @author: 锈渎
@@ -44,17 +48,11 @@ public class TypeAdminController {
             @Parameter(name = "type", description = "分类类", required = true)
     })
     @PostMapping("/add")
-    public Result<?> addType(@RequestBody Type type) {
-        if ("".equals(type.getName()) || type.getName() == null) {
-            return Result.error("请输入分类名字");
-        }
-        if(!typeService.isEmptyByTypeName(type.getName())) {
-            return Result.error("该分类已存在");
-        }
-
+    public Result<?> addType(@Validated(TypeCreateGroup.class) @RequestBody TypeDTO typeDTO) {
+        Type type = new Type().setName(typeDTO.getName());
 
         int successInsert = typeService.insertType(type);
-        if(successInsert == 0) return Result.error("添加失败, 请稍后再试");
+        if(successInsert == 0) return Result.error(ResultStatus.INSERT_ERROR_TYPE);
         else return Result.success();
     }
 
@@ -63,24 +61,14 @@ public class TypeAdminController {
             @Parameter(name = "newType", description = "添加的分类", required = true)
     })
     @PostMapping("/update")
-    public Result<?> updateType(@RequestBody Type newType) {
-        Type oldType = typeService.getType(newType.getId());
-        if(oldType == null) {
-            return Result.error("该分类不存在或已被删除");
-        }
-        if("".equals(newType.getName()) || newType.getName() == null) {
-            return Result.error("请输入该分类名称");
-        }
-        if(oldType.getName().equals(newType.getName())) {
-            return Result.error("修改的分类不能与之前相同");
-        }
-        if(!typeService.isEmptyByTypeName(newType.getName())) {
-            return Result.error("该分类已存在");
-        }
+    public Result<?> updateType(@Validated(TypeUpdateGroup.class) @RequestBody TypeDTO newTypeDTO) {
 
-        newType.setUpdateTime(new Date());
-        int successUpdate = typeService.updateType(newType.getId(), newType);
-        if(successUpdate == 0) return Result.error("修改失败， 请稍后再试");
+        Type type = new Type()
+                .setId(newTypeDTO.getId())
+                .setName(newTypeDTO.getName());
+
+        int successUpdate = typeService.updateType(type);
+        if(successUpdate == 0) return Result.error(ResultStatus.UPDATE_ERROR_TYPE);
         else return Result.success();
     }
 
@@ -90,11 +78,16 @@ public class TypeAdminController {
     })
     @PostMapping("/delete")
     public Result<?> deleteType(@RequestBody Long typeId) {
-        if(typeService.getType(typeId) == null) {
-            return Result.error("该类型不存在或已被删除");
+        Type type = typeService.getType(typeId);
+        if(type == null) {
+            return Result.error(ResultStatus.NOT_FOUND_TYPE);
         }
+        if(type.getCount() > 0) {
+            return Result.error(ResultStatus.DELETE_NOT_ALLOW_TYPE);
+        }
+
         int successDelete = typeService.deleteType(typeId);
-        if(successDelete == 0) return Result.error("删除失败, 请稍后再试");
+        if(successDelete == 0) return Result.error(ResultStatus.DELETE_ERROR_TYPE);
         else return Result.success();
     }
 }

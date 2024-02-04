@@ -1,6 +1,7 @@
 package com.xiudu.blog.service;
 
-import com.xiudu.blog.pojo.Comment;
+import com.xiudu.blog.pojo.DO.Comment;
+import com.xiudu.blog.pojo.DTO.comment.CommentDTO;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface CommentService {
 
-    int insertComment(Comment comment);
+    int insertComment(CommentDTO comment);
 
     List<Comment> listCommentByBlogId(Long blogId);
 }
