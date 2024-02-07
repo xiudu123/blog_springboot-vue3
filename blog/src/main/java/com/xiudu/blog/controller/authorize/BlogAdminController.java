@@ -157,7 +157,7 @@ public class BlogAdminController {
         }
 
         // 删除
-        int successDelete = blogService.deleteBlog(blogId, blog.getTypeId());
+        int successDelete = blogService.deleteBlog(blogId, blog.getTypeId(), blog.getPublished());
         if(successDelete == 0) return Result.error(ResultStatus.DELETE_ERROR_BLOG);
         else return Result.success();
     }

@@ -2,6 +2,7 @@ package com.xiudu.blog.service;
 
 import com.xiudu.blog.pojo.DO.Type;
 import com.xiudu.blog.pojo.VO.type.TypeIndexVO;
+import com.xiudu.blog.util.page.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ public interface TypeService {
 
 
     Type getType(Long id);
-    Map<String, Object> listTypeAndSearch(Integer pageNum, String typeName);
+    PageInfo<Type> listTypeAndSearch(Integer pageNum, String typeName);
     List<TypeIndexVO> listTypeAll();
 
 

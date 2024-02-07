@@ -1,5 +1,6 @@
 package com.xiudu.blog.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.ResultStatus;
@@ -9,7 +10,10 @@ import com.xiudu.blog.pojo.DO.Type;
 import com.xiudu.blog.pojo.VO.type.TypeIndexVO;
 import com.xiudu.blog.service.TypeService;
 import com.xiudu.blog.util.Singleton.TypeSingletonHungry;
+import com.xiudu.blog.util.page.PageInfo;
+import com.xiudu.blog.util.page.Paging;
 import com.xiudu.blog.util.redis.CacheClient;
+import com.xiudu.blog.util.redis.CounterClient;
 import com.xiudu.blog.util.redis.RedisConstant;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +36,8 @@ public class TypeServiceImpl implements TypeService {
 
     @Autowired
     private CacheClient cacheClient;
+    @Autowired
+    private CounterClient counterClient;
 
     /**
      *
@@ -81,7 +87,7 @@ public class TypeServiceImpl implements TypeService {
                 cacheClient.queryWithPassThrough(RedisConstant.CACHE_TYPE_KEY, id, Type.class, typeMapper::selectById, RedisConstant.CACHE_TYPE_TTL, TimeUnit.SECONDS);
     }
 
-    // TODO Limit深分页优化
+
     /**
      *
      * @param pageNum 分页的当前页
@@ -90,31 +96,16 @@ public class TypeServiceImpl implements TypeService {
      * @description: 标签分页查询
      */
     @Override
-    public Map<String, Object> listTypeAndSearch(Integer pageNum, String typeName) {
+    public PageInfo<Type> listTypeAndSearch(Integer pageNum, String typeName) {
         // 查询条件
         QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("create_time");
         if(typeName != null && !"".equals(typeName)) queryWrapper.like("name", typeName);
+        // 计算 分类总数
+        int typeCount = Math.toIntExact(counterClient.getCount(RedisConstant.COUNTER_TYPE_TOTAL_KEY, typeMapper::selectTypeCount));
 
+        return Paging.paging(pageNum, 10, typeCount, queryWrapper, new QueryWrapper<>(), typeMapper::selectList, Type::getId);
 
-        if(pageNum <= 0) pageNum = 1;
-        Page<Type> page = new Page<>(pageNum, 10);
-
-        Page<Type> typePage = typeMapper.selectPage(page, queryWrapper);
-
-        if(typePage.getCurrent() > typePage.getPages()) {
-            typePage = typeMapper.selectPage(new Page<>(typePage.getPages(), 10), queryWrapper);
-        }
-
-
-        Map<String, Object> result = new HashMap<>();
-        result.put("records", typePage.getRecords());
-        result.put("pageCurrent", typePage.getCurrent());
-        result.put("pageTotal", typePage.getPages());
-        result.put("pagePre", (typePage.getCurrent() - (typePage.hasPrevious() ? 1 : 0)));
-        result.put("pageNext", (typePage.getCurrent() + (typePage.hasNext() ? 1 : 0)));
-
-        return result;
     }
 
     /**

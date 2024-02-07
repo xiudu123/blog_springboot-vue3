@@ -20,6 +20,9 @@ public interface TypeMapper extends BaseMapper<Type> {
     @Select("SELECT COUNT(*) FROM type WHERE name = #{name}")
     Long selectCountByTypeName(@Param("name") String name);
 
+    @Select("SELECT COUNT(*) FROM type")
+    Long selectTypeCount();
+
     @Update("UPDATE type SET count = count + 1 WHERE id = #{id}")
     void addCountById(@Param("id") Long id);
 

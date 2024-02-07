@@ -1,5 +1,6 @@
 package com.xiudu.blog.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,10 +12,14 @@ import com.xiudu.blog.pojo.DO.BlogContent;
 import com.xiudu.blog.pojo.DTO.blog.BlogDTO;
 import com.xiudu.blog.pojo.VO.blog.BlogArchiveVO;
 import com.xiudu.blog.pojo.VO.blog.BlogFooterVO;
+import com.xiudu.blog.pojo.VO.blog.BlogIndexVO;
 import com.xiudu.blog.pojo.VO.blog.BlogViewVO;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
+import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminVO;
 import com.xiudu.blog.service.BlogService;
 import com.xiudu.blog.util.Singleton.BlogSingletonHungry;
+import com.xiudu.blog.util.page.PageInfo;
+import com.xiudu.blog.util.page.Paging;
 import com.xiudu.blog.util.redis.CacheClient;
 import com.xiudu.blog.util.redis.CounterClient;
 import com.xiudu.blog.util.redis.RedisConstant;
@@ -66,6 +71,7 @@ public class BlogServiceImpl implements BlogService {
             Long typeId = blogDTO.getTypeId();
             typeMapper.addCountById(typeId);
             cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + typeId);
+            counterClient.addCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
         }
 
         Blog blog = new Blog()
@@ -102,13 +108,16 @@ public class BlogServiceImpl implements BlogService {
      */
     @Transactional
     @Override
-    public int deleteBlog(Long blogId, Long typeId) {
+    public int deleteBlog(Long blogId, Long typeId, Boolean published) {
         typeMapper.deleteCountById(typeId);
         int deleteSuccess1 = blogMapper.deleteById(blogId);
         int deleteSuccess2 = blogContentMapper.deleteById(blogId);
         cacheClient.delete(RedisConstant.CACHE_BLOG_INFO_KEY + blogId);
         cacheClient.delete(RedisConstant.CACHE_BLOG_CONTENT_KEY + blogId);
         cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + typeId);
+        if(published) {
+            counterClient.delCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
+        }
         if((deleteSuccess1 & deleteSuccess2) == 0) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
             return 0;
@@ -132,7 +141,7 @@ public class BlogServiceImpl implements BlogService {
             Long oldTypeId = oldBlog.getTypeId();
             typeMapper.deleteCountById(oldTypeId);
             keys.add(RedisConstant.CACHE_TYPE_KEY + oldTypeId);
-
+            counterClient.delCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
         }
         if(newBlogDTO.getPublished()) {
             Long newTypeId = newBlogDTO.getTypeId();
@@ -140,6 +149,7 @@ public class BlogServiceImpl implements BlogService {
             if(keys.isEmpty() || !(Objects.equals(oldBlog.getTypeId(), newTypeId))) {
                 keys.add(RedisConstant.CACHE_TYPE_KEY + newTypeId);
             }
+            counterClient.addCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
         }
         keys.add(RedisConstant.CACHE_BLOG_INFO_KEY + oldBlog.getId());
         keys.add(RedisConstant.CACHE_BLOG_CONTENT_KEY + oldBlog.getId());
@@ -195,19 +205,20 @@ public class BlogServiceImpl implements BlogService {
      * @description: 首页的博客分页列表
      */
     @Override
-    public Map<String, Object> listBlogIndex(Integer pageNum) {
+    public PageInfo<BlogIndexVO> listBlogIndex(Integer pageNum) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top", "create_time");
-        return getBlogPage(pageNum, queryWrapper, 1);
+
+        return getBlogIndexPage(pageNum, queryWrapper);
     }
 
     // TODO 首页搜索
     @Override
-    public Map<String, Object> listBlogSearch(Integer pageNum, String query) {
+    public PageInfo<BlogIndexVO> listBlogSearch(Integer pageNum, String query) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top", "create_time");
         queryWrapper.like("title", query);
-        return getBlogPage(pageNum, queryWrapper, 1);
+        return getBlogIndexPage(pageNum, queryWrapper);
     }
 
     /**
@@ -216,14 +227,15 @@ public class BlogServiceImpl implements BlogService {
      * @return 根据标签Id返回的博客列表
      */
     @Override
-    public Map<String, Object> listBlogByTypedId(Integer pageNum, Long typeId) {
+    public PageInfo<BlogIndexVO> listBlogByTypedId(Integer pageNum, Long typeId) {
 
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("published", 1).orderByDesc("top");
         queryWrapper.orderByDesc("create_time");
         if(typeMapper.selectCountByTypeId(typeId) > 0) queryWrapper.eq("type_id", typeId);
 
-        return getBlogPage(pageNum, queryWrapper, 2);
+
+        return getBlogIndexPage(pageNum, queryWrapper);
     }
 
 
@@ -310,7 +322,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Long blogCount() {
 
-        return counterClient.getCount(RedisConstant.COUNTER_BLOG_FOOTER_KEY, blogMapper::selectBlogCount);
+        return counterClient.getCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
     }
 
     /**
@@ -343,7 +355,7 @@ public class BlogServiceImpl implements BlogService {
      * @return 根据查询条件返回的博客列表
      */
     @Override
-    public Map<String, Object> listBlogAdminQuery(Integer pageNum, Map<String, String> query) {
+    public PageInfo<BlogAdminVO> listBlogAdminQuery(Integer pageNum, Map<String, String> query) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc( "create_time");
 
@@ -353,10 +365,9 @@ public class BlogServiceImpl implements BlogService {
         if(!("-1".equals(query.get("comment"))))   queryWrapper.eq("comment", query.get("comment"));
         if(!("".equals(query.get("title"))))       queryWrapper.like("title", query.get("title"));
 
-        return getBlogPage(pageNum, queryWrapper, 3);
+        return getBlogAdminPage(pageNum, queryWrapper);
     }
 
-    // TODO limit深度查询优化
     /**
      * @param pageNum 分页的当前页
      * @param queryWrapper 查询条件
@@ -366,31 +377,30 @@ public class BlogServiceImpl implements BlogService {
      * 2 - 根据分类 博客列表 <br>
      * 3 - 管理员搜索 博客列表 <br>
      */
-    private Map<String, Object> getBlogPage(Integer pageNum, QueryWrapper<Blog> queryWrapper, int op) {
-        if(pageNum <= 0) pageNum = 1;
-        Page<Blog> page = new Page<>(pageNum, 10);
-        Page<Blog> blogPage = blogMapper.selectPage(page, queryWrapper);
-        // 如果 pageNum 超过了总页数, 则重新查询最后一页
-        if(blogPage.getCurrent() > blogPage.getPages()) {
-            blogPage = blogMapper.selectPage(new Page<>(blogPage.getPages(), 10), queryWrapper);
-        }
+    private PageInfo<BlogIndexVO> getBlogIndexPage(Integer pageNum, QueryWrapper<Blog> queryWrapper) {
+        // 计算博客总数
+        int blogCount = Math.toIntExact(counterClient.getCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount));
+        PageInfo<Blog> blogPageInfo = Paging.paging(pageNum, 10, blogCount, queryWrapper, new QueryWrapper<>(), blogMapper::selectList, Blog::getId);
 
+        return new PageInfo<BlogIndexVO>()
+                .setPageTotal(blogPageInfo.getPageTotal())
+                .setPageCurrent(blogPageInfo.getPageCurrent())
+                .setPagePre(blogPageInfo.getPagePre())
+                .setPageNext(blogPageInfo.getPageNext())
+                .setRecords(BlogSingletonHungry.getInstance().BlogToIndex(blogPageInfo.getRecords(), typeMapper, userMapper, cacheClient));
+    }
 
-        Map<String, Object> result = new HashMap<>();
-        BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
-//        result.put("pageInfo", blogPage);
-        if(op == 1 || op == 2) {
-            result.put("records", blogSingletonHungry.BlogToIndex(blogPage.getRecords(), typeMapper, userMapper, cacheClient));
-        }else if(op == 3) {
-            result.put("records", blogSingletonHungry.BlogToAdmin(blogPage.getRecords(), typeMapper, cacheClient));
-        }
-//        result.put("records", blogPage.getRecords());
-        result.put("pageTotal", blogPage.getPages());
-        result.put("pageCurrent", blogPage.getCurrent());
-        result.put("pagePre", (blogPage.getCurrent() - (blogPage.hasPrevious() ? 1 : 0)));
-        result.put("pageNext", (blogPage.getCurrent() + (blogPage.hasNext() ? 1 : 0)));
+    private PageInfo<BlogAdminVO> getBlogAdminPage(Integer pageNum, QueryWrapper<Blog> queryWrapper) {
+        // 计算博客总数
+        int blogCount = Math.toIntExact(counterClient.getCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount));
+        PageInfo<Blog> blogPageInfo = Paging.paging(pageNum, 10, blogCount, queryWrapper, new QueryWrapper<>(), blogMapper::selectList, Blog::getId);
 
-        return result;
+        return new PageInfo<BlogAdminVO>()
+                .setPageTotal(blogPageInfo.getPageTotal())
+                .setPageCurrent(blogPageInfo.getPageCurrent())
+                .setPagePre(blogPageInfo.getPagePre())
+                .setPageNext(blogPageInfo.getPageNext())
+                .setRecords(BlogSingletonHungry.getInstance().BlogToAdmin(blogPageInfo.getRecords(), typeMapper, cacheClient));
     }
 
 }

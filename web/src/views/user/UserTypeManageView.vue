@@ -271,6 +271,7 @@ export default {
             }).then(resp => {
                 if(resp.data.error === 'success') {
                     const data = resp.data.data;
+                    console.log(data)
                     type_list.records = data.records;
                     type_page.pre = data.pagePre;
                     type_page.next = data.pageNext;
