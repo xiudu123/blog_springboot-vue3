@@ -1,16 +1,14 @@
-package com.xiudu.blog.config.handler;
+package com.xiudu.blog.config.interceptor;
 
 import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.filter.SaServletFilter;
-import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -30,6 +28,8 @@ public class SaTokenConfigure implements WebMvcConfigurer {
 //                .addPathPatterns("/authorize/**");
 //    }
 
+
+
     // 解决so-token前后端跨域问题
     @Bean
     public SaServletFilter getSaServletFilter() {
@@ -38,6 +38,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                 // 认证函数: 每次请求执行
                 .setAuth(obj -> {
                     SaManager.getLog().debug("----- 请求path={}  提交token={}", SaHolder.getRequest().getRequestPath(), StpUtil.getTokenValue());
+                    SaManager.getLog().debug("{}", SaHolder.getResponse().getSource());
                     // ...
                 })
                 // 异常处理函数：每次认证函数发生异常时执行此函数
@@ -63,5 +64,4 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                             .back();
                 });
     }
-
 }

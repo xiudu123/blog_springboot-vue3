@@ -1,5 +1,6 @@
 package com.xiudu.blog.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.ResultStatus;
@@ -7,7 +8,6 @@ import com.xiudu.blog.config.handler.CustomException;
 import com.xiudu.blog.mapper.*;
 import com.xiudu.blog.pojo.DO.Blog;
 import com.xiudu.blog.pojo.DO.BlogContent;
-import com.xiudu.blog.pojo.DO.Type;
 import com.xiudu.blog.pojo.DTO.blog.BlogDTO;
 import com.xiudu.blog.pojo.VO.blog.BlogArchiveVO;
 import com.xiudu.blog.pojo.VO.blog.BlogFooterVO;
@@ -15,12 +15,17 @@ import com.xiudu.blog.pojo.VO.blog.BlogViewVO;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
 import com.xiudu.blog.service.BlogService;
 import com.xiudu.blog.util.Singleton.BlogSingletonHungry;
+import com.xiudu.blog.util.redis.CacheClient;
+import com.xiudu.blog.util.redis.CounterClient;
+import com.xiudu.blog.util.redis.RedisConstant;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: 锈渎
@@ -40,6 +45,13 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogContentMapper blogContentMapper;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private CacheClient cacheClient;
+    @Autowired
+    private CounterClient counterClient;
+
     /**
      *
      * @param userId 用户id
@@ -53,6 +65,7 @@ public class BlogServiceImpl implements BlogService {
         if(blogDTO.getPublished()) {
             Long typeId = blogDTO.getTypeId();
             typeMapper.addCountById(typeId);
+            cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + typeId);
         }
 
         Blog blog = new Blog()
@@ -90,9 +103,12 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public int deleteBlog(Long blogId, Long typeId) {
-        typeMapper.deleteById(typeId);
+        typeMapper.deleteCountById(typeId);
         int deleteSuccess1 = blogMapper.deleteById(blogId);
         int deleteSuccess2 = blogContentMapper.deleteById(blogId);
+        cacheClient.delete(RedisConstant.CACHE_BLOG_INFO_KEY + blogId);
+        cacheClient.delete(RedisConstant.CACHE_BLOG_CONTENT_KEY + blogId);
+        cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + typeId);
         if((deleteSuccess1 & deleteSuccess2) == 0) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
             return 0;
@@ -111,14 +127,23 @@ public class BlogServiceImpl implements BlogService {
     public int updateBlog(Blog oldBlog, BlogDTO newBlogDTO) {
         Date date = new Date();
 
+        List<String> keys = new ArrayList<>();
         if(oldBlog.getPublished()) {
             Long oldTypeId = oldBlog.getTypeId();
             typeMapper.deleteCountById(oldTypeId);
+            keys.add(RedisConstant.CACHE_TYPE_KEY + oldTypeId);
+
         }
         if(newBlogDTO.getPublished()) {
             Long newTypeId = newBlogDTO.getTypeId();
             typeMapper.addCountById(newTypeId);
+            if(keys.isEmpty() || !(Objects.equals(oldBlog.getTypeId(), newTypeId))) {
+                keys.add(RedisConstant.CACHE_TYPE_KEY + newTypeId);
+            }
         }
+        keys.add(RedisConstant.CACHE_BLOG_INFO_KEY + oldBlog.getId());
+        keys.add(RedisConstant.CACHE_BLOG_CONTENT_KEY + oldBlog.getId());
+        cacheClient.delete(keys);
 
         Blog blog = new Blog()
                 .setId(newBlogDTO.getId())
@@ -155,10 +180,11 @@ public class BlogServiceImpl implements BlogService {
      */
     @Override
     public Blog getBlog(Long blogId) {
-        Blog blog = blogMapper.selectById(blogId);
-        if(blog == null) {
-            throw new CustomException(ResultStatus.NOT_FOUND_BLOG);
-        }
+
+        Blog blog = cacheClient.queryWithPassThrough(RedisConstant.CACHE_BLOG_INFO_KEY, blogId, Blog.class, blogMapper::selectById, RedisConstant.CACHE_BLOG_INFO_TTL, TimeUnit.SECONDS);
+
+        if(blog == null) throw new CustomException(ResultStatus.NOT_FOUND_BLOG);
+
         return blog;
     }
 
@@ -251,10 +277,17 @@ public class BlogServiceImpl implements BlogService {
      * SELECT id, title FROM blog <br>
      * WHERE published = 1 <br>
      * ORDER BY top DESC, create_time DESC <br>
-     * LIMIT {size}
+     * LIMIT {size}<br>
+     * @redis: 作为永不过期的缓存
      */
     @Override
     public List<BlogFooterVO> listTop(Long size) {
+        String blogTopKey = RedisConstant.CACHE_BLOG_TOP_KEY;
+        String redisBlogTop = stringRedisTemplate.opsForValue().get(blogTopKey);
+        if(redisBlogTop != null) {
+            return JSON.parseArray(redisBlogTop, BlogFooterVO.class);
+        }
+
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper
                 .select("id", "title")
@@ -263,20 +296,22 @@ public class BlogServiceImpl implements BlogService {
                 .last("LIMIT " + size.toString());
         List<Blog> blogs = blogMapper.selectList(queryWrapper);
 
-        BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
-        return blogSingletonHungry.BlogToFooter(blogs);
+        List<BlogFooterVO> blogFooterVOS = BlogSingletonHungry.getInstance().BlogToFooter(blogs);
+        stringRedisTemplate.opsForValue().set(blogTopKey, JSON.toJSONString(blogFooterVOS));
+        return blogFooterVOS;
     }
 
     /**
      *
      * @return 博客总数
      * @sql SELECT COUNT(*) FROM blog  WHERE published = 1
+     * @redis: 用作 blog 计数器
      */
     @Override
     public Long blogCount() {
-        return blogMapper.selectBlogCount();
-    }
 
+        return counterClient.getCount(RedisConstant.COUNTER_BLOG_FOOTER_KEY, blogMapper::selectBlogCount);
+    }
 
     /**
      *
@@ -290,15 +325,15 @@ public class BlogServiceImpl implements BlogService {
         if(!blog.getPublished()) {
             throw new CustomException(ResultStatus.NO_PERMISSION);
         }
-        blog.setViews(blog.getViews() + 1);
-        blogMapper.updateViewById(blogId);
-        return BlogSingletonHungry.getInstance().BlogToView(blog, typeMapper, userMapper, blogContentMapper);
+        Long blogView = counterClient.addCount(RedisConstant.COUNTER_BLOG_VIEW_KEY + blogId, blog::getViews);
+        blog.setViews(blogView);
+        return BlogSingletonHungry.getInstance().BlogToView(blog, typeMapper, userMapper, blogContentMapper, cacheClient);
     }
 
     @Override
     public BlogAdminUpdateVO getBlogUpdate(Long blogId) {
         Blog blog = getBlog(blogId);
-        return BlogSingletonHungry.getInstance().BlogToUpdate(blog, typeMapper, blogContentMapper);
+        return BlogSingletonHungry.getInstance().BlogToUpdate(blog, typeMapper, blogContentMapper, cacheClient);
     }
 
 
@@ -345,9 +380,9 @@ public class BlogServiceImpl implements BlogService {
         BlogSingletonHungry blogSingletonHungry = BlogSingletonHungry.getInstance();
 //        result.put("pageInfo", blogPage);
         if(op == 1 || op == 2) {
-            result.put("records", blogSingletonHungry.BlogToIndex(blogPage.getRecords(), typeMapper, userMapper));
+            result.put("records", blogSingletonHungry.BlogToIndex(blogPage.getRecords(), typeMapper, userMapper, cacheClient));
         }else if(op == 3) {
-            result.put("records", blogSingletonHungry.BlogToAdmin(blogPage.getRecords(), typeMapper));
+            result.put("records", blogSingletonHungry.BlogToAdmin(blogPage.getRecords(), typeMapper, cacheClient));
         }
 //        result.put("records", blogPage.getRecords());
         result.put("pageTotal", blogPage.getPages());

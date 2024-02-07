@@ -32,7 +32,7 @@ public enum ResultStatus {
     NOT_FOUND_BLOG(6001, "该博客不存在或已被删除"),
     NOT_FOUND_TYPE(6002, "该标签不存在或已被删除"),
     EXIST_TYPE(6003, "该分类已存在"),
-
+    NOT_FOUNT_USER(6004, "该用户不存在"),
 
 
     VALID_ERROR(1000, "参数校验错误");

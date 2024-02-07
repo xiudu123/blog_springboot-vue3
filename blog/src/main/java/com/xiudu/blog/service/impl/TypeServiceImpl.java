@@ -4,21 +4,19 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.ResultStatus;
 import com.xiudu.blog.config.handler.CustomException;
-import com.xiudu.blog.mapper.BlogMapper;
 import com.xiudu.blog.mapper.TypeMapper;
-import com.xiudu.blog.pojo.DO.Blog;
 import com.xiudu.blog.pojo.DO.Type;
 import com.xiudu.blog.pojo.VO.type.TypeIndexVO;
 import com.xiudu.blog.service.TypeService;
 import com.xiudu.blog.util.Singleton.TypeSingletonHungry;
+import com.xiudu.blog.util.redis.CacheClient;
+import com.xiudu.blog.util.redis.RedisConstant;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: 锈渎
@@ -31,6 +29,9 @@ public class TypeServiceImpl implements TypeService {
 
     @Autowired
     private TypeMapper typeMapper;
+
+    @Autowired
+    private CacheClient cacheClient;
 
     /**
      *
@@ -51,9 +52,11 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public int deleteType(Long id) {
         Type type = typeMapper.selectById(id);
+
         if(type == null) {
             throw new CustomException(ResultStatus.NOT_FOUND_TYPE);
         }
+        cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + id);
         return typeMapper.deleteById(id);
     }
 
@@ -61,9 +64,11 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public int updateType(Type newType) {
         Type oldType = typeMapper.selectById(newType.getId());
+
         if(oldType == null) {
             throw new CustomException(ResultStatus.NOT_FOUND_TYPE);
         }
+        cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + newType.getId());
         Date date = new Date();
         newType.setCreateTime(oldType.getCreateTime())
                 .setUpdateTime(date);
@@ -72,7 +77,8 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public Type getType(Long id) {
-        return typeMapper.selectById(id);
+        return
+                cacheClient.queryWithPassThrough(RedisConstant.CACHE_TYPE_KEY, id, Type.class, typeMapper::selectById, RedisConstant.CACHE_TYPE_TTL, TimeUnit.SECONDS);
     }
 
     // TODO Limit深分页优化

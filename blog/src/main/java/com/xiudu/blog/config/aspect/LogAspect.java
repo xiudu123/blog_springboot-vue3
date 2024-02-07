@@ -23,7 +23,7 @@ public class LogAspect {
     //获取日志类对象
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     //定义切面方法
-    @Pointcut("execution(* com.xiudu.blog.controller.*.*(..))")
+    @Pointcut("execution(* com.xiudu.blog.controller..*.*(..))")
     public void log(){ }
 
     //定义前置通知

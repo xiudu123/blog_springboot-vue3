@@ -1,7 +1,10 @@
-package com.xiudu.blog.config.Cors;
+package com.xiudu.blog.config.interceptor;
 
+import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -13,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 
 @Configuration
-public class CorsMapping implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
 
     /**
      * 重新跨域支持方法
@@ -36,7 +39,7 @@ public class CorsMapping implements WebMvcConfigurer {
     }
 
     /**
-     * 放行静态资源
+     * 给静态资源添加映射
      * ResourceHandlerRegistry
      */
     @Override
@@ -46,4 +49,13 @@ public class CorsMapping implements WebMvcConfigurer {
         registry.addResourceHandler("favicon.ico")
                 .addResourceLocations("classpath:/static/favicon.ico");
     }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 开启 sa-token 的鉴权
+        registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
+                .addPathPatterns("/authorize/**");
+
+    }
+
 }
