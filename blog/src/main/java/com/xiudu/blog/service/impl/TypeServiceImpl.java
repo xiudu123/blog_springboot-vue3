@@ -18,6 +18,7 @@ import com.xiudu.blog.util.redis.RedisConstant;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -58,27 +59,36 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public int deleteType(Long id) {
         Type type = typeMapper.selectById(id);
-
         if(type == null) {
             throw new CustomException(ResultStatus.NOT_FOUND_TYPE);
         }
+        int deleteSuccess = typeMapper.deleteById(id);
+        if(deleteSuccess == 0){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
+            return 0;
+        }
+
         cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + id);
-        return typeMapper.deleteById(id);
+        return 1;
     }
 
     @Transactional
     @Override
     public int updateType(Type newType) {
         Type oldType = typeMapper.selectById(newType.getId());
-
         if(oldType == null) {
             throw new CustomException(ResultStatus.NOT_FOUND_TYPE);
         }
-        cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + newType.getId());
-        Date date = new Date();
         newType.setCreateTime(oldType.getCreateTime())
-                .setUpdateTime(date);
-        return typeMapper.updateById(newType);
+                .setUpdateTime(new Date());
+        int updateSuccess = typeMapper.updateById(newType);
+
+        if(updateSuccess == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
+            return 0;
+        }
+        cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + newType.getId());
+        return 1;
     }
 
     @Override
@@ -118,6 +128,5 @@ public class TypeServiceImpl implements TypeService {
     public List<TypeIndexVO> listTypeAll() {
         return TypeSingletonHungry.getInstance().TypeToIndex(typeMapper.selectList(null));
     }
-
 
 }

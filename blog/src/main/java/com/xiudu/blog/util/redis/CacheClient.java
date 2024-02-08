@@ -37,6 +37,8 @@ public class CacheClient {
         stringRedisTemplate.delete(keys);
     }
 
+
+
     /**
      *
      * @param key redisKey
@@ -65,6 +67,13 @@ public class CacheClient {
         redisData.setExpireTime(LocalDateTime.now().plusSeconds(unit.toSeconds(time)));
         // 写入 redis
         stringRedisTemplate.opsForValue().set(key, JSON.toJSONString(redisData));
+    }
+
+    public <R, ID> R query(String keyPredix, ID id, Class<R> type) {
+        String key = keyPredix + id;
+        String json = stringRedisTemplate.opsForValue().get(key);
+        if(json == null) return null;
+        return JSON.parseObject(json, type);
     }
 
     /**

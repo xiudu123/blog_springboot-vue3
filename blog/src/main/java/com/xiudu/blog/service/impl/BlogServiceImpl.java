@@ -1,14 +1,11 @@
 package com.xiudu.blog.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.ResultStatus;
 import com.xiudu.blog.config.handler.CustomException;
 import com.xiudu.blog.mapper.*;
 import com.xiudu.blog.pojo.DO.Blog;
-import com.xiudu.blog.pojo.DO.BlogContent;
 import com.xiudu.blog.pojo.DTO.blog.BlogDTO;
 import com.xiudu.blog.pojo.VO.blog.BlogArchiveVO;
 import com.xiudu.blog.pojo.VO.blog.BlogFooterVO;
@@ -23,6 +20,7 @@ import com.xiudu.blog.util.page.Paging;
 import com.xiudu.blog.util.redis.CacheClient;
 import com.xiudu.blog.util.redis.CounterClient;
 import com.xiudu.blog.util.redis.RedisConstant;
+import com.xiudu.blog.util.redis.TimerClient;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -48,14 +46,13 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private BlogContentMapper blogContentMapper;
-
-    @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private CacheClient cacheClient;
     @Autowired
     private CounterClient counterClient;
+    @Autowired
+    private TimerClient timerClient;
 
     /**
      *
@@ -67,12 +64,6 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int insertBlog(Long userId, BlogDTO blogDTO) {
         Date date = new Date();
-        if(blogDTO.getPublished()) {
-            Long typeId = blogDTO.getTypeId();
-            typeMapper.addCountById(typeId);
-            cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + typeId);
-            counterClient.addCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
-        }
 
         Blog blog = new Blog()
                 .setTitle(blogDTO.getTitle())
@@ -85,20 +76,24 @@ public class BlogServiceImpl implements BlogService {
                 .setUpdateTime(date)
                 .setOverview(blogDTO.getOverview())
                 .setUserId(userId)
-                .setTypeId(blogDTO.getTypeId());
-        int insertSuccess1 = blogMapper.insert(blog);
-
-        BlogContent blogContent = new BlogContent()
-                .setId(blog.getId())
+                .setTypeId(blogDTO.getTypeId())
                 .setContentHtml(blogDTO.getContentHtml())
                 .setContentMarkdown(blogDTO.getContentMarkdown());
+        int insertSuccess = blogMapper.insert(blog);
 
-
-        int insertSuccess2 = blogContentMapper.insert(blogContent);
-        if((insertSuccess1 & insertSuccess2) == 0) {
+        if(insertSuccess == 0) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
             return 0;
         }
+
+        if(blogDTO.getPublished()) {
+            Long typeId = blogDTO.getTypeId();
+            typeMapper.addCountById(typeId);
+            cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + typeId);
+            cacheClient.delete(RedisConstant.CACHE_BLOG_TOP_KEY);
+            counterClient.addCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
+        }
+
         return 1;
     }
 
@@ -110,17 +105,18 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int deleteBlog(Long blogId, Long typeId, Boolean published) {
         typeMapper.deleteCountById(typeId);
-        int deleteSuccess1 = blogMapper.deleteById(blogId);
-        int deleteSuccess2 = blogContentMapper.deleteById(blogId);
-        cacheClient.delete(RedisConstant.CACHE_BLOG_INFO_KEY + blogId);
-        cacheClient.delete(RedisConstant.CACHE_BLOG_CONTENT_KEY + blogId);
-        cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + typeId);
-        if(published) {
-            counterClient.delCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
-        }
-        if((deleteSuccess1 & deleteSuccess2) == 0) {
+        int deleteSuccess = blogMapper.deleteById(blogId);
+
+        if(deleteSuccess == 0) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
             return 0;
+        }
+
+        if(published) {
+            cacheClient.delete(RedisConstant.CACHE_BLOG_INFO_KEY + blogId);
+            cacheClient.delete(RedisConstant.CACHE_TYPE_KEY + typeId);
+            counterClient.delCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
+            cacheClient.delete(RedisConstant.CACHE_BLOG_TOP_KEY);
         }
         return 1;
     }
@@ -135,6 +131,28 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int updateBlog(Blog oldBlog, BlogDTO newBlogDTO) {
         Date date = new Date();
+
+        Blog blog = new Blog()
+                .setId(newBlogDTO.getId())
+                .setTitle(newBlogDTO.getTitle())
+                .setFirstPicture(newBlogDTO.getFirstPicture())
+                .setTop(newBlogDTO.getTop())
+                .setPublished(newBlogDTO.getPublished())
+                .setComment(newBlogDTO.getComment())
+                .setOverview(newBlogDTO.getOverview())
+                .setTypeId(newBlogDTO.getTypeId())
+                .setUpdateTime(date)
+                .setCreateTime(oldBlog.getCreateTime())
+                .setUserId(oldBlog.getUserId())
+                .setViews(oldBlog.getViews())
+                .setContentHtml(newBlogDTO.getContentHtml())
+                .setContentMarkdown(newBlogDTO.getContentMarkdown());
+        int updateSuccess = blogMapper.updateById(blog);
+        if(updateSuccess == 0) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
+            return 0;
+        }
+
 
         List<String> keys = new ArrayList<>();
         if(oldBlog.getPublished()) {
@@ -152,34 +170,8 @@ public class BlogServiceImpl implements BlogService {
             counterClient.addCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount);
         }
         keys.add(RedisConstant.CACHE_BLOG_INFO_KEY + oldBlog.getId());
-        keys.add(RedisConstant.CACHE_BLOG_CONTENT_KEY + oldBlog.getId());
         cacheClient.delete(keys);
-
-        Blog blog = new Blog()
-                .setId(newBlogDTO.getId())
-                .setTitle(newBlogDTO.getTitle())
-                .setFirstPicture(newBlogDTO.getFirstPicture())
-                .setTop(newBlogDTO.getTop())
-                .setPublished(newBlogDTO.getPublished())
-                .setComment(newBlogDTO.getComment())
-                .setOverview(newBlogDTO.getOverview())
-                .setTypeId(newBlogDTO.getTypeId())
-                .setUpdateTime(date)
-                .setCreateTime(oldBlog.getCreateTime())
-                .setUserId(oldBlog.getUserId())
-                .setViews(oldBlog.getViews());
-        int updateSuccess1 = blogMapper.updateById(blog);
-        BlogContent blogContent = new BlogContent()
-                .setId(newBlogDTO.getId())
-                .setContentHtml(newBlogDTO.getContentHtml())
-                .setContentMarkdown(newBlogDTO.getContentMarkdown());
-
-        int updateSuccess2 = blogContentMapper.updateById(blogContent);
-        if((updateSuccess1 & updateSuccess2) == 0) {
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
-            return 0;
-        }
-
+        cacheClient.delete(RedisConstant.CACHE_BLOG_TOP_KEY);
         return 1;
     }
 
@@ -339,13 +331,16 @@ public class BlogServiceImpl implements BlogService {
         }
         Long blogView = counterClient.addCount(RedisConstant.COUNTER_BLOG_VIEW_KEY + blogId, blog::getViews);
         blog.setViews(blogView);
-        return BlogSingletonHungry.getInstance().BlogToView(blog, typeMapper, userMapper, blogContentMapper, cacheClient);
+        timerClient.setSet(RedisConstant.TIMED_TASK_BLOG_VIEW, blogId);
+//        blogMapper.addViewById(blogId);
+//        blog.setViews(blog.getViews() + 1);
+        return BlogSingletonHungry.getInstance().BlogToView(blog, typeMapper, userMapper, cacheClient);
     }
 
     @Override
     public BlogAdminUpdateVO getBlogUpdate(Long blogId) {
         Blog blog = getBlog(blogId);
-        return BlogSingletonHungry.getInstance().BlogToUpdate(blog, typeMapper, blogContentMapper, cacheClient);
+        return BlogSingletonHungry.getInstance().BlogToUpdate(blog, typeMapper, cacheClient);
     }
 
 
@@ -370,18 +365,23 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * @param pageNum 分页的当前页
-     * @param queryWrapper 查询条件
+     * @param queryWrapperQuery 查询条件
      * @return 博客列表
      * @description: 博客分页查询 <br>
      * 1 - 首页 博客列表 <br>
      * 2 - 根据分类 博客列表 <br>
      * 3 - 管理员搜索 博客列表 <br>
      */
-    private PageInfo<BlogIndexVO> getBlogIndexPage(Integer pageNum, QueryWrapper<Blog> queryWrapper) {
+    private PageInfo<BlogIndexVO> getBlogIndexPage(Integer pageNum, QueryWrapper<Blog> queryWrapperQuery) {
         // 计算博客总数
         int blogCount = Math.toIntExact(counterClient.getCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount));
-        PageInfo<Blog> blogPageInfo = Paging.paging(pageNum, 10, blogCount, queryWrapper, new QueryWrapper<>(), blogMapper::selectList, Blog::getId);
-
+        // 需要要查询的字段
+        QueryWrapper<Blog> queryWrapperSelect = new QueryWrapper<Blog>()
+                .select("id", "title", "first_picture", "views", "top", "overview", "create_time", "type_id", "user_id");
+        // 分页查询
+        PageInfo<Blog> blogPageInfo =
+                Paging.paging(pageNum, 10, blogCount, queryWrapperQuery, queryWrapperSelect, blogMapper::selectList, Blog::getId);
+        // 返回
         return new PageInfo<BlogIndexVO>()
                 .setPageTotal(blogPageInfo.getPageTotal())
                 .setPageCurrent(blogPageInfo.getPageCurrent())
@@ -390,11 +390,16 @@ public class BlogServiceImpl implements BlogService {
                 .setRecords(BlogSingletonHungry.getInstance().BlogToIndex(blogPageInfo.getRecords(), typeMapper, userMapper, cacheClient));
     }
 
-    private PageInfo<BlogAdminVO> getBlogAdminPage(Integer pageNum, QueryWrapper<Blog> queryWrapper) {
+    private PageInfo<BlogAdminVO> getBlogAdminPage(Integer pageNum, QueryWrapper<Blog> queryWrapperQuery) {
         // 计算博客总数
         int blogCount = Math.toIntExact(counterClient.getCount(RedisConstant.COUNTER_BLOG_TOTAL_KEY, blogMapper::selectBlogCount));
-        PageInfo<Blog> blogPageInfo = Paging.paging(pageNum, 10, blogCount, queryWrapper, new QueryWrapper<>(), blogMapper::selectList, Blog::getId);
-
+        // 需要查询的字段
+        QueryWrapper<Blog> queryWrapperSelect = new QueryWrapper<Blog>()
+                .select("id", "title", "type_id", "top", "published", "comment", "views", "create_time", "update_time");
+        // 分页查询
+        PageInfo<Blog> blogPageInfo =
+                Paging.paging(pageNum, 10, blogCount, queryWrapperQuery, queryWrapperSelect, blogMapper::selectList, Blog::getId);
+        // 返回
         return new PageInfo<BlogAdminVO>()
                 .setPageTotal(blogPageInfo.getPageTotal())
                 .setPageCurrent(blogPageInfo.getPageCurrent())

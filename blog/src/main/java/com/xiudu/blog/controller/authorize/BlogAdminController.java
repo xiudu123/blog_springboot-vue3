@@ -3,12 +3,10 @@ package com.xiudu.blog.controller.authorize;
 import com.xiudu.blog.config.api.Result;
 import com.xiudu.blog.config.api.ResultStatus;
 import com.xiudu.blog.pojo.DO.Blog;
-import com.xiudu.blog.pojo.DO.BlogContent;
 import com.xiudu.blog.pojo.DTO.blog.BlogCreateGroup;
 import com.xiudu.blog.pojo.DTO.blog.BlogDTO;
 import com.xiudu.blog.pojo.DTO.blog.BlogUpdateGroup;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
-import com.xiudu.blog.service.BlogContentService;
 import com.xiudu.blog.service.BlogService;
 import com.xiudu.blog.service.TypeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,8 +33,6 @@ public class BlogAdminController {
 
     @Autowired
     private BlogService blogService;
-    @Autowired
-    private BlogContentService blogContentService;
     @Autowired
     private TypeService typeService;
 
@@ -118,8 +114,7 @@ public class BlogAdminController {
 
         // 找到原博客
         Blog oldBlog = blogService.getBlog(newBlogDTO.getId());
-        BlogContent oldBlogContent = blogContentService.getBlogContent(newBlogDTO.getId());
-        if(oldBlog == null || oldBlogContent == null) {
+        if(oldBlog == null) {
             return Result.error(ResultStatus.NOT_FOUND_BLOG);
         }
         if(typeService.getType(newBlogDTO.getTypeId()) == null) {

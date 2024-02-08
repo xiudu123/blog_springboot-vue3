@@ -36,5 +36,6 @@ public class Blog {
     private String overview; // 概述
     private Long userId; // 发布者Id
     private Long typeId; // 类型Id
-
+    private String contentHtml; // html内容
+    private String contentMarkdown; // markdown内容
 }

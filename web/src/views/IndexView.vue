@@ -23,7 +23,7 @@
                                             <div class="content"><a href="#" class="header" >xiu du</a></div>
                                         </div>
                                         <div class="item">
-                                            <i class="calendar icon"></i><span> {{blog.updateTime}} </span>
+                                            <i class="calendar icon"></i><span> {{blog.createTime}} </span>
                                         </div>
                                         <div class="item">
                                             <i class="eye icon"></i> <span>{{ blog.views }}</span>

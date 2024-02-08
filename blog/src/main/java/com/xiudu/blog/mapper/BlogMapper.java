@@ -13,7 +13,10 @@ import org.apache.ibatis.annotations.Update;
 public interface BlogMapper extends BaseMapper<Blog> {
 
     @Update("UPDATE blog SET views = views+1 WHERE id = #{id}")
-    void updateViewById(Long id); // 浏览次数 ++;
+    void addViewById(Long id); // 浏览次数 ++;
+
+    @Update("UPDATE blog SET views = #{view} WHERE id = #{id}")
+    void updateViewById(Long id, Long view);
 
     @Select("SELECT COUNT(*) FROM blog WHERE published = 1")
     Long selectBlogCount(); // 查找所有发布的博客数量
