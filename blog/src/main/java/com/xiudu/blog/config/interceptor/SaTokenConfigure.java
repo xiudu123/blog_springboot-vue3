@@ -3,8 +3,10 @@ package com.xiudu.blog.config.interceptor;
 import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.filter.SaServletFilter;
+import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
 import cn.dev33.satoken.router.SaHttpMethod;
 import cn.dev33.satoken.router.SaRouter;
+import cn.dev33.satoken.stp.StpLogic;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import org.springframework.context.annotation.Bean;
@@ -63,5 +65,11 @@ public class SaTokenConfigure implements WebMvcConfigurer {
                             .free(r -> System.out.println("--------OPTIONS预检请求，不做处理"))
                             .back();
                 });
+    }
+
+    // Sa-Token 整合 jwt (Simple 简单模式)
+    @Bean
+    public StpLogic getStpLogicJwt() {
+        return new StpLogicJwtForSimple();
     }
 }

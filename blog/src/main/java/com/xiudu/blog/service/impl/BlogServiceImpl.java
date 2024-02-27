@@ -14,7 +14,7 @@ import com.xiudu.blog.pojo.VO.blog.BlogViewVO;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminUpdateVO;
 import com.xiudu.blog.pojo.VO.blog.admin.BlogAdminVO;
 import com.xiudu.blog.service.BlogService;
-import com.xiudu.blog.util.Singleton.BlogSingletonHungry;
+import com.xiudu.blog.util.singleton.BlogSingletonHungry;
 import com.xiudu.blog.util.page.PageInfo;
 import com.xiudu.blog.util.page.Paging;
 import com.xiudu.blog.util.redis.CacheClient;

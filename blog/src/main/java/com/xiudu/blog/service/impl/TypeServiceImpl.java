@@ -1,15 +1,13 @@
 package com.xiudu.blog.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiudu.blog.config.api.ResultStatus;
 import com.xiudu.blog.config.handler.CustomException;
 import com.xiudu.blog.mapper.TypeMapper;
 import com.xiudu.blog.pojo.DO.Type;
 import com.xiudu.blog.pojo.VO.type.TypeIndexVO;
 import com.xiudu.blog.service.TypeService;
-import com.xiudu.blog.util.Singleton.TypeSingletonHungry;
+import com.xiudu.blog.util.singleton.TypeSingletonHungry;
 import com.xiudu.blog.util.page.PageInfo;
 import com.xiudu.blog.util.page.Paging;
 import com.xiudu.blog.util.redis.CacheClient;

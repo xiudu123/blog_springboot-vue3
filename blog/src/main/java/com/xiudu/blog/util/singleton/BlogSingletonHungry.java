@@ -1,4 +1,4 @@
-package com.xiudu.blog.util.Singleton;
+package com.xiudu.blog.util.singleton;
 
 import com.xiudu.blog.config.api.ResultStatus;
 import com.xiudu.blog.config.handler.CustomException;

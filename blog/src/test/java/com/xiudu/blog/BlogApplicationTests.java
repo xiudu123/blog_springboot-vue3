@@ -28,27 +28,28 @@ class BlogApplicationTests {
 //        System.out.println(new Random().nextInt(10));
 //        System.out.println(new Random().nextInt(10));
 //        System.out.println(new Random().nextInt(10));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println(RandomUtil.randomInt(11));
-        System.out.println("123".toString());
-        String str = "hhh";
-        System.out.println(str.toString());
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println(RandomUtil.randomInt(11));
+//        System.out.println("123".toString());
+//        String str = "hhh";
+//        System.out.println(str.toString());
     }
 
     @Test
     void test() {
-        System.out.println("Hello World");
-        System.out.println(new Date());
+//        System.out.println("Hello World");
+//        System.out.println(new Date());
     }
+
 
 }

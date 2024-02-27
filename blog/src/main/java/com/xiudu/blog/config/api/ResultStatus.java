@@ -34,6 +34,7 @@ public enum ResultStatus {
     EXIST_TYPE(6003, "该分类已存在"),
     NOT_FOUNT_USER(6004, "该用户不存在"),
 
+    FREQUENT_REQUEST(7001, "访问太频繁，请稍后再试"),
 
     VALID_ERROR(1000, "参数校验错误");
 

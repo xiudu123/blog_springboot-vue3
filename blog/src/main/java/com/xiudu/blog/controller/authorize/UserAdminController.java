@@ -1,5 +1,6 @@
 package com.xiudu.blog.controller.authorize;
 
+import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.xiudu.blog.config.api.Result;
@@ -45,7 +46,7 @@ public class UserAdminController {
             return Result.error(ResultStatus.LOGIN_CHECK_ERROR);
         }
 
-        StpUtil.login(user.getId());
+        StpUtil.login(user.getId(), SaLoginConfig.setExtra("loginTime", System.currentTimeMillis()));
         user.setPassword(null);
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         Map<String, Object> result = new HashMap<>();

@@ -1,4 +1,4 @@
-package com.xiudu.blog.util.Singleton;
+package com.xiudu.blog.util.singleton;
 
 import com.xiudu.blog.pojo.DO.Type;
 import com.xiudu.blog.pojo.VO.type.TypeIndexVO;
